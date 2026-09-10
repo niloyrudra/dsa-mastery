@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronRight, ChevronDown, FolderOpen, Folder, FileCode, Zap, Brain, Database, Search, Filter } from 'lucide-react';
+import { ChevronRight, ChevronDown, FolderOpen, Folder, FileCode, Zap, Brain, Database, Search, Filter, GitBranch, ListTree } from 'lucide-react';
 import { useCurriculum } from '@/hooks/useQueries';
 import { useUIStore } from '@/store';
+import { useMasteryRecords, useMasteryStats } from '@/hooks/useQueries';
 import clsx from 'clsx';
 import type { CurriculumNodeDto } from '@/types';
+import { CurriculumGraph } from '@/components/curriculum/CurriculumGraph';
 
 interface CurriculumTreeProps {
   node: CurriculumNodeDto;
@@ -126,11 +128,23 @@ function CurriculumTree({ node, depth = 0, expandedPaths, onToggle }: Curriculum
 
 export function CurriculumPage() {
   const { data: curriculum, isLoading, error } = useCurriculum();
+  const { data: masteryRecords } = useMasteryRecords();
+  const { data: masteryStats } = useMasteryStats();
   const [expandedPaths, setExpandedPaths] = useState<Set<string>>(new Set());
   const [searchQuery, setSearchQuery] = useState('');
   const [filterType, setFilterType] = useState<'all' | 'patterns' | 'algorithms' | 'problems'>('all');
+  const [viewMode, setViewMode] = useState<'tree' | 'graph'>('tree');
   const { sidebarOpen, toggleSidebar } = useUIStore();
-  
+
+  // Build mastery map for graph
+  const masteryMap = useMemo(() => {
+    const map = new Map<string, { status: string; score: number }>();
+    masteryRecords?.forEach((record) => {
+      map.set(record.slug, { status: record.status, score: record.score });
+    });
+    return map;
+  }, [masteryRecords]);
+
   // Auto-expand first level categories
   if (expandedPaths.size === 0 && curriculum) {
     curriculum.children?.forEach((cat) => {
@@ -195,7 +209,7 @@ export function CurriculumPage() {
           </p>
         </div>
         
-        <div className="flex flex-col sm:flex-row gap-3">
+        <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
           <div className="relative flex-1 max-w-md">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
             <input
@@ -207,22 +221,51 @@ export function CurriculumPage() {
             />
           </div>
           
-          <select
-            value={filterType}
-            onChange={(e) => setFilterType(e.target.value as typeof filterType)}
-            className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
-          >
-            <option value="all">All</option>
-            <option value="patterns">Patterns</option>
-            <option value="algorithms">Algorithms</option>
-            <option value="problems">Problems</option>
-          </select>
+          <div className="flex items-center gap-2">
+            <select
+              value={filterType}
+              onChange={(e) => setFilterType(e.target.value as typeof filterType)}
+              className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
+            >
+              <option value="all">All</option>
+              <option value="patterns">Patterns</option>
+              <option value="algorithms">Algorithms</option>
+              <option value="problems">Problems</option>
+            </select>
+
+            <div className="flex items-center gap-1 border border-slate-200 dark:border-slate-600 rounded-lg p-1">
+              <button
+                onClick={() => setViewMode('tree')}
+                className={clsx(
+                  'p-2 rounded transition-colors',
+                  viewMode === 'tree' 
+                    ? 'bg-primary-500 text-white' 
+                    : 'text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800'
+                )}
+                aria-label="Tree view"
+              >
+                <ListTree className="w-5 h-5" />
+              </button>
+              <button
+                onClick={() => setViewMode('graph')}
+                className={clsx(
+                  'p-2 rounded transition-colors',
+                  viewMode === 'graph' 
+                    ? 'bg-primary-500 text-white' 
+                    : 'text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800'
+                )}
+                aria-label="Graph view"
+              >
+                <GitBranch className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
       
       <div className="card overflow-hidden">
         <div className="p-4 border-b border-slate-200 dark:border-slate-700">
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 mb-3">
             <span className="px-3 py-1 text-xs font-medium bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full">
               {curriculum?.children?.length ?? 0} Categories
             </span>
@@ -236,24 +279,54 @@ export function CurriculumPage() {
               Problems
             </span>
           </div>
-        </div>
-        
-        <div className="p-4 max-h-[calc(100vh-280px)] overflow-y-auto scrollbar-thin">
-          {filteredNodes?.map((node) => (
-            <CurriculumTree
-              key={node.id}
-              node={node}
-              expandedPaths={expandedPaths}
-              onToggle={toggleNode}
-            />
-          ))}
           
-          {filteredNodes?.length === 0 && (
-            <div className="text-center py-12 text-slate-500 dark:text-slate-400">
-              No items match your search/filter
+          {masteryStats && (
+            <div className="flex flex-wrap gap-2">
+              <span className="px-3 py-1 text-xs font-medium bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded-full">
+                {masteryStats.problems.mastered} Mastered
+              </span>
+              <span className="px-3 py-1 text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full">
+                {masteryStats.problems.learning} Learning
+              </span>
+              <span className="px-3 py-1 text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-full">
+                {masteryStats.overallProgress}% Overall
+              </span>
             </div>
           )}
         </div>
+        
+        {viewMode === 'graph' ? (
+          <div className="h-[calc(100vh-320px)] min-h-[500px]">
+            <CurriculumGraph 
+              curriculum={curriculum!} 
+              masteryMap={masteryMap}
+              onNodeClick={(node) => {
+                if (node.type === 'PROBLEM' && node.problemId) {
+                  window.location.href = `/problem/${node.problemId}`;
+                } else if (node.type === 'PATTERN' && node.patternId) {
+                  window.location.href = `/pattern/${node.patternId}`;
+                }
+              }}
+            />
+          </div>
+        ) : (
+          <div className="p-4 max-h-[calc(100vh-280px)] overflow-y-auto scrollbar-thin">
+            {filteredNodes?.map((node) => (
+              <CurriculumTree
+                key={node.id}
+                node={node}
+                expandedPaths={expandedPaths}
+                onToggle={toggleNode}
+              />
+            ))}
+            
+            {filteredNodes?.length === 0 && (
+              <div className="text-center py-12 text-slate-500 dark:text-slate-400">
+                No items match your search/filter
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
