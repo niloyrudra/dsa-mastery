@@ -243,7 +243,7 @@ public class CodeRunnerService {
     private List<String> buildDockerCommand(String workspace, String image, Language language) {
         String testCmd = switch (language) {
             case TYPESCRIPT, JAVASCRIPT -> "sh -c \"npm install && npx vitest run --reporter=json 2>&1\"";
-            case PYTHON -> "sh -c \"python -m pytest --json-report --tb=short -v 2>&1 && cat pytest-report.json 2>/dev/null || true\"";
+            case PYTHON -> "sh -c \"python -m pytest --json-report --json-report-file=/tmp/report.json --tb=short -v 2>&1 && cat /tmp/report.json\"";
         };
         
         return List.of(
@@ -255,7 +255,8 @@ public class CodeRunnerService {
             "--network=none",
             "--read-only",
             "--tmpfs=/workspace:exec,size=100m",
-            "--user=1000:1000",
+            "--tmpfs=/tmp:exec,size=50m",
+            "--user=10000:10000",
             "-v", workspace + ":/workspace:ro",
             "-w", "/workspace",
             image,
