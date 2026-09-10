@@ -20,6 +20,8 @@ public interface AlgorithmRepository extends JpaRepository<Algorithm, UUID> {
     
     List<Algorithm> findByStatusOrderByNameAsc(ContentStatus status);
     
+    List<Algorithm> findByStatus(ContentStatus status);
+    
     @Query("""
         SELECT DISTINCT a FROM Algorithm a
         WHERE a.slug = :slug
