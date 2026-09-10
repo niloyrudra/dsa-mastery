@@ -20,6 +20,12 @@ public interface PatternRepository extends JpaRepository<Pattern, UUID> {
     
     List<Pattern> findByStatusOrderByNameAsc(ContentStatus status);
     
+    List<Pattern> findByStatus(ContentStatus status);
+    
+    List<Pattern> findByCategoryAndStatusOrderByNameAsc(String category, ContentStatus status);
+    
+    List<Pattern> findByCategoryAndStatus(String category, ContentStatus status);
+    
     @Query("""
         SELECT DISTINCT p FROM Pattern p
         WHERE p.slug = :slug
