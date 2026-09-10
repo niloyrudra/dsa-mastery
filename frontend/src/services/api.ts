@@ -130,6 +130,19 @@ export const masteryApi = {
   
   update: (entityType: string, entityId: string, data: Partial<MasteryUpdateRequest>) => 
     api.patch<MasteryRecordDto>(`/mastery/${entityType}/${entityId}`, data),
+
+  // Review endpoints
+  getReviewStats: () => 
+    api.get<{ dueCount: number; overdueCount: number; learningCount: number; masteredCount: number; dailyDueNext7Days: number[] }>('/mastery/review/stats'),
+  
+  getDueReviews: (limit?: number) => 
+    api.get<{ entityId: string; entityType: string; nextReviewDate: string; due: boolean; overdue: boolean; masteryScore: number; status: string; lastPracticed: string }[]>(`/mastery/review/due`, { params: { limit } }),
+  
+  getAllReviews: () => 
+    api.get<{ entityId: string; entityType: string; nextReviewDate: string; due: boolean; overdue: boolean; masteryScore: number; status: string; lastPracticed: string }[]>('/mastery/review/all'),
+  
+  recordReview: (entityType: string, entityId: string, quality: 'AGAIN' | 'HARD' | 'GOOD' | 'EASY') => 
+    api.post<{ entityId: string; entityType: string; nextReviewDate: string; due: boolean; overdue: boolean; masteryScore: number; status: string; lastPracticed: string }>(`/mastery/review/${entityType}/${entityId}`, { quality }),
 };
 
 export const aiApi = {

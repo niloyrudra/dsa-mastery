@@ -1,11 +1,12 @@
 import { ReactNode } from 'react';
 import { Outlet, NavLink, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronRight, ChevronDown, BookOpen, Code, Zap, Brain, Settings, Sun, Moon, Monitor } from 'lucide-react';
+import { Menu, X, ChevronRight, ChevronDown, BookOpen, Code, Zap, Brain, Settings, Sun, Moon, Monitor, Target, Award } from 'lucide-react';
 import { useUIStore } from '@/store';
 import clsx from 'clsx';
 
 const navigation = [
   { name: 'Curriculum', href: '/curriculum', icon: BookOpen },
+  { name: 'Mastery', href: '/mastery', icon: Award },
   { name: 'Patterns', href: '/curriculum?view=patterns', icon: Zap },
   { name: 'Algorithms', href: '/curriculum?view=algorithms', icon: Brain },
   { name: 'Data Structures', href: '/curriculum?view=data-structures', icon: Code },

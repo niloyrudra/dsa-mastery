@@ -9,6 +9,7 @@ import { AlgorithmPage } from './pages/AlgorithmPage';
 import { DataStructurePage } from './pages/DataStructurePage';
 import { TemplatePage } from './pages/TemplatePage';
 import { SettingsPage } from './pages/SettingsPage';
+import { MasteryDashboard } from './pages/MasteryDashboard';
 import { useUIStore } from './store';
 
 function AppRoutes() {
@@ -16,6 +17,7 @@ function AppRoutes() {
     <Routes>
       <Route path="/" element={<Navigate to="/curriculum" replace />} />
       <Route path="/curriculum" element={<CurriculumPage />} />
+      <Route path="/mastery" element={<MasteryDashboard />} />
       <Route path="/problem/:slug" element={<ProblemPage />} />
       <Route path="/pattern/:slug" element={<PatternPage />} />
       <Route path="/algorithm/:slug" element={<AlgorithmPage />} />

@@ -261,6 +261,42 @@ export function useUpdateMastery() {
   });
 }
 
+export function useReviewStats() {
+  return useQuery({
+    queryKey: ['mastery', 'review', 'stats'],
+    queryFn: () => masteryApi.getReviewStats(),
+    select: (data) => data.data,
+  });
+}
+
+export function useRecommendedReviews(limit = 10) {
+  return useQuery({
+    queryKey: ['mastery', 'review', 'due', limit],
+    queryFn: () => masteryApi.getDueReviews(limit),
+    select: (data) => data.data,
+  });
+}
+
+export function useAllReviews() {
+  return useQuery({
+    queryKey: ['mastery', 'review', 'all'],
+    queryFn: () => masteryApi.getAllReviews(),
+    select: (data) => data.data,
+  });
+}
+
+export function useRecordReview() {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: ({ entityType, entityId, quality }: { entityType: string; entityId: string; quality: 'AGAIN' | 'HARD' | 'GOOD' | 'EASY' }) => 
+      masteryApi.recordReview(entityType, entityId, quality),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['mastery'] });
+    },
+  });
+}
+
 // AI
 export function useStartAIConversation() {
   return useMutation({
