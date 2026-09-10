@@ -1,0 +1,17 @@
+- title: "Breadth-First Search - Wikipedia"
+  url: "https://en.wikipedia.org/wiki/Breadth-first_search"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Graph BFS"
+  verifies: "BFS shortest path guarantee in unweighted graphs"
+
+- title: "Rotting Oranges - LeetCode"
+  url: "https://leetcode.com/problems/rotting-oranges/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Multi-Source BFS"
+  verifies: "Time propagation via BFS levels"
+
+- title: "Walls and Gates - LeetCode"
+  url: "https://leetcode.com/problems/walls-and-gates/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Multi-Source BFS Grid"
+  verifies: "Distance from nearest gate via BFS"

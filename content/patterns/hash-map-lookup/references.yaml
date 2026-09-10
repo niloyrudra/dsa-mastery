@@ -1,0 +1,17 @@
+- title: "Hash Table - Wikipedia"
+  url: "https://en.wikipedia.org/wiki/Hash_table"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Hash Map"
+  verifies: "Average O(1) operations, collision resolution"
+
+- title: "Introduction to Algorithms (CLRS) - Chapter 11: Hash Tables"
+  url: "https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/"
+  type: "BOOK"
+  relevantConcept: "Hash Tables"
+  verifies: "Theoretical foundation, load factor, universal hashing"
+
+- title: "Two Sum - LeetCode"
+  url: "https://leetcode.com/problems/two-sum/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Hash Map Lookup Pattern"
+  verifies: "Classic complement-finding problem"

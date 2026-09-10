@@ -64,6 +64,7 @@ export interface PatternSummaryDto {
   id: string;
   slug: string;
   name: string;
+  recognitionSignals?: string[];
 }
 
 export interface AlgorithmSummaryDto {
@@ -82,6 +83,7 @@ export interface TemplateSummaryDto {
   id: string;
   slug: string;
   name: string;
+  language?: string;
 }
 
 export interface ProblemVariationDto {
@@ -171,6 +173,7 @@ export interface PatternDetailDto {
   problems: ProblemSummaryDto[];
   subPatterns: PatternSummaryDto[];
   relatedPatterns: PatternSummaryDto[];
+  references: ReferenceDto[];
 }
 
 export interface AlgorithmDetailDto {

@@ -74,4 +74,12 @@ public class Template extends BaseEntity {
     @OneToMany(mappedBy = "template", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<TemplateMapping> mappings = new ArrayList<>();
+
+    /**
+     * Marker explanations parsed from template authoring content ([1], [2], ...).
+     * Transient: used only during content import; markers are persisted through TemplateMapping rows.
+     */
+    @Transient
+    @Builder.Default
+    private Map<Integer, String> markerExplanations = new LinkedHashMap<>();
 }

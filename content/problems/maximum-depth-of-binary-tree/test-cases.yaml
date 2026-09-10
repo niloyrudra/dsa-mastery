@@ -1,0 +1,55 @@
+- name: "Basic Example 1"
+  description: "Standard tree with depth 3"
+  input:
+    root: [3,9,20,null,null,15,7]
+  expected: 3
+  type: "BASIC"
+  hidden: false
+
+- name: "Basic Example 2"
+  description: "Skewed tree"
+  input:
+    root: [1,null,2]
+  expected: 2
+  type: "BASIC"
+  hidden: false
+
+- name: "Basic Example 3"
+  description: "Empty tree"
+  input:
+    root: []
+  expected: 0
+  type: "BASIC"
+  hidden: false
+
+- name: "Edge: Single Node"
+  description: "Tree with only root"
+  input:
+    root: [1]
+  expected: 1
+  type: "EDGE_CASE"
+  hidden: false
+
+- name: "Edge: Left Skewed"
+  description: "Only left children"
+  input:
+    root: [1,2,null,3,null,4]
+  expected: 4
+  type: "EDGE_CASE"
+  hidden: false
+
+- name: "Edge: Right Skewed"
+  description: "Only right children"
+  input:
+    root: [1,null,2,null,3,null,4]
+  expected: 4
+  type: "EDGE_CASE"
+  hidden: false
+
+- name: "Performance: Large Tree"
+  description: "Complete tree with 10000 nodes"
+  input:
+    root: "GENERATE: complete_tree(10000)"
+  expected: 14
+  type: "PERFORMANCE"
+  hidden: true

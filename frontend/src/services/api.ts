@@ -124,22 +124,20 @@ export const masteryApi = {
   getStats: () => 
     api.get<MasteryStatsDto>('/mastery/stats'),
   
-  update: (entityType: string, entityId: string, data: MasteryUpdateRequest) => 
+  update: (entityType: string, entityId: string, data: Partial<MasteryUpdateRequest>) => 
     api.patch<MasteryRecordDto>(`/mastery/${entityType}/${entityId}`, data),
 };
 
 export const aiApi = {
   startConversation: (request: AIConversationRequest) => 
     api.post<AIConversationResponse>('/ai/conversations', request),
-  
+
   sendMessage: (conversationId: string, request: AIMessageRequest) => 
-    api.post<AIMessageDto>(`/ai/conversations/${conversationId}/messages`, request, {
-      responseType: 'stream',
-    }),
-  
+    api.post<AIMessageDto>(`/ai/conversations/${conversationId}/messages`, request),
+
   getConversation: (conversationId: string) => 
-    api.get<{ messages: AIMessageDto[] }>(`/ai/conversations/${conversationId}`),
-  
+    api.get<AIMessageDto[]>(`/ai/conversations/${conversationId}/messages`),
+
   listConversations: (params?: { problemId?: string; cursor?: string; limit?: number }) => 
     api.get<AIConversationResponse[]>('/ai/conversations', { params }),
 };

@@ -4,6 +4,8 @@ import com.dsamastery.execution.entity.ExecutionResult;
 import com.dsamastery.common.enums.ExecutionStatus;
 import com.dsamastery.common.enums.Language;
 import com.dsamastery.content.entity.TestCase;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,9 +14,9 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -35,6 +37,8 @@ public class CodeRunnerService {
     
     @Value("${docker.runner.timeout-seconds:30}")
     private int timeoutSeconds;
+    
+    private final ObjectMapper objectMapper = new ObjectMapper();
     
     public ExecutionResult run(Language language, String code, List<TestCase> testCases) {
         Instant start = Instant.now();
@@ -71,7 +75,8 @@ public class CodeRunnerService {
                     ExecutionStatus.TIMEOUT,
                     0, testCases.size(),
                     Duration.between(start, Instant.now()).toMillis(),
-                    null, "Execution timed out after " + timeoutSeconds + "s", null
+                    null, "Execution timed out after " + timeoutSeconds + "s", null,
+                    List.of()
                 );
             }
             
@@ -80,7 +85,7 @@ public class CodeRunnerService {
             
             long execTime = Duration.between(start, Instant.now()).toMillis();
             
-            return parseResult(output, exitCode, testCases.size(), execTime);
+            return parseResult(language, output, exitCode, testCases.size(), execTime);
             
         } catch (Exception e) {
             log.error("Execution error", e);
@@ -88,7 +93,8 @@ public class CodeRunnerService {
                 ExecutionStatus.ERROR,
                 0, testCases.size(),
                 Duration.between(start, Instant.now()).toMillis(),
-                null, e.getMessage(), null
+                null, e.getMessage(), null,
+                List.of()
             );
         } finally {
             if (workspace != null) {
@@ -150,6 +156,7 @@ public class CodeRunnerService {
     private String generatePytestCode(List<TestCase> testCases) {
         StringBuilder sb = new StringBuilder();
         sb.append("import pytest\n");
+        sb.append("import json\n");
         sb.append("from solution import solution\n\n");
         sb.append("test_cases = [\n");
         
@@ -215,6 +222,13 @@ public class CodeRunnerService {
                 }
                 """;
             Files.writeString(workspace.resolve("package.json"), packageJson);
+        } else if (language == Language.PYTHON) {
+            String pyproject = """
+                [tool.pytest.ini_options]
+                json_report = true
+                json_report_file = "pytest-report.json"
+                """;
+            Files.writeString(workspace.resolve("pyproject.toml"), pyproject);
         }
     }
     
@@ -229,7 +243,7 @@ public class CodeRunnerService {
     private List<String> buildDockerCommand(String workspace, String image, Language language) {
         String testCmd = switch (language) {
             case TYPESCRIPT, JAVASCRIPT -> "sh -c \"npm install && npx vitest run --reporter=json 2>&1\"";
-            case PYTHON -> "sh -c \"python -m pytest --json-report --tb=short -v 2>&1\"";
+            case PYTHON -> "sh -c \"python -m pytest --json-report --tb=short -v 2>&1 && cat pytest-report.json 2>/dev/null || true\"";
         };
         
         return List.of(
@@ -249,29 +263,131 @@ public class CodeRunnerService {
         );
     }
     
-    private ExecutionResult parseResult(String output, int exitCode, int totalTests, long execTime) {
-        // Parse Vitest JSON output or Pytest JSON output
-        // For simplicity, basic parsing
+    private ExecutionResult parseResult(Language language, String output, int exitCode, int totalTests, long execTime) {
+        try {
+            if (language == Language.TYPESCRIPT || language == Language.JAVASCRIPT) {
+                return parseVitestResult(output, exitCode, totalTests, execTime);
+            } else if (language == Language.PYTHON) {
+                return parsePytestResult(output, exitCode, totalTests, execTime);
+            }
+        } catch (Exception e) {
+            log.warn("Failed to parse test output, falling back to basic parsing: {}", e.getMessage());
+        }
+        
+        // Fallback basic parsing
+        return fallbackParse(output, exitCode, totalTests, execTime);
+    }
+    
+    private ExecutionResult parseVitestResult(String output, int exitCode, int totalTests, long execTime) throws IOException {
+        // Vitest JSON reporter outputs JSON to stdout
+        // Find the JSON part (last line that looks like JSON)
+        String jsonOutput = extractJsonFromOutput(output);
+        if (jsonOutput == null) {
+            return fallbackParse(output, exitCode, totalTests, execTime);
+        }
+        
+        JsonNode root = objectMapper.readTree(jsonOutput);
+        boolean success = root.path("success").asBoolean(false);
+        int passed = root.path("numPassedTests").asInt(0);
+        int failed = root.path("numFailedTests").asInt(0);
+        int total = root.path("numTotalTests").asInt(totalTests);
+        
+        List<ExecutionResult.TestResult> testResults = new ArrayList<>();
+        JsonNode testResultsNode = root.path("testResults");
+        if (testResultsNode.isArray()) {
+            for (JsonNode testResult : testResultsNode) {
+                String name = testResult.path("name").asText("Unknown");
+                String status = testResult.path("status").asText("unknown");
+                long duration = testResult.path("duration").asLong(0);
+                String error = testResult.path("errors").isArray() && testResult.path("errors").size() > 0
+                    ? testResult.path("errors").get(0).path("message").asText("")
+                    : null;
+                
+                testResults.add(new ExecutionResult.TestResult(
+                    name,
+                    "pass".equals(status),
+                    null, // input not in output
+                    null, // expected not in output
+                    error,
+                    duration
+                ));
+            }
+        }
+        
+        ExecutionStatus status = success ? ExecutionStatus.PASSED : ExecutionStatus.FAILED;
+        return new ExecutionResult(status, passed, total, execTime, null, output, null, testResults);
+    }
+    
+    private ExecutionResult parsePytestResult(String output, int exitCode, int totalTests, long execTime) throws IOException {
+        // Pytest JSON report is written to file, but we also capture stdout
+        // Try to find JSON in output
+        String jsonOutput = extractJsonFromOutput(output);
+        if (jsonOutput == null) {
+            return fallbackParse(output, exitCode, totalTests, execTime);
+        }
+        
+        JsonNode root = objectMapper.readTree(jsonOutput);
+        int passed = root.path("passed").asInt(0);
+        int failed = root.path("failed").asInt(0);
+        int total = root.path("total").asInt(totalTests);
+        
+        List<ExecutionResult.TestResult> testResults = new ArrayList<>();
+        JsonNode testsNode = root.path("tests");
+        if (testsNode.isArray()) {
+            for (JsonNode test : testsNode) {
+                String name = test.path("name").asText("Unknown");
+                String outcome = test.path("outcome").asText("unknown");
+                long duration = (long) (test.path("duration").asDouble(0) * 1000); // Convert to ms
+                String error = test.path("call").path("longrepr").asText(null);
+                
+                testResults.add(new ExecutionResult.TestResult(
+                    name,
+                    "passed".equals(outcome),
+                    null,
+                    null,
+                    error,
+                    duration
+                ));
+            }
+        }
+        
+        ExecutionStatus status = (exitCode == 0 || failed == 0) ? ExecutionStatus.PASSED : ExecutionStatus.FAILED;
+        return new ExecutionResult(status, passed, total, execTime, null, output, null, testResults);
+    }
+    
+    private String extractJsonFromOutput(String output) {
+        // Find the last valid JSON object in the output
+        String[] lines = output.split("\n");
+        for (int i = lines.length - 1; i >= 0; i--) {
+            String line = lines[i].trim();
+            if (line.startsWith("{") && line.endsWith("}")) {
+                try {
+                    objectMapper.readTree(line); // Validate it's valid JSON
+                    return line;
+                } catch (Exception ignored) {
+                    // Not valid JSON, continue searching
+                }
+            }
+        }
+        return null;
+    }
+    
+    private ExecutionResult fallbackParse(String output, int exitCode, int totalTests, long execTime) {
         if (exitCode == 0) {
             return new ExecutionResult(
                 ExecutionStatus.PASSED,
                 totalTests, totalTests,
-                execTime, null, output, null
+                execTime, null, output, null,
+                List.of()
             );
         } else {
-            // Try to extract passed/failed from output
-            int passed = extractPassedCount(output);
             return new ExecutionResult(
                 ExecutionStatus.FAILED,
-                passed, totalTests,
-                execTime, null, output, "Tests failed"
+                0, totalTests,
+                execTime, null, output, "Tests failed",
+                List.of()
             );
         }
-    }
-    
-    private int extractPassedCount(String output) {
-        // Basic extraction - would be improved with proper JSON parsing
-        return 0;
     }
     
     private String escapeJson(String s) {
@@ -279,7 +395,6 @@ public class CodeRunnerService {
     }
     
     private String toJson(Object obj) {
-        // Simple JSON conversion - in production use Jackson
         if (obj instanceof String) return "\"" + obj + "\"";
         if (obj instanceof List) {
             List<?> list = (List<?>) obj;

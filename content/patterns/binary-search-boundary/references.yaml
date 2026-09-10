@@ -1,0 +1,17 @@
+- title: "Binary Search - Wikipedia"
+  url: "https://en.wikipedia.org/wiki/Binary_search_algorithm"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Binary Search Variants"
+  verifies: "Lower/upper bound, first/last true correctness"
+
+- title: "First Bad Version - LeetCode"
+  url: "https://leetcode.com/problems/first-bad-version/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Binary Search on Predicate"
+  verifies: "API-based binary search, first true in monotonic predicate"
+
+- title: "Koko Eating Bananas - LeetCode"
+  url: "https://leetcode.com/problems/koko-eating-bananas/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Binary Search on Answer"
+  verifies: "Answer space binary search with monotonic predicate"

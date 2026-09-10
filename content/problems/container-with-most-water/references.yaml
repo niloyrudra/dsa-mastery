@@ -1,0 +1,11 @@
+- title: "Two Pointer Technique - GeeksforGeeks"
+  url: "https://www.geeksforgeeks.org/two-pointers-technique/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Two Pointer Pattern"
+  verifies: "Correctness proof for sorted array two-pointer"
+
+- title: "Container With Most Water - LeetCode"
+  url: "https://leetcode.com/problems/container-with-most-water/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Container With Most Water"
+  verifies: "Problem constraints and greedy proof"

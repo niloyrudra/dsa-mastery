@@ -57,4 +57,13 @@ public class DataStructure extends BaseEntity {
     @ManyToMany(mappedBy = "dataStructures")
     @Builder.Default
     private List<Algorithm> algorithms = new ArrayList<>();
+    
+    @ManyToMany
+    @JoinTable(
+        name = "data_structure_references",
+        joinColumns = @JoinColumn(name = "data_structure_id"),
+        inverseJoinColumns = @JoinColumn(name = "reference_id")
+    )
+    @Builder.Default
+    private List<Reference> references = new ArrayList<>();
 }

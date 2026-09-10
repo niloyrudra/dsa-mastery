@@ -3,6 +3,7 @@ package com.dsamastery.api.controller;
 import com.dsamastery.api.dto.ExecutionJobResponse;
 import com.dsamastery.api.dto.ExecutionRequest;
 import com.dsamastery.api.dto.ExecutionResultDto;
+import com.dsamastery.api.dto.TestResultDto;
 import com.dsamastery.execution.entity.ExecutionAttempt;
 import com.dsamastery.execution.service.ExecutionService;
 import lombok.RequiredArgsConstructor;
@@ -50,7 +51,7 @@ public class ExecutionController {
         
         List<ExecutionAttempt> attempts = problemId != null
             ? executionService.getHistory(problemId)
-            : executionService.getHistory(null); // would need to add method
+            : executionService.getAllHistory();
         
         return ResponseEntity.ok(attempts.stream()
             .map(this::toResultDto)
@@ -58,6 +59,19 @@ public class ExecutionController {
     }
     
     private ExecutionResultDto toResultDto(ExecutionAttempt attempt) {
+        List<TestResultDto> testResults = attempt.getTestResults() != null
+            ? attempt.getTestResults().stream()
+                .map(tr -> TestResultDto.builder()
+                    .name(tr.getName())
+                    .passed(tr.isPassed())
+                    .input(tr.getInput() != null ? tr.getInput().toString() : null)
+                    .expected(tr.getExpected() != null ? tr.getExpected().toString() : null)
+                    .actual(null) // Not captured in current implementation
+                    .durationMs(tr.getDurationMs())
+                    .build())
+                .collect(Collectors.toList())
+            : List.of();
+        
         return ExecutionResultDto.builder()
             .jobId(attempt.getId())
             .status(attempt.getStatus())
@@ -67,7 +81,7 @@ public class ExecutionController {
             .memoryBytes(attempt.getMemoryBytes())
             .output(attempt.getOutput())
             .error(attempt.getError())
-            .testResults(List.of()) // would need to parse from output
+            .testResults(testResults)
             .completedAt(attempt.getCompletedAt() != null ? attempt.getCompletedAt().toString() : null)
             .build();
     }

@@ -1,11 +1,10 @@
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import { Copy, ChevronRight, Play, CheckCircle, XCircle, Clock, Database, Lightbulb, BookOpen, Code2, MessageSquare, Search, Download } from 'lucide-react';
-import { useProblem, useProblemMastery, useUpdateMastery } from '@/hooks/useQueries';
+import { useProblem, useProblemMastery, useUpdateMastery, useExecutionSubmit, useExecutionResult } from '@/hooks/useQueries';
 import { useEditorStore, useAITutorStore, useMasteryStore } from '@/store';
 import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer';
 import { CodeEditor } from '@/components/editor/CodeEditor';
-import { TestResults } from '@/components/problem/TestResults';
 import { AITutorPanel } from '@/components/ai/AITutorPanel';
 import { MasteryIndicator } from '@/components/problem/MasteryIndicator';
 import clsx from 'clsx';
@@ -29,20 +28,26 @@ export function ProblemPage() {
   const { updateProblemMastery: updateLocalMastery } = useMasteryStore();
   const [activeTab, setActiveTab] = useState('overview');
   const [executionJobId, setExecutionJobId] = useState<string | null>(null);
-  const [isExecuting, setIsExecuting] = useState(false);
   const [showSolution, setShowSolution] = useState(false);
-  
+
+  const executionSubmit = useExecutionSubmit();
+  const { data: executionResult } = useExecutionResult(executionJobId || '');
+  const executionStatus = executionResult?.status;
+  const isExecuting = executionSubmit.isPending ||
+    (!!executionStatus && (executionStatus === 'QUEUED' || executionStatus === 'COMPILING' || executionStatus === 'RUNNING'));
+
   const handleRunCode = async (codeToRun: string) => {
-    if (!slug) return;
-    setIsExecuting(true);
+    if (!problem) return;
+    setExecutionJobId(null);
     try {
-      // This would call the execution API
-      // For now, just simulate
-      setExecutionJobId('simulated-job');
+      const { data } = await executionSubmit.mutateAsync({
+        problemId: problem.id,
+        language,
+        code: codeToRun,
+      });
+      setExecutionJobId(data.jobId);
     } catch (err) {
       console.error('Execution failed:', err);
-    } finally {
-      setIsExecuting(false);
     }
   };
   
@@ -54,6 +59,24 @@ export function ProblemPage() {
     });
     updateLocalMastery(problem?.id!, 'LEARNING');
   };
+  
+  // Track attempts + pass state when an execution finishes
+  useEffect(() => {
+    const terminal = executionStatus === 'PASSED' || executionStatus === 'FAILED' ||
+      executionStatus === 'ERROR' || executionStatus === 'TIMEOUT';
+    if (!problem || !terminal || !executionJobId) return;
+    
+    updateMastery.mutate({
+      entityType: 'PROBLEM',
+      entityId: problem.id,
+      data: {
+        attempts: (mastery?.attempts ?? 0) + 1,
+        passedTests: executionStatus === 'PASSED',
+        solutionRevealed: showSolution,
+      },
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [executionJobId, executionStatus]);
   
   if (isLoading) {
     return (
@@ -153,6 +176,7 @@ export function ProblemPage() {
             onRun={handleRunCode}
             isExecuting={isExecuting}
             executionJobId={executionJobId}
+            executionResult={executionResult ?? null}
           />
         )}
         {activeTab === 'solutions' && (

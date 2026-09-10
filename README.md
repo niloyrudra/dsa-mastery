@@ -71,6 +71,8 @@ docker compose up -d
 cd backend
 # Requires Java 21 (Gradle toolchain is pinned to 21; wrapper is pinned to Gradle 8.5, matching the Docker image)
 ./gradlew :dsa-api:bootRun
+
+# $env:JAVA_HOME = "C:\Program Files\Eclipse Adoptium\jdk-21.0.12.101-hotspot"; $env:PATH = "$env:JAVA_HOME\bin;$env:PATH"; ./gradlew :dsa-api:bootRun
 ```
 
 > **Note:** Start PostgreSQL and Ollama first (see below). On startup the API validates the schema (JPA `ddl-auto: validate`) and runs Flyway migrations from `dsa-api/src/main/resources/db/migration`.

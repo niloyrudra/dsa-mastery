@@ -2,6 +2,7 @@ package com.dsamastery.content.repository;
 
 import com.dsamastery.content.entity.Problem;
 import com.dsamastery.common.enums.ContentStatus;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,6 +16,8 @@ import java.util.UUID;
 public interface ProblemRepository extends JpaRepository<Problem, UUID> {
     
     Optional<Problem> findBySlug(String slug);
+
+    boolean existsBySlug(String slug);
     
     List<Problem> findByStatusOrderByOrderIndexAsc(ContentStatus status);
     
@@ -24,20 +27,20 @@ public interface ProblemRepository extends JpaRepository<Problem, UUID> {
     
     List<Problem> findByDataStructuresSlug(String dataStructureSlug);
     
-    @Query("""
-        SELECT DISTINCT p FROM Problem p
-        LEFT JOIN FETCH p.patterns
-        LEFT JOIN FETCH p.algorithms
-        LEFT JOIN FETCH p.dataStructures
-        LEFT JOIN FETCH p.templates
-        LEFT JOIN FETCH p.variations
-        LEFT JOIN FETCH p.solutions
-        LEFT JOIN FETCH p.testCases
-        LEFT JOIN FETCH p.references
-        LEFT JOIN FETCH p.learningObjectives
-        LEFT JOIN FETCH p.prerequisites
-        WHERE p.slug = :slug
-        """)
+    @EntityGraph(attributePaths = {
+        "patterns",
+        "algorithms", 
+        "dataStructures",
+        "templates",
+        "variations",
+        "solutions",
+        "testCases",
+        "learningObjectives",
+        "references",
+        "relatedProblems",
+        "prerequisites"
+    })
+    @Query("SELECT DISTINCT p FROM Problem p WHERE p.slug = :slug")
     Optional<Problem> findBySlugWithAllRelations(@Param("slug") String slug);
     
     @Query("""
@@ -45,5 +48,5 @@ public interface ProblemRepository extends JpaRepository<Problem, UUID> {
         WHERE p.status = :status
         ORDER BY p.orderIndex ASC
         """)
-    List<Problem> findPublishedOrdered();
+    List<Problem> findPublishedOrdered(@Param("status") ContentStatus status);
 }

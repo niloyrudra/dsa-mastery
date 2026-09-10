@@ -1,0 +1,17 @@
+- title: "Disjoint-Set Data Structure - Wikipedia"
+  url: "https://en.wikipedia.org/wiki/Disjoint-set_data_structure"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Union-Find"
+  verifies: "Path compression and union by rank correctness proofs"
+
+- title: "Graph Valid Tree - LeetCode"
+  url: "https://leetcode.com/problems/graph-valid-tree/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Union-Find Cycle Detection"
+  verifies: "Undirected graph cycle detection with Union-Find"
+
+- title: "Number of Islands - LeetCode"
+  url: "https://leetcode.com/problems/number-of-islands/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Grid Union-Find"
+  verifies: "2D to 1D mapping for grid connectivity"

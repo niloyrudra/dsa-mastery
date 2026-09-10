@@ -16,16 +16,12 @@ public interface PatternRepository extends JpaRepository<Pattern, UUID> {
     
     Optional<Pattern> findBySlug(String slug);
     
+    boolean existsBySlug(String slug);
+    
     List<Pattern> findByStatusOrderByNameAsc(ContentStatus status);
     
     @Query("""
         SELECT DISTINCT p FROM Pattern p
-        LEFT JOIN FETCH p.templates
-        LEFT JOIN FETCH p.algorithms
-        LEFT JOIN FETCH p.dataStructures
-        LEFT JOIN FETCH p.subPatterns
-        LEFT JOIN FETCH p.problems
-        LEFT JOIN FETCH p.references
         WHERE p.slug = :slug
         """)
     Optional<Pattern> findBySlugWithRelations(@Param("slug") String slug);

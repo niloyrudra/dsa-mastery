@@ -1,0 +1,55 @@
+- name: "Basic Example 1"
+  description: "Standard case with repeating pattern"
+  input:
+    s: "abcabcbb"
+  expected: 3
+  type: "BASIC"
+  hidden: false
+
+- name: "Basic Example 2"
+  description: "All same character"
+  input:
+    s: "bbbbb"
+  expected: 1
+  type: "BASIC"
+  hidden: false
+
+- name: "Basic Example 3"
+  description: "Multiple candidates, first not longest"
+  input:
+    s: "pwwkew"
+  expected: 3
+  type: "BASIC"
+  hidden: false
+
+- name: "Edge: Empty String"
+  description: "Zero length string"
+  input:
+    s: ""
+  expected: 0
+  type: "EDGE_CASE"
+  hidden: false
+
+- name: "Edge: All Unique"
+  description: "No repeating characters"
+  input:
+    s: "abcdef"
+  expected: 6
+  type: "EDGE_CASE"
+  hidden: false
+
+- name: "Edge: Single Character"
+  description: "Length 1 string"
+  input:
+    s: "a"
+  expected: 1
+  type: "EDGE_CASE"
+  hidden: false
+
+- name: "Performance: Long String"
+  description: "50,000 character string"
+  input:
+    s: "GENERATE: repeat('abcdefghijklmnopqrstuvwxyz', 2000)"
+  expected: 26
+  type: "PERFORMANCE"
+  hidden: true

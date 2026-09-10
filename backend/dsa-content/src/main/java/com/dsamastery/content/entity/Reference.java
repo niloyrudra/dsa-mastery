@@ -8,7 +8,7 @@ import lombok.*;
 import java.util.*;
 
 @Entity
-@Table(name = "references")
+@Table(name = "entity_references")
 @Getter
 @Setter
 @NoArgsConstructor

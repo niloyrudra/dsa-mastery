@@ -1,0 +1,17 @@
+- title: "Two Pointer Technique - GeeksforGeeks"
+  url: "https://www.geeksforgeeks.org/two-pointers-technique/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Two Pointer Pattern"
+  verifies: "Comprehensive guide with multiple variants"
+
+- title: "Container With Most Water - LeetCode"
+  url: "https://leetcode.com/problems/container-with-most-water/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Two Pointer Greedy Proof"
+  verifies: "Greedy optimality proof for opposite ends"
+
+- title: "3Sum - LeetCode"
+  url: "https://leetcode.com/problems/3sum/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Two Pointer + Sorting"
+  verifies: "Generalization to k-sum"

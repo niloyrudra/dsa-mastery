@@ -16,7 +16,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -64,13 +64,19 @@ public class ExecutionService {
         try {
             ExecutionResult result = codeRunnerService.run(attempt.getLanguage(), attempt.getCode(), testCases);
             
-            attempt.setStatus(result.status());
-            attempt.setPassedTests(result.passedTests());
-            attempt.setTotalTests(result.totalTests());
-            attempt.setExecutionTimeMs(result.executionTimeMs());
-            attempt.setMemoryBytes(result.memoryBytes());
-            attempt.setOutput(result.output());
-            attempt.setError(result.error());
+            attempt.setStatus(result.getStatus());
+            attempt.setPassedTests(result.getPassedTests());
+            attempt.setTotalTests(result.getTotalTests());
+            attempt.setExecutionTimeMs(result.getExecutionTimeMs());
+            attempt.setMemoryBytes(result.getMemoryBytes());
+            attempt.setOutput(result.getOutput());
+            attempt.setError(result.getError());
+            // Convert ExecutionResult.TestResult to ExecutionAttempt.TestResult
+            if (result.getTestResults() != null) {
+                attempt.setTestResults(result.getTestResults().stream()
+                    .map(this::convertTestResult)
+                    .collect(Collectors.toList()));
+            }
             attempt.setCompletedAt(Instant.now());
             
         } catch (Exception e) {
@@ -82,6 +88,17 @@ public class ExecutionService {
         attemptRepository.save(attempt);
     }
     
+    private ExecutionAttempt.TestResult convertTestResult(ExecutionResult.TestResult src) {
+        ExecutionAttempt.TestResult dest = new ExecutionAttempt.TestResult();
+        dest.setName(src.getName());
+        dest.setPassed(src.isPassed());
+        dest.setInput(src.getInput());
+        dest.setExpected(src.getExpected());
+        dest.setError(src.getError());
+        dest.setDurationMs(src.getDurationMs());
+        return dest;
+    }
+    
     @Transactional(readOnly = true)
     public Optional<ExecutionAttempt> getAttempt(UUID attemptId) {
         return attemptRepository.findById(attemptId);
@@ -90,5 +107,10 @@ public class ExecutionService {
     @Transactional(readOnly = true)
     public List<ExecutionAttempt> getHistory(UUID problemId) {
         return attemptRepository.findByProblemIdOrderByAttemptedAtDesc(problemId);
+    }
+    
+    @Transactional(readOnly = true)
+    public List<ExecutionAttempt> getAllHistory() {
+        return attemptRepository.findAllByOrderByAttemptedAtDesc();
     }
 }

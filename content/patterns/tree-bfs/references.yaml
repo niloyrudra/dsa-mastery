@@ -1,0 +1,17 @@
+- title: "Tree Traversal - Wikipedia"
+  url: "https://en.wikipedia.org/wiki/Tree_traversal"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Breadth-First Search"
+  verifies: "Level-order traversal properties"
+
+- title: "Binary Tree Level Order Traversal - LeetCode"
+  url: "https://leetcode.com/problems/binary-tree-level-order-traversal/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Tree BFS Level Order"
+  verifies: "Standard level-order with level size capture"
+
+- title: "Binary Tree Right Side View - LeetCode"
+  url: "https://leetcode.com/problems/binary-tree-right-side-view/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Tree BFS with Level Tracking"
+  verifies: "Rightmost node per level via BFS"

@@ -1,0 +1,55 @@
+- name: "Basic Example 1"
+  description: "Standard palindrome with punctuation"
+  input:
+    s: "A man, a plan, a canal: Panama"
+  expected: true
+  type: "BASIC"
+  hidden: false
+
+- name: "Basic Example 2"
+  description: "Non-palindrome"
+  input:
+    s: "race a car"
+  expected: false
+  type: "BASIC"
+  hidden: false
+
+- name: "Basic Example 3"
+  description: "Empty/whitespace string"
+  input:
+    s: " "
+  expected: true
+  type: "BASIC"
+  hidden: false
+
+- name: "Edge: Single Character"
+  description: "Single alphanumeric character"
+  input:
+    s: "a"
+  expected: true
+  type: "EDGE_CASE"
+  hidden: false
+
+- name: "Edge: All Non-Alphanumeric"
+  description: "String with only punctuation"
+  input:
+    s: ".,!@#$%^&*()"
+  expected: true
+  type: "EDGE_CASE"
+  hidden: false
+
+- name: "Edge: Mixed Case"
+  description: "Case insensitivity test"
+  input:
+    s: "Aa"
+  expected: true
+  type: "EDGE_CASE"
+  hidden: false
+
+- name: "Performance: Long String"
+  description: "200,000 character string"
+  input:
+    s: "GENERATE: repeat('a', 200000)"
+  expected: true
+  type: "PERFORMANCE"
+  hidden: true

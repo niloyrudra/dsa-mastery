@@ -73,7 +73,7 @@ export function SettingsPage() {
           ].map((section) => (
             <button
               key={section.id}
-              onClick={() => setActiveSection(section.id)}
+              onClick={() => setActiveSection(section.id as 'appearance' | 'editor' | 'progress' | 'data')}
               className={clsx(
                 'w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors text-left',
                 activeSection === section.id
@@ -102,7 +102,7 @@ export function SettingsPage() {
                 ].map((option) => (
                   <button
                     key={option.value}
-                    onClick={() => setTheme(option.value)}
+                    onClick={() => setTheme(option.value as 'light' | 'dark' | 'system')}
                     className={clsx(
                       'p-4 rounded-lg border-2 transition-colors text-left',
                       theme === option.value

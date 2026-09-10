@@ -1,0 +1,1 @@
+ALTER TABLE "references" RENAME TO entity_references;

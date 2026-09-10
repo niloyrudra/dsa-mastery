@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Editor from '@monaco-editor/react';
-import { Play, RotateCcw, Copy, Check, X, Terminal, Zap, Database } from 'lucide-react';
+import { Play, RotateCcw, Copy, Terminal, Zap, Database } from 'lucide-react';
 import clsx from 'clsx';
-import type { ProblemChapterDto, TestCaseDto } from '@/types';
+import type { ProblemChapterDto, ExecutionResultDto } from '@/types';
+import { TestResults } from '@/components/problem/TestResults';
 
 interface CodeEditorProps {
   problem: ProblemChapterDto;
@@ -13,6 +14,7 @@ interface CodeEditorProps {
   onRun: (code: string) => void;
   isExecuting: boolean;
   executionJobId: string | null;
+  executionResult: ExecutionResultDto | null;
 }
 
 const LANGUAGE_OPTIONS = [
@@ -41,13 +43,12 @@ export function CodeEditor({
   onCodeChange, 
   onRun,
   isExecuting,
-  executionJobId
+  executionJobId,
+  executionResult
 }: CodeEditorProps) {
-  const editorRef = useRef<Editor>(null);
   const [showTestResults, setShowTestResults] = useState(false);
-  const [testResults, setTestResults] = useState<TestCaseDto[]>(problem.testCases || []);
-  const [executionTime, setExecutionTime] = useState<number | null>(null);
-  const [memoryUsed, setMemoryUsed] = useState<number | null>(null);
+  const executionTime = executionResult?.executionTimeMs ?? null;
+  const memoryUsed = executionResult?.memoryBytes ?? null;
   
   const handleEditorChange = (value: string | undefined) => {
     if (value !== undefined) {
@@ -149,7 +150,6 @@ export function CodeEditor({
       {/* Editor */}
       <div className="flex-1 relative overflow-hidden">
         <Editor
-          ref={editorRef}
           height="100%"
           language={languageOption?.monaco || 'typescript'}
           theme="vs-dark"
@@ -174,44 +174,16 @@ export function CodeEditor({
       
       {/* Test Results Panel */}
       {showTestResults && (
-        <div className="border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 max-h-64 overflow-y-auto">
+        <div className="border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 max-h-72 overflow-y-auto">
           <div className="p-3 flex items-center justify-between bg-slate-100 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
             <h3 className="font-medium text-slate-900 dark:text-slate-100">Test Results</h3>
             <span className="text-sm text-slate-500 dark:text-slate-400">
-              {testResults.filter(t => t.type !== 'PERFORMANCE').length} test cases
+              {executionResult ? `${executionResult.passedTests} / ${executionResult.totalTests} passed` : 'Awaiting run…'}
             </span>
           </div>
-          <div className="p-3 space-y-2 max-h-48 overflow-y-auto">
-            {testResults
-              .filter(t => t.type !== 'PERFORMANCE')
-              .map((tc, i) => (
-                <TestCaseResult key={i} testCase={tc} />
-              ))}
-          </div>
+          <TestResults result={executionResult} isLoading={isExecuting} />
         </div>
       )}
-    </div>
-  );
-}
-
-function TestCaseResult({ testCase }: { testCase: TestCaseDto }) {
-  const passed = testCase.type !== 'PERFORMANCE'; // Simplified
-  
-  return (
-    <div className="flex items-center justify-between p-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
-      <div className="flex items-center gap-2">
-        {passed ? (
-          <Check className="w-4 h-4 text-green-500" />
-        ) : (
-          <X className="w-4 h-4 text-red-500" />
-        )}
-        <span className="font-medium text-sm text-slate-900 dark:text-slate-100">{testCase.name}</span>
-        <span className="px-2 py-0.5 rounded text-xs text-slate-500 dark:text-slate-400">{testCase.type}</span>
-      </div>
-      <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
-        <span>Input: {JSON.stringify(testCase.input).slice(0, 50)}...</span>
-        <span>Expected: {JSON.stringify(testCase.expectedOutput).slice(0, 30)}...</span>
-      </div>
     </div>
   );
 }

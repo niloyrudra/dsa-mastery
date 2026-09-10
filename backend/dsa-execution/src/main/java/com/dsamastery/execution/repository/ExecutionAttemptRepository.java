@@ -15,4 +15,6 @@ public interface ExecutionAttemptRepository extends JpaRepository<ExecutionAttem
     List<ExecutionAttempt> findByUserIdOrderByAttemptedAtDesc(UUID userId);
     
     List<ExecutionAttempt> findByStatus(String status);
+    
+    List<ExecutionAttempt> findAllByOrderByAttemptedAtDesc();
 }

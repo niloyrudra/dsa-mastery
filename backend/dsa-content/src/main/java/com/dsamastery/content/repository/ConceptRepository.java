@@ -16,6 +16,8 @@ public interface ConceptRepository extends JpaRepository<Concept, UUID> {
     
     Optional<Concept> findBySlug(String slug);
     
+    boolean existsBySlug(String slug);
+    
     List<Concept> findByStatusOrderByNameAsc(ContentStatus status);
     
     @Query("""

@@ -46,6 +46,7 @@ export function useProblem(slug: string) {
     queryFn: () => problemsApi.get(slug),
     enabled: !!slug,
     staleTime: 1000 * 60 * 10,
+    select: (data) => data.data,
   });
 }
 
@@ -54,6 +55,7 @@ export function useProblemVariations(slug: string) {
     queryKey: ['problem', slug, 'variations'],
     queryFn: () => problemsApi.getVariations(slug),
     enabled: !!slug,
+    select: (data) => data.data,
   });
 }
 
@@ -62,6 +64,7 @@ export function useProblemSolutions(slug: string) {
     queryKey: ['problem', slug, 'solutions'],
     queryFn: () => problemsApi.getSolutions(slug),
     enabled: !!slug,
+    select: (data) => data.data,
   });
 }
 
@@ -70,6 +73,7 @@ export function useProblemTestCases(slug: string) {
     queryKey: ['problem', slug, 'testCases'],
     queryFn: () => problemsApi.getTestCases(slug),
     enabled: !!slug,
+    select: (data) => data.data,
   });
 }
 
@@ -78,6 +82,7 @@ export function useProblemMastery(slug: string) {
     queryKey: ['problem', slug, 'mastery'],
     queryFn: () => problemsApi.getMastery(slug),
     enabled: !!slug,
+    select: (data) => data.data,
   });
 }
 
@@ -86,6 +91,7 @@ export function usePatterns() {
   return useQuery({
     queryKey: ['patterns'],
     queryFn: () => patternsApi.list(),
+    select: (data) => data.data,
   });
 }
 
@@ -95,6 +101,7 @@ export function usePattern(slug: string) {
     queryFn: () => patternsApi.get(slug),
     enabled: !!slug,
     staleTime: 1000 * 60 * 10,
+    select: (data) => data.data,
   });
 }
 
@@ -103,6 +110,7 @@ export function useAlgorithms() {
   return useQuery({
     queryKey: ['algorithms'],
     queryFn: () => algorithmsApi.list(),
+    select: (data) => data.data,
   });
 }
 
@@ -111,6 +119,7 @@ export function useAlgorithm(slug: string) {
     queryKey: ['algorithm', slug],
     queryFn: () => algorithmsApi.get(slug),
     enabled: !!slug,
+    select: (data) => data.data,
   });
 }
 
@@ -119,6 +128,7 @@ export function useDataStructures() {
   return useQuery({
     queryKey: ['dataStructures'],
     queryFn: () => dataStructuresApi.list(),
+    select: (data) => data.data,
   });
 }
 
@@ -127,6 +137,7 @@ export function useDataStructure(slug: string) {
     queryKey: ['dataStructure', slug],
     queryFn: () => dataStructuresApi.get(slug),
     enabled: !!slug,
+    select: (data) => data.data,
   });
 }
 
@@ -135,6 +146,7 @@ export function useTemplates(params?: Parameters<typeof templatesApi.list>[0]) {
   return useQuery({
     queryKey: ['templates', params],
     queryFn: () => templatesApi.list(params),
+    select: (data) => data.data,
   });
 }
 
@@ -143,6 +155,7 @@ export function useTemplate(slug: string) {
     queryKey: ['template', slug],
     queryFn: () => templatesApi.get(slug),
     enabled: !!slug,
+    select: (data) => data.data,
   });
 }
 
@@ -151,6 +164,7 @@ export function useCurriculum() {
   return useQuery({
     queryKey: ['curriculum'],
     queryFn: () => curriculumApi.getTree(),
+    select: (data) => data.data,
   });
 }
 
@@ -159,6 +173,7 @@ export function useLearningPath(problemSlug: string) {
     queryKey: ['learningPath', problemSlug],
     queryFn: () => curriculumApi.getLearningPath(problemSlug),
     enabled: !!problemSlug,
+    select: (data) => data.data,
   });
 }
 
@@ -170,7 +185,7 @@ export function useExecutionSubmit() {
     mutationFn: (request: ExecutionRequest) => executionApi.submit(request),
     onSuccess: (data) => {
       // Poll for result
-      pollExecutionResult(data.jobId, queryClient);
+      pollExecutionResult(data.data.jobId, queryClient);
     },
   });
 }
@@ -180,8 +195,9 @@ export function useExecutionResult(jobId: string, enabled = true) {
     queryKey: ['execution', jobId],
     queryFn: () => executionApi.getJob(jobId),
     enabled: enabled && !!jobId,
+    select: (data) => data.data,
     refetchInterval: (query) => {
-      const status = query.state.data?.status;
+      const status = query.state.data?.data?.status;
       return status === 'QUEUED' || status === 'COMPILING' || status === 'RUNNING' ? 1000 : false;
     },
   });
@@ -212,6 +228,7 @@ export function useExecutionHistory(problemId?: string) {
   return useQuery({
     queryKey: ['executionHistory', problemId],
     queryFn: () => executionApi.getHistory(problemId),
+    select: (data) => data.data,
   });
 }
 
@@ -220,6 +237,7 @@ export function useMasteryRecords(params?: Parameters<typeof masteryApi.getAll>[
   return useQuery({
     queryKey: ['mastery', params],
     queryFn: () => masteryApi.getAll(params),
+    select: (data) => data.data,
   });
 }
 
@@ -227,6 +245,7 @@ export function useMasteryStats() {
   return useQuery({
     queryKey: ['mastery', 'stats'],
     queryFn: () => masteryApi.getStats(),
+    select: (data) => data.data,
   });
 }
 
@@ -261,6 +280,7 @@ export function useAIConversation(conversationId: string) {
     queryKey: ['aiConversation', conversationId],
     queryFn: () => aiApi.getConversation(conversationId),
     enabled: !!conversationId,
+    select: (data) => data.data,
   });
 }
 
@@ -268,6 +288,7 @@ export function useAIConversations(params?: Parameters<typeof aiApi.listConversa
   return useQuery({
     queryKey: ['aiConversations', params],
     queryFn: () => aiApi.listConversations(params),
+    select: (data) => data.data,
   });
 }
 
@@ -278,5 +299,6 @@ export function useSearch(query: string, type?: string, limit = 10) {
     queryFn: () => searchApi.search({ q: query, type, limit }),
     enabled: query.length >= 2,
     staleTime: 1000 * 60 * 5,
+    select: (data) => data.data,
   });
 }

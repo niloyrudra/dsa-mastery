@@ -5,8 +5,11 @@ import com.dsamastery.common.enums.ExecutionStatus;
 import com.dsamastery.common.enums.Language;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -57,10 +60,27 @@ public class ExecutionAttempt extends BaseEntity {
     @Column(name = "error", columnDefinition = "TEXT")
     private String error;
     
+    @Column(name = "test_results", columnDefinition = "JSONB")
+    @JdbcTypeCode(SqlTypes.JSON)
+    private List<TestResult> testResults;
+    
     @Column(name = "attempted_at", nullable = false)
     @Builder.Default
     private Instant attemptedAt = Instant.now();
     
     @Column(name = "completed_at")
     private Instant completedAt;
+    
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class TestResult {
+        private String name;
+        private boolean passed;
+        private Object input;
+        private Object expected;
+        private String error;
+        private long durationMs;
+    }
 }

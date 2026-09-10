@@ -15,6 +15,8 @@ public interface TemplateRepository extends JpaRepository<Template, UUID> {
     
     Optional<Template> findBySlug(String slug);
     
+    boolean existsBySlug(String slug);
+    
     List<Template> findByPatternId(UUID patternId);
     
     List<Template> findByLanguage(String language);

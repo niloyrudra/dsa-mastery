@@ -1,0 +1,11 @@
+- title: "Binary Tree - Wikipedia"
+  url: "https://en.wikipedia.org/wiki/Binary_tree"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Binary Tree Traversal"
+  verifies: "DFS and BFS traversal definitions and properties"
+
+- title: "Maximum Depth of Binary Tree - LeetCode"
+  url: "https://leetcode.com/problems/maximum-depth-of-binary-tree/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Tree Depth"
+  verifies: "Problem constraints and examples"

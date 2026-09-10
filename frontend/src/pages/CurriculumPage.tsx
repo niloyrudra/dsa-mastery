@@ -15,7 +15,7 @@ interface CurriculumTreeProps {
 
 function CurriculumTree({ node, depth = 0, expandedPaths, onToggle }: CurriculumTreeProps) {
   const path = `${node.type.toLowerCase()}-${node.id}`;
-  const isExpanded = expandedPaths.has(path);
+  const isExpanded = expandedPaths?.has(path);
   const hasChildren = node.children && node.children.length > 0;
   
   const getIcon = () => {

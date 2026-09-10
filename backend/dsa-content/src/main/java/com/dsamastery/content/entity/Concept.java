@@ -54,4 +54,13 @@ public class Concept extends BaseEntity {
     )
     @Builder.Default
     private List<Pattern> patterns = new ArrayList<>();
+    
+    @ManyToMany
+    @JoinTable(
+        name = "concept_references",
+        joinColumns = @JoinColumn(name = "concept_id"),
+        inverseJoinColumns = @JoinColumn(name = "reference_id")
+    )
+    @Builder.Default
+    private List<Reference> references = new ArrayList<>();
 }

@@ -2,6 +2,7 @@ package com.dsamastery.content.service;
 
 import com.dsamastery.content.entity.Problem;
 import com.dsamastery.content.repository.ProblemRepository;
+import com.dsamastery.common.enums.ContentStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +19,7 @@ public class ProblemService {
     private final ProblemRepository problemRepository;
     
     public List<Problem> getPublishedProblems() {
-        return problemRepository.findPublishedOrdered();
+        return problemRepository.findPublishedOrdered(ContentStatus.PUBLISHED);
     }
     
     public Optional<Problem> getProblemBySlug(String slug) {

@@ -1,0 +1,17 @@
+- title: "Binary Tree - Wikipedia"
+  url: "https://en.wikipedia.org/wiki/Binary_tree"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Tree Traversal"
+  verifies: "Preorder, inorder, postorder definitions and properties"
+
+- title: "Maximum Depth of Binary Tree - LeetCode"
+  url: "https://leetcode.com/problems/maximum-depth-of-binary-tree/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Tree DFS Postorder"
+  verifies: "Simplest postorder depth computation"
+
+- title: "Validate Binary Search Tree - LeetCode"
+  url: "https://leetcode.com/problems/validate-binary-search-tree/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Tree DFS with Bounds"
+  verifies: "Bounds-passing validation correctness"

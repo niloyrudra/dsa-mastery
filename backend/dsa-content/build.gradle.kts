@@ -13,10 +13,15 @@ dependencies {
     implementation("org.hibernate.orm:hibernate-core")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.yaml:snakeyaml:2.3")
 }
 
 repositories {
     mavenCentral()
+}
+
+tasks.named<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
+    enabled = false
 }
 
 dependencies {

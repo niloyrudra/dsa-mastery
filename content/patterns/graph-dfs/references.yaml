@@ -1,0 +1,17 @@
+- title: "Depth-First Search - Wikipedia"
+  url: "https://en.wikipedia.org/wiki/Depth-first_search"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Graph DFS"
+  verifies: "DFS correctness for connected components, cycle detection"
+
+- title: "Number of Islands - LeetCode"
+  url: "https://leetcode.com/problems/number-of-islands/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Grid DFS"
+  verifies: "Classic grid DFS for connected components"
+
+- title: "Course Schedule - LeetCode"
+  url: "https://leetcode.com/problems/course-schedule/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Cycle Detection with 3-Color DFS"
+  verifies: "Directed graph cycle detection correctness"

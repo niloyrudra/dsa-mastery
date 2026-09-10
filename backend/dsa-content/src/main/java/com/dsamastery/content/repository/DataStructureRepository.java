@@ -16,13 +16,13 @@ public interface DataStructureRepository extends JpaRepository<DataStructure, UU
     
     Optional<DataStructure> findBySlug(String slug);
     
+    boolean existsBySlug(String slug);
+    
     List<DataStructure> findByStatusOrderByNameAsc(ContentStatus status);
     
     @Query("""
         SELECT DISTINCT d FROM DataStructure d
         LEFT JOIN FETCH d.problems
-        LEFT JOIN FETCH d.patterns
-        LEFT JOIN FETCH d.algorithms
         WHERE d.slug = :slug
         """)
     Optional<DataStructure> findBySlugWithRelations(@Param("slug") String slug);

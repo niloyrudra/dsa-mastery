@@ -10,6 +10,9 @@ dependencies {
     implementation(project(":dsa-content"))
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.hibernate.orm:hibernate-core")
+    implementation("jakarta.persistence:jakarta.persistence-api")
     implementation("org.springframework.ai:spring-ai-openai:1.0.0-M4")
     implementation("org.springframework.ai:spring-ai-ollama:1.0.0-M4")
     implementation("org.projectlombok:lombok")
@@ -20,6 +23,10 @@ repositories {
     mavenCentral()
     // Spring AI milestone artifacts (1.0.0-M4) are published to the milestone repo, not Maven Central
     maven { url = uri("https://repo.spring.io/milestone") }
+}
+
+tasks.named<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
+    enabled = false
 }
 
 dependencies {

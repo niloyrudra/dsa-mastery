@@ -1,0 +1,11 @@
+- title: "Sliding Window Technique - GeeksforGeeks"
+  url: "https://www.geeksforgeeks.org/window-sliding-technique/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Sliding Window Pattern"
+  verifies: "Variable window correctness and complexity"
+
+- title: "Longest Substring Without Repeating Characters - LeetCode"
+  url: "https://leetcode.com/problems/longest-substring-without-repeating-characters/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Variable Sliding Window"
+  verifies: "Problem constraints and examples"

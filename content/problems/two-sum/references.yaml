@@ -1,0 +1,23 @@
+- title: "Introduction to Algorithms (CLRS)"
+  url: "https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/"
+  type: "BOOK"
+  relevantConcept: "Hash Tables, Chapter 11"
+  verifies: "O(1) average case lookup, collision resolution"
+
+- title: "Hash Table - Wikipedia"
+  url: "https://en.wikipedia.org/wiki/Hash_table"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Hash Map"
+  verifies: "Average O(1) operations, load factor, collision handling"
+
+- title: "Two Sum - LeetCode"
+  url: "https://leetcode.com/problems/two-sum/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Two Sum Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Two Pointer Technique - GeeksforGeeks"
+  url: "https://www.geeksforgeeks.org/two-pointers-technique/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Two Pointer Pattern"
+  verifies: "Correctness proof for sorted array two-pointer"

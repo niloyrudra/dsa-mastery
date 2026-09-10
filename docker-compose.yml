@@ -31,6 +31,43 @@ services:
       timeout: 10s
       retries: 3
 
+  # Runner images (built locally, used by backend for code execution)
+  runner-typescript:
+    build:
+      context: ./backend/dsa-execution/docker/runner-typescript
+      dockerfile: Dockerfile
+    image: dsa-runner-typescript:latest
+    container_name: dsa-runner-typescript-build
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 256M
+
+  runner-javascript:
+    build:
+      context: ./backend/dsa-execution/docker/runner-javascript
+      dockerfile: Dockerfile
+    image: dsa-runner-javascript:latest
+    container_name: dsa-runner-javascript-build
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 256M
+
+  runner-python:
+    build:
+      context: ./backend/dsa-execution/docker/runner-python
+      dockerfile: Dockerfile
+    image: dsa-runner-python:latest
+    container_name: dsa-runner-python-build
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 256M
+
   backend:
     build:
       context: ./backend
@@ -40,6 +77,7 @@ services:
       SPRING_PROFILES_ACTIVE: docker
       DB_PASSWORD: ${DB_PASSWORD:-dsa_password}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      DOCKER_HOST: unix:///var/run/docker.sock
     ports:
       - "8080:8080"
     depends_on:
@@ -47,9 +85,16 @@ services:
         condition: service_healthy
       ollama:
         condition: service_healthy
+      runner-typescript:
+        condition: service_completed_successfully
+      runner-javascript:
+        condition: service_completed_successfully
+      runner-python:
+        condition: service_completed_successfully
     volumes:
       - ./backend:/app
       - gradle_cache:/home/gradle/.gradle
+      - /var/run/docker.sock:/var/run/docker.sock
 
   frontend:
     build:

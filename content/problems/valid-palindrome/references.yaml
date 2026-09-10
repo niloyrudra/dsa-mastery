@@ -1,0 +1,11 @@
+- title: "Two Pointer Technique - GeeksforGeeks"
+  url: "https://www.geeksforgeeks.org/two-pointers-technique/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Two Pointer Pattern"
+  verifies: "Correctness proof for sorted array two-pointer"
+
+- title: "Valid Palindrome - LeetCode"
+  url: "https://leetcode.com/problems/valid-palindrome/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Two Pointer String Problem"
+  verifies: "Problem constraints and examples"

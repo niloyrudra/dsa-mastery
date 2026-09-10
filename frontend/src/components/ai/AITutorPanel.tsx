@@ -33,7 +33,6 @@ export function AITutorPanel({ problem }: { problem: ProblemChapterDto }) {
   const [selectedHintType, setSelectedHintType] = useState<'concept' | 'hint' | 'approach' | 'review' | 'complexity' | 'variation'>('concept');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const [showHintTypes, setShowHintTypes] = useState(false);
   
   // Auto-open when problem changes
   useEffect(() => {
@@ -65,28 +64,23 @@ export function AITutorPanel({ problem }: { problem: ProblemChapterDto }) {
     setIsLoading(true);
     
     try {
-      let response: string;
-      
       if (!conversationId) {
         const conv = await aiApi.startConversation({ problemId: problem.id, modelRole: 'CODING' });
-        setConversationId(conv.conversationId);
+        setConversationId(conv.data.conversationId);
       }
       
-      // For streaming, we'd use the streaming endpoint
-      // For now, simulate with regular request
       const messageType = selectedHintType === 'review' ? 'CODE_REVIEW' : 
                           selectedHintType === 'hint' ? 'HINT' :
                           selectedHintType === 'complexity' ? 'COMPLEXITY_ANALYSIS' :
                           selectedHintType === 'variation' ? 'VARIATION' : 'EXPLANATION';
       
-      // Simulate streaming response
-      const fullResponse = await simulateAIResponse(userMessage, selectedHintType, problem);
+      const response = await aiApi.sendMessage(conversationId!, { 
+        content: userMessage, 
+        type: messageType 
+      });
       
-      // Stream the response
-      for (let i = 0; i <= fullResponse.length; i += 10) {
-        await new Promise(r => setTimeout(r, 30));
-        updateLastMessage(fullResponse.slice(0, i));
-      }
+      // Update the assistant message with the actual response
+      updateLastMessage(response.data.content);
       
     } catch (error) {
       console.error('AI error:', error);
@@ -95,19 +89,6 @@ export function AITutorPanel({ problem }: { problem: ProblemChapterDto }) {
       setStreaming(false);
       setIsLoading(false);
     }
-  };
-  
-  const simulateAIResponse = async (question: string, type: string, problem: ProblemChapterDto): Promise<string> => {
-    // This would be replaced with actual API call
-    const responses: Record<string, string> = {
-      concept: `The **${problem.patterns[0]?.name || 'core concept'}** pattern works by recognizing that ${problem.description.slice(0, 100)}... This pattern is applicable when you see signals like sorted arrays, pair targets, or need for O(1) lookups.`,
-      hint: `**Hint:** Think about what data structure gives you O(1) lookup time. What if you store values you've already seen?`,
-      approach: `For this problem, the **${problem.solutions[0]?.approach || 'optimal'}** approach uses ${problem.patterns[0]?.name || 'a pattern'}. The key insight is...`,
-      review: `Your solution looks good! Here are some observations:\n- Time complexity: ${problem.solutions[0]?.complexity.timeComplexity}\n- Consider edge cases like empty arrays or duplicates.`,
-      complexity: `**Time:** ${problem.solutions[0]?.complexity.timeComplexity}\n**Space:** ${problem.solutions[0]?.complexity.spaceComplexity}\n\nReasoning: ${problem.solutions[0]?.complexity.timeReasoning}`,
-      variation: `**Variation 1:** Sorted input - enables two-pointer O(1) space\n**Variation 2:** Return indices instead of values\n**Variation 3:** Multiple pairs - return all valid pairs`,
-    };
-    return responses[type] || responses.concept;
   };
   
   if (!isOpen) return null;
