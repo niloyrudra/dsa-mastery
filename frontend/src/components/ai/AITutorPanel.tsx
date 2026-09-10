@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Send, RotateCcw, Copy, Lightbulb, Zap, Brain, MessageSquare, X, Check, Loader2, Sparkles } from 'lucide-react';
 import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer';
 import clsx from 'clsx';
@@ -33,6 +33,18 @@ export function AITutorPanel({ problem }: { problem: ProblemChapterDto }) {
   const [selectedHintType, setSelectedHintType] = useState<'concept' | 'hint' | 'approach' | 'review' | 'complexity' | 'variation'>('concept');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const eventSourceRef = useRef<EventSource | null>(null);
+  const assistantMessageIdRef = useRef<string | null>(null);
+  
+  // Cleanup EventSource on unmount
+  useEffect(() => {
+    return () => {
+      if (eventSourceRef.current) {
+        eventSourceRef.current.close();
+        eventSourceRef.current = null;
+      }
+    };
+  }, []);
   
   // Auto-open when problem changes
   useEffect(() => {
@@ -50,6 +62,13 @@ export function AITutorPanel({ problem }: { problem: ProblemChapterDto }) {
     scrollToBottom();
   }, [messages]);
   
+  const closeEventSource = useCallback(() => {
+    if (eventSourceRef.current) {
+      eventSourceRef.current.close();
+      eventSourceRef.current = null;
+    }
+  }, []);
+  
   const handleSendMessage = async () => {
     if (!input.trim() || isLoading) return;
     
@@ -59,6 +78,7 @@ export function AITutorPanel({ problem }: { problem: ProblemChapterDto }) {
     
     // Add assistant placeholder
     const assistantId = `assistant-${Date.now()}`;
+    assistantMessageIdRef.current = assistantId;
     addMessage({ id: assistantId, role: 'assistant', content: '', type: 'EXPLANATION' });
     setStreaming(true);
     setIsLoading(true);
@@ -74,18 +94,53 @@ export function AITutorPanel({ problem }: { problem: ProblemChapterDto }) {
                           selectedHintType === 'complexity' ? 'COMPLEXITY_ANALYSIS' :
                           selectedHintType === 'variation' ? 'VARIATION' : 'EXPLANATION';
       
-      const response = await aiApi.sendMessage(conversationId!, { 
+      // Use SSE streaming
+      const eventSource = aiApi.streamMessage(conversationId!, { 
         content: userMessage, 
         type: messageType 
       });
+      eventSourceRef.current = eventSource;
       
-      // Update the assistant message with the actual response
-      updateLastMessage(response.data.content);
+      let fullContent = '';
+      
+      eventSource.onmessage = (event) => {
+        try {
+          const data = event.data;
+          if (data === '[DONE]' || data === 'done') {
+            closeEventSource();
+            setStreaming(false);
+            setIsLoading(false);
+            return;
+          }
+          
+          // Parse the SSE data (format: "data: {json}\n\n")
+          const parsed = JSON.parse(data);
+          if (parsed.content) {
+            fullContent += parsed.content;
+            updateLastMessage(fullContent);
+          }
+        } catch (e) {
+          // If not JSON, treat as raw text chunk
+          if (data && data !== '[DONE]' && data !== 'done') {
+            fullContent += data;
+            updateLastMessage(fullContent);
+          }
+        }
+      };
+      
+      eventSource.onerror = (error) => {
+        console.error('SSE error:', error);
+        closeEventSource();
+        if (!fullContent) {
+          updateLastMessage('Sorry, I encountered an error. Please try again.');
+        }
+        setStreaming(false);
+        setIsLoading(false);
+      };
       
     } catch (error) {
       console.error('AI error:', error);
       updateLastMessage('Sorry, I encountered an error. Please try again.');
-    } finally {
       setStreaming(false);
       setIsLoading(false);
     }
