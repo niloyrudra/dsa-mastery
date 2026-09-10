@@ -60,14 +60,15 @@ public class AIController {
         return ResponseEntity.ok(toDto(message));
     }
 
-    @GetMapping(value = "/conversations/{id}/messages/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<String> streamMessages(@PathVariable UUID id) {
-        // For now, return the existing messages as a stream
-        // Full SSE implementation would require WebFlux integration with the tutor service
-        List<AIMessage> messages = tutorService.getMessages(id);
-        return Flux.fromIterable(messages)
-            .map(this::toDto)
-            .map(dto -> "data: " + dto.toString() + "\n\n");
+    @PostMapping(value = "/conversations/{id}/messages/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<String> streamMessage(
+            @PathVariable UUID id,
+            @RequestBody AIMessageRequest request) {
+        
+        MessageType type = request.getType() != null ? request.getType() : MessageType.EXPLANATION;
+        
+        return tutorService.streamMessage(id, request.getContent(), type)
+            .map(chunk -> "data: " + chunk + "\n\n");
     }
 
     @GetMapping("/conversations/{id}/messages")

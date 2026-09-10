@@ -5,6 +5,7 @@ import com.dsamastery.common.enums.ModelRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 
 /**
  * Routes a ModelRole to the appropriate AI provider. Currently only the
@@ -30,6 +31,10 @@ public class ModelRouter {
 
     public String complete(ModelRole role, String model, String systemPrompt, String userPrompt) {
         return getProvider(role).complete(role, model, systemPrompt, userPrompt);
+    }
+
+    public Flux<String> streamComplete(ModelRole role, String model, String systemPrompt, String userPrompt) {
+        return getProvider(role).streamComplete(role, model, systemPrompt, userPrompt);
     }
 
     public boolean isHealthy(ModelRole role) {

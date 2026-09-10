@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.Duration;
@@ -14,7 +15,7 @@ import java.util.Map;
 
 /**
  * Ollama-backed provider. Talks to the local Ollama HTTP API
- * (POST /api/generate with {"model": ..., "prompt": ..., "stream": false}).
+ * (POST /api/generate with {"model": ..., "prompt": ..., "stream": true/false}).
  * Falls back gracefully: complete() throws {@link ProviderUnavailableException}
  * when Ollama is not reachable so the TutorService can use static fallbacks.
  */
@@ -84,6 +85,55 @@ public class OllamaProvider implements AIProvider {
             log.warn("Ollama completion failed (model={}): {}", resolvedModel, e.getMessage());
             throw new ProviderUnavailableException("Ollama unavailable: " + e.getMessage(), e);
         }
+    }
+
+    @Override
+    public Flux<String> streamComplete(ModelRole role, String model, String systemPrompt, String userPrompt) {
+        String resolvedModel = (model == null || model.isBlank()) ? resolveModel(role) : model;
+        String prompt = appendSystem(systemPrompt, userPrompt);
+
+        return webClient.post()
+            .uri(baseUrl + "/api/generate")
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.TEXT_EVENT_STREAM)
+            .bodyValue(Map.of(
+                "model", resolvedModel,
+                "prompt", prompt,
+                "stream", true,
+                "options", Map.of("temperature", 0.4, "num_predict", 1024)
+            ))
+            .retrieve()
+            .bodyToFlux(String.class)
+            .timeout(Duration.ofSeconds(60))
+            .flatMap(this::parseStreamChunk)
+            .onErrorResume(e -> {
+                log.warn("Ollama streaming failed (model={}): {}", resolvedModel, e.getMessage());
+                return Flux.error(new ProviderUnavailableException("Ollama streaming unavailable: " + e.getMessage(), e));
+            });
+    }
+
+    private Flux<String> parseStreamChunk(String raw) {
+        // Ollama streaming response: {"model":"...","response":"chunk","done":false}
+        if (raw == null || raw.isBlank()) {
+            return Flux.empty();
+        }
+        
+        int idx = raw.indexOf("\"response\"");
+        if (idx < 0) return Flux.empty();
+        
+        int start = raw.indexOf(':', idx) + 1;
+        if (start <= 0) return Flux.empty();
+        
+        while (start < raw.length() && (raw.charAt(start) == ' ' || raw.charAt(start) == '"')) start++;
+        int end = raw.indexOf('"', start);
+        if (end < 0) end = raw.length();
+        
+        String text = raw.substring(start, end)
+            .replace("\\n", "\n")
+            .replace("\\\"", "\"")
+            .replace("\\\\", "\\");
+        
+        return text.isBlank() ? Flux.empty() : Flux.just(text);
     }
 
     private String extractResponse(String raw) {

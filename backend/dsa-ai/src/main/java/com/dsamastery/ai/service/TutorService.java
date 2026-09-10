@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Flux;
 
 import java.time.Instant;
 import java.util.List;
@@ -124,6 +125,93 @@ public class TutorService {
         conversationRepository.save(conversation);
 
         return assistantMsg;
+    }
+
+    /**
+     * Send a message and stream the response back as Flux of chunks.
+     * Note: This method is not @Transactional because we need to stream before committing.
+     * The message is saved after streaming completes.
+     */
+    public Flux<String> streamMessage(UUID conversationId, String userMessage, MessageType type) {
+        AIConversation conversation = conversationRepository.findById(conversationId)
+            .orElseThrow(() -> new IllegalArgumentException("Conversation not found: " + conversationId));
+
+        int nextSequence = messageRepository.findMaxSequenceByConversationId(conversationId)
+            .map(s -> s + 1)
+            .orElse(1);
+
+        final int assistantSequence = nextSequence;
+
+        // Save user message first
+        AIMessage userMsg = AIMessage.builder()
+            .conversation(conversation)
+            .role(MessageRole.USER)
+            .content(userMessage)
+            .type(type)
+            .sequence(nextSequence)
+            .createdAt(Instant.now())
+            .build();
+        messageRepository.save(userMsg);
+
+        // Get problem context
+        Problem problem = problemService.getProblemById(conversation.getProblemId()).orElse(null);
+        String context = problem != null ? contextBuilder.buildContext(conversation.getProblemId()).orElse("") : "";
+        String systemPrompt = buildSystemPrompt(problem, context);
+
+        // Try AI provider streaming, fall back to static
+        if (!modelRouter.isHealthy(conversation.getModelRole())) {
+            log.warn("AI provider unhealthy, using static fallback for streaming");
+            int attemptCount = (int) messageRepository.countByConversationIdAndRole(conversationId, MessageRole.USER);
+            String staticResponse = staticHintFallback.generate(problem, userMessage, type, attemptCount);
+            
+            // Save the static response
+            saveAssistantMessage(conversation, assistantSequence, staticResponse, type, Instant.now());
+            
+            // Return as single chunk flux
+            return Flux.just(staticResponse);
+        }
+
+        // Stream from provider and accumulate
+        StringBuilder fullResponse = new StringBuilder();
+        return modelRouter.streamComplete(
+            conversation.getModelRole(),
+            conversation.getModelUsed(),
+            systemPrompt,
+            userMessage
+        )
+            .doOnNext(chunk -> fullResponse.append(chunk))
+            .doOnComplete(() -> {
+                // Save the complete response after streaming finishes
+                String completeResponse = fullResponse.toString();
+                saveAssistantMessage(conversation, assistantSequence, completeResponse, type, Instant.now());
+                
+                // Update conversation timestamp
+                conversation.setLastMessageAt(Instant.now());
+                conversationRepository.save(conversation);
+            })
+            .onErrorResume(e -> {
+                log.warn("AI streaming failed, using static fallback: {}", e.getMessage());
+                int attemptCount = (int) messageRepository.countByConversationIdAndRole(conversationId, MessageRole.USER);
+                String staticResponse = staticHintFallback.generate(problem, userMessage, type, attemptCount);
+                
+                saveAssistantMessage(conversation, assistantSequence, staticResponse, type, Instant.now());
+                conversation.setLastMessageAt(Instant.now());
+                conversationRepository.save(conversation);
+                
+                return Flux.just(staticResponse);
+            });
+    }
+
+    private void saveAssistantMessage(AIConversation conversation, int sequence, String content, MessageType type, Instant createdAt) {
+        AIMessage assistantMsg = AIMessage.builder()
+            .conversation(conversation)
+            .role(MessageRole.ASSISTANT)
+            .content(content)
+            .type(type)
+            .sequence(sequence)
+            .createdAt(createdAt)
+            .build();
+        messageRepository.save(assistantMsg);
     }
 
     @Transactional(readOnly = true)
