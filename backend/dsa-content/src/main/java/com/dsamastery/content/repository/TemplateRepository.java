@@ -1,6 +1,7 @@
 package com.dsamastery.content.repository;
 
 import com.dsamastery.content.entity.Template;
+import com.dsamastery.common.enums.ContentStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,6 +21,14 @@ public interface TemplateRepository extends JpaRepository<Template, UUID> {
     List<Template> findByPatternId(UUID patternId);
     
     List<Template> findByLanguage(String language);
+    
+    List<Template> findByLanguageAndPatternId(String language, UUID patternId);
+    
+    List<Template> findByProblemsId(UUID problemId);
+    
+    List<Template> findByPurposeAndStatus(String purpose, ContentStatus status);
+    
+    List<Template> findByStatus(ContentStatus status);
     
     @Query("""
         SELECT DISTINCT t FROM Template t
