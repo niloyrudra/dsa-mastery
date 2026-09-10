@@ -20,6 +20,8 @@ public interface DataStructureRepository extends JpaRepository<DataStructure, UU
     
     List<DataStructure> findByStatusOrderByNameAsc(ContentStatus status);
     
+    List<DataStructure> findByStatus(ContentStatus status);
+    
     @Query("""
         SELECT DISTINCT d FROM DataStructure d
         LEFT JOIN FETCH d.problems
