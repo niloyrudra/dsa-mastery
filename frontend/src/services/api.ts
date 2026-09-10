@@ -113,8 +113,12 @@ export const executionApi = {
   getJob: (jobId: string) => 
     api.get<ExecutionResultDto>(`/execution/jobs/${jobId}`),
   
+  streamJob: (jobId: string) => {
+    return new EventSource(`${api.defaults.baseURL}/execution/jobs/${jobId}/stream`);
+  },
+
   getHistory: (problemId?: string) => 
-    api.get<ExecutionResultDto[]>('/execution/history', { params: { problemId } }),
+    api.get<ExecutionResultDto[]>('/execution/jobs', { params: { problemId } }),
 };
 
 export const masteryApi = {
