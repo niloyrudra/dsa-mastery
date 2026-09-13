@@ -33,15 +33,15 @@ export function AITutorPanel({ problem }: { problem: ProblemChapterDto }) {
   const [selectedHintType, setSelectedHintType] = useState<'concept' | 'hint' | 'approach' | 'review' | 'complexity' | 'variation'>('concept');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const eventSourceRef = useRef<EventSource | null>(null);
+  const abortRef = useRef<(() => void) | null>(null);
   const assistantMessageIdRef = useRef<string | null>(null);
   
-  // Cleanup EventSource on unmount
+  // Cleanup on unmount
   useEffect(() => {
     return () => {
-      if (eventSourceRef.current) {
-        eventSourceRef.current.close();
-        eventSourceRef.current = null;
+      if (abortRef.current) {
+        abortRef.current();
+        abortRef.current = null;
       }
     };
   }, []);
@@ -62,10 +62,10 @@ export function AITutorPanel({ problem }: { problem: ProblemChapterDto }) {
     scrollToBottom();
   }, [messages]);
   
-  const closeEventSource = useCallback(() => {
-    if (eventSourceRef.current) {
-      eventSourceRef.current.close();
-      eventSourceRef.current = null;
+  const closeStream = useCallback(() => {
+    if (abortRef.current) {
+      abortRef.current();
+      abortRef.current = null;
     }
   }, []);
   
@@ -94,49 +94,30 @@ export function AITutorPanel({ problem }: { problem: ProblemChapterDto }) {
                           selectedHintType === 'complexity' ? 'COMPLEXITY_ANALYSIS' :
                           selectedHintType === 'variation' ? 'VARIATION' : 'EXPLANATION';
       
-      // Use SSE streaming
-      const eventSource = aiApi.streamMessage(conversationId!, { 
-        content: userMessage, 
-        type: messageType 
-      });
-      eventSourceRef.current = eventSource;
-      
       let fullContent = '';
       
-      eventSource.onmessage = (event) => {
-        try {
-          const data = event.data;
-          if (data === '[DONE]' || data === 'done') {
-            closeEventSource();
-            setStreaming(false);
-            setIsLoading(false);
-            return;
+      abortRef.current = aiApi.streamMessage(
+        conversationId!,
+        { content: userMessage, type: messageType },
+        (chunk: string) => {
+          fullContent += chunk;
+          updateLastMessage(fullContent);
+        },
+        () => {
+          closeStream();
+          setStreaming(false);
+          setIsLoading(false);
+        },
+        (error: Error) => {
+          console.error('SSE error:', error);
+          closeStream();
+          if (!fullContent) {
+            updateLastMessage('Sorry, I encountered an error. Please try again.');
           }
-          
-          // Parse the SSE data (format: "data: {json}\n\n")
-          const parsed = JSON.parse(data);
-          if (parsed.content) {
-            fullContent += parsed.content;
-            updateLastMessage(fullContent);
-          }
-        } catch (e) {
-          // If not JSON, treat as raw text chunk
-          if (data && data !== '[DONE]' && data !== 'done') {
-            fullContent += data;
-            updateLastMessage(fullContent);
-          }
+          setStreaming(false);
+          setIsLoading(false);
         }
-      };
-      
-      eventSource.onerror = (error) => {
-        console.error('SSE error:', error);
-        closeEventSource();
-        if (!fullContent) {
-          updateLastMessage('Sorry, I encountered an error. Please try again.');
-        }
-        setStreaming(false);
-        setIsLoading(false);
-      };
+      );
       
     } catch (error) {
       console.error('AI error:', error);

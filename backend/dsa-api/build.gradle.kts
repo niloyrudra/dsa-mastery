@@ -19,14 +19,15 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("org.projectlombok:lombok")
-    annotationProcessor("org.projectlombok:lombok")
+    implementation("io.projectreactor:reactor-core")
+    implementation("org.flywaydb:flyway-core:11.3.0")
+    implementation("org.flywaydb:flyway-database-postgresql:11.3.0")
+    implementation("org.projectlombok:lombok:1.18.30")
+    annotationProcessor("org.projectlombok:lombok:1.18.30")
 
     // MapStruct DTO mapping (mappers live in this module)
     implementation("org.mapstruct:mapstruct:1.5.5.Final")
     annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
-    // Lombok must run before MapStruct so builders exist; binding links the two
-    annotationProcessor("org.projectlombok:lombok-mapstruct-binding:0.2.0")
 }
 
 
@@ -66,4 +67,16 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         )
         jvmTarget = "21"
     }
+}
+
+tasks.withType<JavaCompile> {
+    options.compilerArgs.add("-processor")
+    options.compilerArgs.add("lombok.launch.AnnotationProcessorHider\$AnnotationProcessor,org.mapstruct.ap.MappingProcessor")
+    options.annotationProcessorPath = project.files(configurations.annotationProcessor.get())
+}
+// Convenience alias: `./gradlew :dsa-api:rootRun` behaves exactly like bootRun
+tasks.register("rootRun") {
+    group = "application"
+    description = "Alias for bootRun - starts the Spring Boot API."
+    dependsOn("bootRun")
 }

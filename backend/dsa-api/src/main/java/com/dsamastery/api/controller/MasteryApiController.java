@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v1/mastery")
 @RequiredArgsConstructor
-public class MasteryController {
+public class MasteryApiController {
     
     private final MasteryService masteryService;
     

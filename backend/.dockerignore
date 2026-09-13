@@ -1,0 +1,39 @@
+# Gradle
+.gradle/
+build/
+# Don't exclude gradle build files - needed for Docker build
+# *.gradle.kts
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Docker
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# Git
+.git/
+.gitignore
+
+# Node modules (if any)
+node_modules/
+
+# Test reports
+**/test-results/
+**/reports/
+
+# Temporary files
+tmp/
+*.tmp
+*.swp
+*.swo

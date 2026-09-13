@@ -140,7 +140,7 @@ export function CurriculumPage() {
   const masteryMap = useMemo(() => {
     const map = new Map<string, { status: string; score: number }>();
     masteryRecords?.forEach((record) => {
-      map.set(record.slug, { status: record.status, score: record.score });
+      map.set(record.entityId, { status: record.status, score: record.score });
     });
     return map;
   }, [masteryRecords]);

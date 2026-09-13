@@ -26,6 +26,8 @@ public class SearchController {
             @RequestParam(defaultValue = "10") int limit) {
 
         List<SearchResultDto> results = searchService.search(q, type, limit);
-        return ResponseEntity.ok(new SearchResponse(results));
+        return ResponseEntity.ok(SearchResponse.builder()
+            .results(results)
+            .build());
     }
 }

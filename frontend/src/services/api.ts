@@ -157,6 +157,77 @@ export const aiApi = {
 
   listConversations: (params?: { problemId?: string; cursor?: string; limit?: number }) => 
     api.get<AIConversationResponse[]>('/ai/conversations', { params }),
+
+  streamMessage: (conversationId: string, request: AIMessageRequest, onChunk: (chunk: string) => void, onDone: () => void, onError: (error: Error) => void) => {
+    const controller = new AbortController();
+    
+    fetch(`${api.defaults.baseURL}/ai/conversations/${conversationId}/messages/stream`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'text/event-stream',
+      },
+      body: JSON.stringify(request),
+      signal: controller.signal,
+    })
+      .then(async (response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const reader = response.body?.getReader();
+        if (!reader) {
+          throw new Error('No response body');
+        }
+        
+        const decoder = new TextDecoder();
+        let buffer = '';
+        
+        try {
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            
+            buffer += decoder.decode(value, { stream: true });
+            const lines = buffer.split('\n');
+            buffer = lines.pop() || '';
+            
+            for (const line of lines) {
+              if (line.startsWith('data: ')) {
+                const data = line.slice(6).trim();
+                if (data === '[DONE]' || data === 'done') {
+                  onDone();
+                  return;
+                }
+                try {
+                  const parsed = JSON.parse(data);
+                  if (parsed.content) {
+                    onChunk(parsed.content);
+                  }
+                } catch {
+                  // If not JSON, treat as raw text
+                  if (data) {
+                    onChunk(data);
+                  }
+                }
+              }
+            }
+          }
+          onDone();
+        } catch (error) {
+          if (error instanceof Error && error.name !== 'AbortError') {
+            onError(error);
+          }
+        }
+      })
+      .catch((error) => {
+        if (error instanceof Error && error.name !== 'AbortError') {
+          onError(error);
+        }
+      });
+    
+    return () => controller.abort();
+  },
 };
 
 export const searchApi = {

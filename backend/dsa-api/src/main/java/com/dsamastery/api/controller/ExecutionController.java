@@ -6,11 +6,17 @@ import com.dsamastery.api.dto.ExecutionResultDto;
 import com.dsamastery.api.dto.TestResultDto;
 import com.dsamastery.execution.entity.ExecutionAttempt;
 import com.dsamastery.execution.service.ExecutionService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
+import java.time.Duration;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -20,6 +26,27 @@ import java.util.stream.Collectors;
 public class ExecutionController {
     
     private final ExecutionService executionService;
+private final ObjectMapper objectMapper;
+
+    @GetMapping(value = "/jobs/{jobId}/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<String> streamJob(@PathVariable UUID jobId) {
+        return Flux.interval(Duration.ofSeconds(1))
+            .flatMap(tick -> Mono.fromCallable(() -> executionService.getAttempt(jobId)))
+            .filter(Optional::isPresent)
+            .map(Optional::get)
+            .takeUntil(attempt -> attempt.getStatus().isTerminal())
+            .map(attempt -> "data: " + toJson(toResultDto(attempt)) + "\n\n")
+            .concatWith(Mono.just("data: done\n\n"))
+            .onErrorReturn("data: {\"status\":\"ERROR\",\"error\":\"stream failed\"}\n\n");
+    }
+
+    private String toJson(Object value) {
+        try {
+            return objectMapper.writeValueAsString(value);
+        } catch (Exception e) {
+            return "{}";
+        }
+    }
     
     @PostMapping("/jobs")
     public ResponseEntity<ExecutionJobResponse> submit(@RequestBody ExecutionRequest request) {
@@ -30,11 +57,11 @@ public class ExecutionController {
             request.getTestCases()
         );
         
-        return ResponseEntity.accepted().body(new ExecutionJobResponse(
-            attempt.getId(),
-            attempt.getStatus(),
-            attempt.getAttemptedAt().toString()
-        ));
+        return ResponseEntity.accepted().body(ExecutionJobResponse.builder()
+            .jobId(attempt.getId())
+            .status(attempt.getStatus())
+            .submittedAt(attempt.getAttemptedAt().toString())
+            .build());
     }
     
     @GetMapping("/jobs/{jobId}")

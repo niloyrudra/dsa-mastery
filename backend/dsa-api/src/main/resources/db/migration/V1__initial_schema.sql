@@ -5,7 +5,7 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE EXTENSION IF NOT EXISTS "pg_trgm";
 CREATE EXTENSION IF NOT EXISTS "btree_gin";
-CREATE EXTENSION IF NOT EXISTS "citext";
+-- citext not needed, using VARCHAR for slug columns
 
 -- ============================================
 -- CORE CONTENT TABLES
@@ -13,7 +13,7 @@ CREATE EXTENSION IF NOT EXISTS "citext";
 
 CREATE TABLE problems (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    slug CITEXT NOT NULL UNIQUE,
+    slug VARCHAR(200) NOT NULL UNIQUE,
     title VARCHAR(500) NOT NULL,
     description TEXT NOT NULL,
     external_url VARCHAR(1000),
@@ -32,7 +32,7 @@ CREATE INDEX idx_problems_order ON problems(order_index);
 
 CREATE TABLE patterns (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    slug CITEXT NOT NULL UNIQUE,
+    slug VARCHAR(100) NOT NULL UNIQUE,
     name VARCHAR(200) NOT NULL,
     category VARCHAR(50),
     definition TEXT NOT NULL,
@@ -60,7 +60,7 @@ CREATE INDEX idx_patterns_signals ON patterns USING GIN (recognition_signals);
 
 CREATE TABLE algorithms (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    slug CITEXT NOT NULL UNIQUE,
+    slug VARCHAR(100) NOT NULL UNIQUE,
     name VARCHAR(200) NOT NULL,
     description TEXT NOT NULL,
     step_by_step_reasoning TEXT NOT NULL,
@@ -79,7 +79,7 @@ CREATE INDEX idx_algorithms_status ON algorithms(status);
 
 CREATE TABLE data_structures (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    slug CITEXT NOT NULL UNIQUE,
+    slug VARCHAR(100) NOT NULL UNIQUE,
     name VARCHAR(200) NOT NULL,
     description TEXT NOT NULL,
     operations JSONB NOT NULL DEFAULT '{}',
@@ -96,7 +96,7 @@ CREATE INDEX idx_data_structures_status ON data_structures(status);
 
 CREATE TABLE templates (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    slug CITEXT NOT NULL UNIQUE,
+    slug VARCHAR(100) NOT NULL UNIQUE,
     name VARCHAR(200) NOT NULL,
     language VARCHAR(20) NOT NULL CHECK (language IN ('TYPESCRIPT', 'JAVASCRIPT', 'PYTHON')),
     purpose TEXT NOT NULL,
@@ -157,11 +157,6 @@ CREATE TABLE problem_related (
     PRIMARY KEY (problem_id, related_problem_id)
 );
 
-CREATE TABLE problem_prerequisites (
-    problem_id UUID NOT NULL REFERENCES problems(id) ON DELETE CASCADE,
-    concept_id UUID NOT NULL REFERENCES concepts(id) ON DELETE CASCADE,
-    PRIMARY KEY (problem_id, concept_id)
-);
 
 CREATE TABLE pattern_templates (
     pattern_id UUID NOT NULL REFERENCES patterns(id) ON DELETE CASCADE,
@@ -290,7 +285,7 @@ CREATE INDEX idx_tmpl_map_solution ON template_mappings(solution_id);
 
 CREATE TABLE concepts (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    slug CITEXT NOT NULL UNIQUE,
+    slug VARCHAR(100) NOT NULL UNIQUE,
     name VARCHAR(200) NOT NULL,
     description TEXT NOT NULL,
     explanation TEXT,
@@ -314,7 +309,12 @@ CREATE TABLE concept_patterns (
     PRIMARY KEY (concept_id, pattern_id)
 );
 
-CREATE TABLE references (
+CREATE TABLE problem_prerequisites (
+    problem_id UUID NOT NULL REFERENCES problems(id) ON DELETE CASCADE,
+    concept_id UUID NOT NULL REFERENCES concepts(id) ON DELETE CASCADE,
+    PRIMARY KEY (problem_id, concept_id)
+);
+CREATE TABLE entity_references (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     title VARCHAR(500) NOT NULL,
     url VARCHAR(1000) NOT NULL,
@@ -326,19 +326,19 @@ CREATE TABLE references (
 
 CREATE TABLE problem_references (
     problem_id UUID NOT NULL REFERENCES problems(id) ON DELETE CASCADE,
-    reference_id UUID NOT NULL REFERENCES references(id) ON DELETE CASCADE,
+    reference_id UUID NOT NULL REFERENCES entity_references(id) ON DELETE CASCADE,
     PRIMARY KEY (problem_id, reference_id)
 );
 
 CREATE TABLE pattern_references (
     pattern_id UUID NOT NULL REFERENCES patterns(id) ON DELETE CASCADE,
-    reference_id UUID NOT NULL REFERENCES references(id) ON DELETE CASCADE,
+    reference_id UUID NOT NULL REFERENCES entity_references(id) ON DELETE CASCADE,
     PRIMARY KEY (pattern_id, reference_id)
 );
 
 CREATE TABLE algorithm_references (
     algorithm_id UUID NOT NULL REFERENCES algorithms(id) ON DELETE CASCADE,
-    reference_id UUID NOT NULL REFERENCES references(id) ON DELETE CASCADE,
+    reference_id UUID NOT NULL REFERENCES entity_references(id) ON DELETE CASCADE,
     PRIMARY KEY (algorithm_id, reference_id)
 );
 
@@ -482,7 +482,7 @@ CREATE MATERIALIZED VIEW problem_similarity AS
 SELECT 
     p1.id AS problem_id_1,
     p2.id AS problem_id_2,
-    COUNT(DISTINCT pp.pattern_id) AS shared_patterns,
+    COUNT(DISTINCT pp1.pattern_id) AS shared_patterns,
     ARRAY_AGG(DISTINCT pat.slug) AS pattern_slugs
 FROM problems p1
 JOIN problem_patterns pp1 ON p1.id = pp1.problem_id

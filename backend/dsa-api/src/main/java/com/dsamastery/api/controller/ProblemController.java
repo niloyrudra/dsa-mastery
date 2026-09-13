@@ -3,6 +3,7 @@ package com.dsamastery.api.controller;
 import com.dsamastery.api.dto.ComplexityDto;
 import com.dsamastery.api.dto.MasteryDto;
 import com.dsamastery.api.dto.ProblemChapterDto;
+import com.dsamastery.api.dto.ProblemListResponse;
 import com.dsamastery.api.dto.ProblemSummaryDto;
 import com.dsamastery.api.dto.ProblemVariationDto;
 import com.dsamastery.api.dto.SolutionDto;
@@ -49,7 +50,12 @@ public class ProblemController {
             })
             .toList();
         
-        return ResponseEntity.ok(new ProblemListResponse(dtos, null, false, dtos.size()));
+        return ResponseEntity.ok(ProblemListResponse.builder()
+                .data(dtos)
+                .nextCursor(null)
+                .hasMore(false)
+                .total(dtos.size())
+                .build());
     }
     
     @GetMapping("/{slug}")
@@ -151,10 +157,4 @@ public class ProblemController {
         return ResponseEntity.ok(problemMapper.toMasteryDto(mastery));
     }
     
-    record ProblemListResponse(
-        List<ProblemSummaryDto> data,
-        String nextCursor,
-        boolean hasMore,
-        int total
-    ) {}
 }

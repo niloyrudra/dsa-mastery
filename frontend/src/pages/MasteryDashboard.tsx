@@ -18,7 +18,9 @@ import {
   Star,
   Award,
   Target,
-  BarChart2
+  BarChart2,
+  Search,
+  ListTree
 } from 'lucide-react';
 import { 
   useMasteryRecords, 
@@ -27,7 +29,7 @@ import {
   useRecommendedReviews 
 } from '@/hooks/useQueries';
 import { useUpdateMastery } from '@/hooks/useQueries';
-import { masteryApi } from '@/services/api';
+import { masteryApi, aiApi } from '@/services/api';
 import clsx from 'clsx';
 import type { MasteryRecordDto, ReviewDto } from '@/types';
 
@@ -98,8 +100,8 @@ function MasteryCard({ record, onReview }: {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-semibold text-slate-900 dark:text-slate-100 truncate max-w-[200px]">{record.name || record.slug}</span>
-              <TypeIcon className={clsx('w-4 h-4', typeConfig.color)} title={typeConfig.label} />
+              <span className="font-semibold text-slate-900 dark:text-slate-100 truncate max-w-[200px]">{record.entityId.slice(0, 8)}...</span>
+              <TypeIcon className={clsx('w-4 h-4', typeConfig.color)} />
             </div>
             <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mt-1">
               <span className={clsx('px-2 py-0.5 rounded-full text-xs font-medium', statusConfig.bg)}>
@@ -257,8 +259,6 @@ function ReviewCard({ review, onReview }: {
   );
 }
 
-import { useState } from 'react';
-
 export function MasteryDashboard() {
   const { data: masteryRecords, isLoading: masteryLoading } = useMasteryRecords();
   const { data: masteryStats, isLoading: statsLoading } = useMasteryStats();
@@ -276,7 +276,7 @@ export function MasteryDashboard() {
     return masteryRecords.filter((record) => {
       if (filterStatus !== 'all' && record.status !== filterStatus) return false;
       if (filterType !== 'all' && record.entityType !== filterType) return false;
-      if (searchQuery && !record.name?.toLowerCase().includes(searchQuery.toLowerCase())) return false;
+      if (searchQuery && !record.entityId.toLowerCase().includes(searchQuery.toLowerCase())) return false;
       return true;
     });
   }, [masteryRecords, filterStatus, filterType, searchQuery]);
@@ -399,7 +399,7 @@ export function MasteryDashboard() {
                     key={review.entityId}
                     review={review}
                     onReview={(entityId, entityType, quality) => {
-                      masteryApi.startConversation({ problemId: entityId as any, modelRole: 'CODING' });
+                      aiApi.startConversation({ problemId: entityId as any, modelRole: 'CODING' });
                     }}
                   />
                 ))}
@@ -439,7 +439,7 @@ export function MasteryDashboard() {
                           <StatusIcon className="w-5 h-5 text-slate-500" />
                         </div>
                         <div>
-                          <p className="font-medium text-slate-900 dark:text-slate-100 truncate max-w-[200px]">{record.name || record.slug}</p>
+                          <p className="font-medium text-slate-900 dark:text-slate-100 truncate max-w-[200px]">{record.entityId.slice(0, 8)}...</p>
                           <p className="text-sm text-slate-500 dark:text-slate-400">
                             {record.entityType} • Score: {record.score}%
                           </p>
@@ -500,7 +500,7 @@ export function MasteryDashboard() {
                 key={review.entityId}
                 review={review}
                 onReview={async (entityId, entityType, quality) => {
-                  await masteryApi.startConversation({ problemId: entityId as any, modelRole: 'CODING' });
+                  await aiApi.startConversation({ problemId: entityId as any, modelRole: 'CODING' });
                 }}
               />
             ))}
@@ -538,5 +538,3 @@ export function MasteryDashboard() {
     </div>
   );
 }
-
-import { Search, ListTree } from 'lucide-react';

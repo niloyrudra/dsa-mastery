@@ -45,7 +45,7 @@ const edgeTypes: EdgeTypes = {
   default: CustomEdge,
 };
 
-function CategoryNode({ data, selected }: { data: any; selected: boolean }) {
+function CategoryNode({ data, selected }: { data: { name: string; children?: CurriculumNodeDto[]; progress: number; total: number }; selected: boolean }) {
   const [expanded, setExpanded] = useState(true);
   const { name, children, progress, total } = data;
   
@@ -75,7 +75,7 @@ function CategoryNode({ data, selected }: { data: any; selected: boolean }) {
   );
 }
 
-function PatternNode({ data, selected }: { data: any; selected: boolean }) {
+function PatternNode({ data, selected }: { data: { name: string; description?: string; problems?: CurriculumNodeDto[]; progress: number; total: number }; selected: boolean }) {
   const { name, description, problems, progress, total } = data;
   
   return (
@@ -99,16 +99,9 @@ function PatternNode({ data, selected }: { data: any; selected: boolean }) {
   );
 }
 
-function ProblemNode({ data, selected }: { data: any; selected: boolean }) {
-  const { title, difficulty, status, score, externalUrl, slug } = data;
-  const mastery = data.mastery;
+function ProblemNode({ data, selected }: { data: { name: string; problemId?: string; mastery?: { status: string; score: number } | null }; selected: boolean }) {
+  const { name, problemId, mastery } = data;
   
-  const difficultyColor = {
-    EASY: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-    MEDIUM: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
-    HARD: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
-  }[difficulty] || 'bg-slate-100 text-slate-800 dark:bg-slate-700 dark:text-slate-200';
-
   const statusIcon = {
     MASTERED: <CheckCircle className="w-4 h-4 text-green-500" />,
     SOLVED: <CheckCircle className="w-4 h-4 text-blue-500" />,
@@ -122,10 +115,12 @@ function ProblemNode({ data, selected }: { data: any; selected: boolean }) {
       <div className="node-header">
         <div className="node-title-row">
           {statusIcon}
-          <span className="font-medium text-slate-900 dark:text-slate-100 truncate">{title}</span>
-          <span className={clsx('px-2 py-0.5 rounded text-xs font-medium', difficultyColor)}>
-            {difficulty}
-          </span>
+          <span className="font-medium text-slate-900 dark:text-slate-100 truncate">{name}</span>
+          {problemId && (
+            <a href={`/problem/${problemId}`} target="_blank" rel="noopener noreferrer" className="ml-1">
+              <ExternalLink className="w-3 h-3 text-slate-400 hover:text-primary-500" />
+            </a>
+          )}
         </div>
       </div>
       {mastery && mastery.score > 0 && (
@@ -148,7 +143,7 @@ function ProblemNode({ data, selected }: { data: any; selected: boolean }) {
   );
 }
 
-function CustomEdge({ id, sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition }) {
+function CustomEdge({ id, sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition }: { id: string; sourceX: number; sourceY: number; targetX: number; targetY: number; sourcePosition: Position; targetPosition: Position }) {
   const path = `M ${sourceX} ${sourceY} 
     C ${sourceX} ${(sourceY + targetY) / 2} 
       ${targetX} ${(sourceY + targetY) / 2} 
@@ -176,16 +171,17 @@ export function CurriculumGraph({
   const [selectedNode, setSelectedNode] = useState<string | null>(null);
 
   const buildGraph = useCallback((node: CurriculumNodeDto, parentId?: string, depth = 0) => {
-    const nodeId = node.id;
-    const mastery = masteryMap.get(node.slug || '');
+    const nodeId = node.id.toString();
+    const mastery = masteryMap.get(node.problemId?.toString() || node.id.toString()) || null;
     
     let type: 'category' | 'pattern' | 'problem' = 'category';
     if (node.type === 'PATTERN') type = 'pattern';
     else if (node.type === 'PROBLEM') type = 'problem';
     else if (node.type === 'ALGORITHM') type = 'pattern';
 
-    const progress = node.children?.reduce((sum, c) => sum + (c.progress || 0), 0) || 0;
-    const total = node.children?.reduce((sum, c) => sum + (c.total || 0), 0) || 0;
+    const childProblems = node.children?.filter(c => c.type === 'PROBLEM') || [];
+    const progress = childProblems.reduce((sum, c) => sum + (masteryMap.get(c.problemId?.toString() || c.id.toString())?.score || 0), 0);
+    const total = childProblems.length * 100; // Max possible score
 
     const newNode: Node = {
       id: nodeId,
@@ -194,14 +190,11 @@ export function CurriculumGraph({
       data: {
         name: node.name,
         description: node.description,
-        title: node.title,
-        difficulty: node.difficulty,
-        slug: node.slug,
-        externalUrl: node.externalUrl,
-        problems: node.children?.filter(c => c.type === 'PROBLEM'),
+        problems: childProblems,
         progress,
         total,
         mastery,
+        problemId: node.problemId?.toString(),
       },
       selected: nodeId === selectedNode,
     };
@@ -219,7 +212,7 @@ export function CurriculumGraph({
     }
 
     if (node.children && node.children.length > 0) {
-      node.children.forEach((child, index) => {
+      node.children.forEach((child) => {
         const childResult = buildGraph(child, nodeId, depth + 1);
         newNodes.push(...childResult.nodes);
         newEdges.push(...childResult.edges);
@@ -243,12 +236,12 @@ export function CurriculumGraph({
     setEdges((eds) => addEdge(connection, eds));
   }, [setEdges]);
 
-  const onNodeClickHandler = useCallback((_, node: Node) => {
+  const onNodeClickHandler = useCallback((_: React.MouseEvent, node: Node) => {
     setSelectedNode(node.id);
     if (onNodeClick && node.data) {
       // Find the original curriculum node
       const findNode = (n: CurriculumNodeDto): CurriculumNodeDto | null => {
-        if (n.id === node.id) return n;
+        if (n.id.toString() === node.id) return n;
         if (n.children) {
           for (const child of n.children) {
             const found = findNode(child);

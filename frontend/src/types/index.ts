@@ -365,6 +365,17 @@ export interface AIStreamChunk {
   messageId?: string;
 }
 
+export interface ReviewDto {
+  entityId: string;
+  entityType: string;
+  nextReviewDate: string;
+  due: boolean;
+  overdue: boolean;
+  masteryScore: number;
+  status: string;
+  lastPracticed: string;
+}
+
 export interface SearchRequest {
   q: string;
   type?: string;

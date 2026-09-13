@@ -176,7 +176,7 @@ public class ContentValidationService {
     }
 
     // Scheduled validation (disabled by default - enable via property)
-    @Scheduled(cron = "${validation.schedule:0 2 * * *}") // Daily at 2 AM
+    @Scheduled(cron = "${validation.schedule:0 0 2 * * *}") // Daily at 2 AM
     public void scheduledValidation() {
         log.info("Running scheduled content validation");
         ValidationReport report = validateAllSolutions();
