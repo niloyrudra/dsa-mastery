@@ -3,8 +3,11 @@ package com.dsamastery.api.controller;
 import com.dsamastery.api.dto.MasteryRecordDto;
 import com.dsamastery.api.dto.MasteryStatsDto;
 import com.dsamastery.api.dto.ProblemStats;
+import com.dsamastery.api.dto.ReviewDto;
+import com.dsamastery.api.dto.ReviewStatsDto;
 import com.dsamastery.mastery.entity.MasteryRecord;
 import com.dsamastery.mastery.service.MasteryService;
+import com.dsamastery.mastery.service.SpacedRepetitionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +22,7 @@ import java.util.stream.Collectors;
 public class MasteryApiController {
     
     private final MasteryService masteryService;
+    private final SpacedRepetitionService spacedRepetitionService;
     
     @GetMapping
     public ResponseEntity<List<MasteryRecordDto>> getAllMastery(
@@ -50,6 +54,46 @@ public class MasteryApiController {
             .patterns(stats.patterns())
             .overallProgress(stats.overallProgress())
             .build());
+    }
+    
+    @GetMapping("/review/stats")
+    public ResponseEntity<ReviewStatsDto> getReviewStats() {
+        SpacedRepetitionService.ReviewStats stats = spacedRepetitionService.getReviewStats();
+        return ResponseEntity.ok(ReviewStatsDto.builder()
+            .dueCount(stats.dueCount())
+            .overdueCount(stats.overdueCount())
+            .learningCount(stats.learningCount())
+            .masteredCount(stats.masteredCount())
+            .dailyDueNext7Days(stats.dailyDueNext7Days())
+            .build());
+    }
+    
+    @GetMapping("/review/due")
+    public ResponseEntity<List<ReviewDto>> getDueReviews(
+            @RequestParam(defaultValue = "10") int limit) {
+        
+        List<MasteryRecord> due = spacedRepetitionService.getRecommendedReviews(limit);
+        return ResponseEntity.ok(due.stream()
+            .map(r -> ReviewDto.from(r, spacedRepetitionService))
+            .toList());
+    }
+    
+    @GetMapping("/review/all")
+    public ResponseEntity<List<ReviewDto>> getAllReviews() {
+        List<MasteryRecord> all = masteryService.getAllMastery();
+        return ResponseEntity.ok(all.stream()
+            .map(r -> ReviewDto.from(r, spacedRepetitionService))
+            .toList());
+    }
+    
+    @PostMapping("/review/{entityType}/{entityId}")
+    public ResponseEntity<ReviewDto> submitReview(
+            @PathVariable String entityType,
+            @PathVariable UUID entityId,
+            @RequestBody SpacedRepetitionService.ReviewQuality quality) {
+        
+        MasteryRecord record = spacedRepetitionService.recordReview(entityId, entityType, quality);
+        return ResponseEntity.ok(ReviewDto.from(record, spacedRepetitionService));
     }
     
     @PatchMapping("/{entityType}/{entityId}")
