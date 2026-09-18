@@ -1,0 +1,11 @@
+- title: "Minimum Window Substring - LeetCode"
+  url: "https://leetcode.com/problems/minimum-window-substring/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Minimum Window Substring Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Minimum Window Substring - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

@@ -14,4 +14,6 @@ public interface SolutionRepository extends JpaRepository<Solution, UUID> {
     List<Solution> findByProblemIdOrderByApproachAsc(UUID problemId);
     
     List<Solution> findByProblemIdAndApproach(UUID problemId, Approach approach);
+    
+    boolean existsByProblemIdAndApproach(UUID problemId, Approach approach);
 }

@@ -1,0 +1,11 @@
+- title: "Merge K Sorted Lists - LeetCode"
+  url: "https://leetcode.com/problems/merge-k-sorted-lists/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Merge K Sorted Lists Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Merge K Sorted Lists - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

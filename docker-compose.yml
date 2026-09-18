@@ -71,6 +71,7 @@ services:
     volumes:
       - gradle_cache:/home/gradle/.gradle
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./content:/app/content
 
   frontend:
     build:

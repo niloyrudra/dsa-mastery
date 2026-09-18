@@ -1,0 +1,71 @@
+- name: "Basic Example 1"
+  description: "Duplicate at beginning and end"
+  input:
+    nums: [1, 2, 3, 1]
+  expected: true
+  type: "BASIC"
+  hidden: false
+
+- name: "Basic Example 2"
+  description: "All distinct elements"
+  input:
+    nums: [1, 2, 3, 4]
+  expected: false
+  type: "BASIC"
+  hidden: false
+
+- name: "Basic Example 3"
+  description: "Multiple duplicates"
+  input:
+    nums: [1, 1, 1, 3, 3, 4, 3, 2, 4, 2]
+  expected: true
+  type: "BASIC"
+  hidden: false
+
+- name: "Edge: Single Element"
+  description: "Array with one element has no duplicates"
+  input:
+    nums: [1]
+  expected: false
+  type: "EDGE_CASE"
+  hidden: false
+
+- name: "Edge: Two Same Elements"
+  description: "Minimum array with duplicate"
+  input:
+    nums: [1, 1]
+  expected: true
+  type: "EDGE_CASE"
+  hidden: false
+
+- name: "Edge: Negative Numbers"
+  description: "Duplicates with negative values"
+  input:
+    nums: [-1, -2, -3, -1]
+  expected: true
+  type: "EDGE_CASE"
+  hidden: false
+
+- name: "Edge: Large Numbers"
+  description: "Values at constraint boundaries"
+  input:
+    nums: [-1000000000, 1000000000, -1000000000]
+  expected: true
+  type: "EDGE_CASE"
+  hidden: false
+
+- name: "Performance: Large Distinct Array"
+  description: "100,000 distinct elements - tests O(n) vs O(n²)"
+  input:
+    nums: "GENERATE: range(100000)"
+  expected: false
+  type: "PERFORMANCE"
+  hidden: true
+
+- name: "Performance: Large Array with Early Duplicate"
+  description: "Duplicate at beginning, large array"
+  input:
+    nums: "GENERATE: [1, 1] + range(100000)"
+  expected: true
+  type: "PERFORMANCE"
+  hidden: true

@@ -1,0 +1,11 @@
+- title: "Coin Change - LeetCode"
+  url: "https://leetcode.com/problems/coin-change/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Coin Change Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Coin Change - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

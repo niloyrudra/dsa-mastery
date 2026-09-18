@@ -19,6 +19,7 @@ import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
@@ -35,7 +36,8 @@ public interface AlgorithmMapper {
     AlgorithmDetailDto toDetailDto(Algorithm algorithm);
     
     @Named("toPatternSummary")
-    default List<PatternSummaryDto> toPatternSummary(List<Pattern> patterns) {
+    default List<PatternSummaryDto> toPatternSummary(Set<Pattern> patterns) {
+        if (patterns == null) return List.of();
         return patterns.stream()
             .map(p -> PatternSummaryDto.builder()
                 .id(p.getId())
@@ -46,7 +48,8 @@ public interface AlgorithmMapper {
     }
     
     @Named("toDataStructureSummary")
-    default List<DataStructureSummaryDto> toDataStructureSummary(List<DataStructure> dss) {
+    default List<DataStructureSummaryDto> toDataStructureSummary(Set<DataStructure> dss) {
+        if (dss == null) return List.of();
         return dss.stream()
             .map(d -> DataStructureSummaryDto.builder()
                 .id(d.getId())
@@ -57,7 +60,8 @@ public interface AlgorithmMapper {
     }
     
     @Named("toTemplateSummary")
-    default List<TemplateSummaryDto> toTemplateSummary(List<Template> templates) {
+    default List<TemplateSummaryDto> toTemplateSummary(Set<Template> templates) {
+        if (templates == null) return List.of();
         return templates.stream()
             .map(t -> TemplateSummaryDto.builder()
                 .id(t.getId())
@@ -69,7 +73,8 @@ public interface AlgorithmMapper {
     }
     
     @Named("toProblemSummary")
-    default List<ProblemReferenceDto> toProblemSummary(List<Problem> problems) {
+    default List<ProblemReferenceDto> toProblemSummary(Set<Problem> problems) {
+        if (problems == null) return List.of();
         return problems.stream()
             .map(p -> ProblemReferenceDto.builder()
                 .id(p.getId())
@@ -81,7 +86,8 @@ public interface AlgorithmMapper {
     }
     
     @Named("toReferenceDto")
-    default List<ReferenceDto> toReferenceDto(List<Reference> references) {
+    default List<ReferenceDto> toReferenceDto(Set<Reference> references) {
+        if (references == null) return List.of();
         return references.stream()
             .map(r -> ReferenceDto.builder()
                 .id(r.getId())

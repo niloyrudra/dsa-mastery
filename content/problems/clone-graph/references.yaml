@@ -1,0 +1,11 @@
+- title: "Clone Graph - LeetCode"
+  url: "https://leetcode.com/problems/clone-graph/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Clone Graph Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Clone Graph - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

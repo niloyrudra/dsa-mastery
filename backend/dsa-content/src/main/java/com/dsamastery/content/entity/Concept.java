@@ -40,11 +40,11 @@ public class Concept extends BaseEntity {
         inverseJoinColumns = @JoinColumn(name = "prerequisite_id")
     )
     @Builder.Default
-    private List<Concept> prerequisites = new ArrayList<>();
+    private Set<Concept> prerequisites = new LinkedHashSet<>();
     
     @ManyToMany(mappedBy = "prerequisites")
     @Builder.Default
-    private List<Problem> problems = new ArrayList<>();
+    private Set<Problem> problems = new LinkedHashSet<>();
     
     @ManyToMany
     @JoinTable(
@@ -53,7 +53,7 @@ public class Concept extends BaseEntity {
         inverseJoinColumns = @JoinColumn(name = "pattern_id")
     )
     @Builder.Default
-    private List<Pattern> patterns = new ArrayList<>();
+    private Set<Pattern> patterns = new LinkedHashSet<>();
     
     @ManyToMany
     @JoinTable(
@@ -62,5 +62,5 @@ public class Concept extends BaseEntity {
         inverseJoinColumns = @JoinColumn(name = "reference_id")
     )
     @Builder.Default
-    private List<Reference> references = new ArrayList<>();
+    private Set<Reference> references = new LinkedHashSet<>();
 }

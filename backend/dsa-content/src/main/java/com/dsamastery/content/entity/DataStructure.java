@@ -48,15 +48,15 @@ public class DataStructure extends BaseEntity {
     
     @ManyToMany(mappedBy = "dataStructures")
     @Builder.Default
-    private List<Problem> problems = new ArrayList<>();
+    private Set<Problem> problems = new LinkedHashSet<>();
     
     @ManyToMany(mappedBy = "dataStructures")
     @Builder.Default
-    private List<Pattern> patterns = new ArrayList<>();
+    private Set<Pattern> patterns = new LinkedHashSet<>();
     
     @ManyToMany(mappedBy = "dataStructures")
     @Builder.Default
-    private List<Algorithm> algorithms = new ArrayList<>();
+    private Set<Algorithm> algorithms = new LinkedHashSet<>();
     
     @ManyToMany
     @JoinTable(
@@ -65,5 +65,5 @@ public class DataStructure extends BaseEntity {
         inverseJoinColumns = @JoinColumn(name = "reference_id")
     )
     @Builder.Default
-    private List<Reference> references = new ArrayList<>();
+    private Set<Reference> references = new LinkedHashSet<>();
 }

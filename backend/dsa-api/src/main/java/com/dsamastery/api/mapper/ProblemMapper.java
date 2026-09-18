@@ -33,6 +33,7 @@ import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
@@ -63,7 +64,8 @@ public interface ProblemMapper {
     ProblemSummaryDto toSummaryDto(Problem problem, MasteryRecord mastery);
     
     @Named("toPatternSummary")
-    default List<PatternSummaryDto> toPatternSummary(List<Pattern> patterns) {
+    default List<PatternSummaryDto> toPatternSummary(Set<Pattern> patterns) {
+        if (patterns == null) return List.of();
         return patterns.stream()
             .map(p -> PatternSummaryDto.builder()
                 .id(p.getId())
@@ -74,12 +76,14 @@ public interface ProblemMapper {
     }
     
     @Named("toPatternSlugs")
-    default List<String> toPatternSlugs(List<Pattern> patterns) {
+    default List<String> toPatternSlugs(Set<Pattern> patterns) {
+        if (patterns == null) return List.of();
         return patterns.stream().map(Pattern::getSlug).collect(Collectors.toList());
     }
     
     @Named("toAlgorithmSummary")
-    default List<AlgorithmSummaryDto> toAlgorithmSummary(List<Algorithm> algorithms) {
+    default List<AlgorithmSummaryDto> toAlgorithmSummary(Set<Algorithm> algorithms) {
+        if (algorithms == null) return List.of();
         return algorithms.stream()
             .map(a -> AlgorithmSummaryDto.builder()
                 .id(a.getId())
@@ -90,12 +94,14 @@ public interface ProblemMapper {
     }
     
     @Named("toAlgorithmSlugs")
-    default List<String> toAlgorithmSlugs(List<Algorithm> algorithms) {
+    default List<String> toAlgorithmSlugs(Set<Algorithm> algorithms) {
+        if (algorithms == null) return List.of();
         return algorithms.stream().map(Algorithm::getSlug).collect(Collectors.toList());
     }
     
     @Named("toDataStructureSummary")
-    default List<DataStructureSummaryDto> toDataStructureSummary(List<DataStructure> dss) {
+    default List<DataStructureSummaryDto> toDataStructureSummary(Set<DataStructure> dss) {
+        if (dss == null) return List.of();
         return dss.stream()
             .map(d -> DataStructureSummaryDto.builder()
                 .id(d.getId())
@@ -106,12 +112,14 @@ public interface ProblemMapper {
     }
     
     @Named("toDataStructureSlugs")
-    default List<String> toDataStructureSlugs(List<DataStructure> dss) {
+    default List<String> toDataStructureSlugs(Set<DataStructure> dss) {
+        if (dss == null) return List.of();
         return dss.stream().map(DataStructure::getSlug).collect(Collectors.toList());
     }
     
     @Named("toTemplateSummary")
-    default List<TemplateSummaryDto> toTemplateSummary(List<Template> templates) {
+    default List<TemplateSummaryDto> toTemplateSummary(Set<Template> templates) {
+        if (templates == null) return List.of();
         return templates.stream()
             .map(t -> TemplateSummaryDto.builder()
                 .id(t.getId())
@@ -122,7 +130,8 @@ public interface ProblemMapper {
     }
     
     @Named("toVariationDto")
-    default List<ProblemVariationDto> toVariationDto(List<ProblemVariation> variations) {
+    default List<ProblemVariationDto> toVariationDto(Set<ProblemVariation> variations) {
+        if (variations == null) return List.of();
         return variations.stream()
             .map(v -> ProblemVariationDto.builder()
                 .id(v.getId())
@@ -133,7 +142,8 @@ public interface ProblemMapper {
     }
     
     @Named("toSolutionDto")
-    default List<SolutionDto> toSolutionDto(List<Solution> solutions) {
+    default List<SolutionDto> toSolutionDto(Set<Solution> solutions) {
+        if (solutions == null) return List.of();
         return solutions.stream()
             .map(s -> SolutionDto.builder()
                 .id(s.getId())
@@ -152,7 +162,8 @@ public interface ProblemMapper {
     }
     
     @Named("toTestCaseDto")
-    default List<TestCaseDto> toTestCaseDto(List<TestCase> testCases) {
+    default List<TestCaseDto> toTestCaseDto(Set<TestCase> testCases) {
+        if (testCases == null) return List.of();
         return testCases.stream()
             .map(t -> TestCaseDto.builder()
                 .id(t.getId())
@@ -167,7 +178,8 @@ public interface ProblemMapper {
     }
     
     @Named("toLearningObjectiveDto")
-    default List<LearningObjectiveDto> toLearningObjectiveDto(List<LearningObjective> objectives) {
+    default List<LearningObjectiveDto> toLearningObjectiveDto(Set<LearningObjective> objectives) {
+        if (objectives == null) return List.of();
         return objectives.stream()
             .map(o -> LearningObjectiveDto.builder()
                 .id(o.getId())
@@ -178,7 +190,8 @@ public interface ProblemMapper {
     }
     
     @Named("toReferenceDto")
-    default List<ReferenceDto> toReferenceDto(List<Reference> references) {
+    default List<ReferenceDto> toReferenceDto(Set<Reference> references) {
+        if (references == null) return List.of();
         return references.stream()
             .map(r -> ReferenceDto.builder()
                 .id(r.getId())
@@ -192,7 +205,8 @@ public interface ProblemMapper {
     }
     
     @Named("toProblemSummary")
-    default List<ProblemReferenceDto> toProblemSummary(List<Problem> problems) {
+    default List<ProblemReferenceDto> toProblemSummary(Set<Problem> problems) {
+        if (problems == null) return List.of();
         return problems.stream()
             .map(p -> ProblemReferenceDto.builder()
                 .id(p.getId())
@@ -204,7 +218,8 @@ public interface ProblemMapper {
     }
     
     @Named("toConceptSummary")
-    default List<ConceptSummaryDto> toConceptSummary(List<Concept> concepts) {
+    default List<ConceptSummaryDto> toConceptSummary(Set<Concept> concepts) {
+        if (concepts == null) return List.of();
         return concepts.stream()
             .map(c -> ConceptSummaryDto.builder()
                 .id(c.getId())

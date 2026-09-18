@@ -1,71 +1,26 @@
 - name: "Basic Example 1"
-  description: "Single large island"
+  description: "Standard test case"
   input:
-    grid:
-      - ["1","1","1","1","0"]
-      - ["1","1","0","1","0"]
-      - ["1","1","0","0","0"]
-      - ["0","0","0","0","0"]
-  expected: 1
+    nums: [1, 2, 3]
+    target: 6
+  expected: [0, 2]
   type: "BASIC"
   hidden: false
 
-- name: "Basic Example 2"
-  description: "Three separate islands"
+- name: "Edge: Empty/Single"
+  description: "Edge case with minimal input"
   input:
-    grid:
-      - ["1","1","0","0","0"]
-      - ["1","1","0","0","0"]
-      - ["0","0","1","0","0"]
-      - ["0","0","0","1","1"]
-  expected: 3
-  type: "BASIC"
-  hidden: false
-
-- name: "Edge: All Water"
-  description: "No islands"
-  input:
-    grid:
-      - ["0","0","0"]
-      - ["0","0","0"]
-  expected: 0
+    nums: [1]
+    target: 1
+  expected: [0, 0]
   type: "EDGE_CASE"
   hidden: false
 
-- name: "Edge: All Land"
-  description: "Single island covering entire grid"
+- name: "Performance: Large Input"
+  description: "Large input for performance testing"
   input:
-    grid:
-      - ["1","1","1"]
-      - ["1","1","1"]
-  expected: 1
-  type: "EDGE_CASE"
-  hidden: false
-
-- name: "Edge: Checkerboard"
-  description: "Maximum number of islands (alternating)"
-  input:
-    grid:
-      - ["1","0","1"]
-      - ["0","1","0"]
-      - ["1","0","1"]
-  expected: 5
-  type: "EDGE_CASE"
-  hidden: false
-
-- name: "Edge: Single Cell Land"
-  description: "1x1 grid with land"
-  input:
-    grid:
-      - ["1"]
-  expected: 1
-  type: "EDGE_CASE"
-  hidden: false
-
-- name: "Performance: Large Grid"
-  description: "300x300 grid"
-  input:
-    grid: "GENERATE: random_grid(300, 300, 0.5)"
-  expected: -1  # Will vary
+    nums: "GENERATE: range(10000)"
+    target: 19999
+  expected: [9999, 10000]
   type: "PERFORMANCE"
   hidden: true

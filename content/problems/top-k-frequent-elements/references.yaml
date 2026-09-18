@@ -1,0 +1,11 @@
+- title: "Top K Frequent Elements - LeetCode"
+  url: "https://leetcode.com/problems/top-k-frequent-elements/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Top K Frequent Elements Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Top K Frequent Elements - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

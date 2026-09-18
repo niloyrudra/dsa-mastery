@@ -1,0 +1,11 @@
+- title: "Maximum Subarray - LeetCode"
+  url: "https://leetcode.com/problems/maximum-subarray/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Maximum Subarray Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Maximum Subarray - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

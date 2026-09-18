@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -36,7 +37,7 @@ public class StaticHintFallback {
         StringBuilder sb = new StringBuilder();
         sb.append("Let's break this down step by step. I'll guide you with questions rather than give the answer away.\n\n");
         if (!problem.getPatterns().isEmpty()) {
-            Pattern pattern = problem.getPatterns().get(0);
+            Pattern pattern = problem.getPatterns().stream().findFirst().orElse(null);
             sb.append("**Recognition.** ").append(problem.getTitle())
                 .append(" fits the **").append(pattern.getName()).append("** pattern. ")
                 .append("Why do you think that pattern applies here? Look for ")
@@ -49,7 +50,7 @@ public class StaticHintFallback {
             sb.append("**Question 1:** Forget code for a minute — if you had to solve this by hand, what would your first step be?");
         } else if (attemptCount <= 2) {
             if (!problem.getDataStructures().isEmpty()) {
-                var ds = problem.getDataStructures().get(0);
+                var ds = problem.getDataStructures().stream().findFirst().orElse(null);
                 sb.append("**Question 2:** Which data structure could keep useful information about elements you've already seen? O(1) lookup needs often point to a **")
                     .append(ds.getName()).append("**.)");
             } else {
@@ -106,7 +107,7 @@ public class StaticHintFallback {
         StringBuilder sb = new StringBuilder();
         sb.append("## Complexity Analysis\n\n");
         
-        List<Solution> solutions = problem.getSolutions();
+        Set<Solution> solutions = problem.getSolutions();
         if (solutions.isEmpty()) {
             sb.append("No solutions available for complexity analysis.\n");
             return sb.toString();
@@ -178,7 +179,7 @@ public class StaticHintFallback {
         sb.append("## Concept Explanation\n\n");
         
         if (!problem.getPatterns().isEmpty()) {
-            Pattern pattern = problem.getPatterns().get(0);
+            Pattern pattern = problem.getPatterns().stream().findFirst().orElse(null);
             sb.append("### ").append(pattern.getName()).append(" Pattern\n\n");
             if (pattern.getDefinition() != null && !pattern.getDefinition().isBlank()) {
                 sb.append(pattern.getDefinition()).append("\n\n");

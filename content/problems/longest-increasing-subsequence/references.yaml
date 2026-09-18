@@ -1,0 +1,11 @@
+- title: "Longest Increasing Subsequence - LeetCode"
+  url: "https://leetcode.com/problems/longest-increasing-subsequence/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Longest Increasing Subsequence Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Longest Increasing Subsequence - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

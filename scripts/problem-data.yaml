@@ -1,0 +1,23 @@
+# Problem Generator Data
+
+This file contains the data for all 150 problems to generate. Each problem entry has:
+- id: kebab-case slug
+- title: Display title
+- difficulty: EASY/MEDIUM/HARD
+- source: LeetCode (mostly)
+- sourceUrl: LeetCode URL
+- patterns: Array of pattern IDs
+- algorithms: Array of algorithm IDs
+- dataStructures: Array of data structure IDs
+- templates: Array of template IDs
+- prerequisites: Array of concept IDs
+- relatedProblems: Array of related problem IDs
+- orderIndex: Position in curriculum
+- reasonForSelection: Why this problem is included
+
+The script will generate:
+1. problem.md with frontmatter and problem statement
+2. solutions/ with worst/better/best approaches
+3. templates/ with problem-specific templates
+4. test-cases.yaml with test cases
+5. references.yaml with references

@@ -70,7 +70,7 @@ public class Pattern extends BaseEntity {
     
     @ManyToMany(mappedBy = "patterns")
     @Builder.Default
-    private List<Problem> problems = new ArrayList<>();
+    private Set<Problem> problems = new LinkedHashSet<>();
     
     @ManyToMany
     @JoinTable(
@@ -79,7 +79,7 @@ public class Pattern extends BaseEntity {
         inverseJoinColumns = @JoinColumn(name = "template_id")
     )
     @Builder.Default
-    private List<Template> templates = new ArrayList<>();
+    private Set<Template> templates = new LinkedHashSet<>();
     
     @ManyToMany
     @JoinTable(
@@ -88,7 +88,7 @@ public class Pattern extends BaseEntity {
         inverseJoinColumns = @JoinColumn(name = "algorithm_id")
     )
     @Builder.Default
-    private List<Algorithm> algorithms = new ArrayList<>();
+    private Set<Algorithm> algorithms = new LinkedHashSet<>();
     
     @ManyToMany
     @JoinTable(
@@ -97,7 +97,7 @@ public class Pattern extends BaseEntity {
         inverseJoinColumns = @JoinColumn(name = "data_structure_id")
     )
     @Builder.Default
-    private List<DataStructure> dataStructures = new ArrayList<>();
+    private Set<DataStructure> dataStructures = new LinkedHashSet<>();
     
     @ManyToMany
     @JoinTable(
@@ -106,11 +106,11 @@ public class Pattern extends BaseEntity {
         inverseJoinColumns = @JoinColumn(name = "related_pattern_id")
     )
     @Builder.Default
-    private List<Pattern> subPatterns = new ArrayList<>();
+    private Set<Pattern> subPatterns = new LinkedHashSet<>();
     
     @ManyToMany(mappedBy = "subPatterns")
     @Builder.Default
-    private List<Pattern> parentPatterns = new ArrayList<>();
+    private Set<Pattern> parentPatterns = new LinkedHashSet<>();
     
     @ManyToMany
     @JoinTable(
@@ -119,5 +119,5 @@ public class Pattern extends BaseEntity {
         inverseJoinColumns = @JoinColumn(name = "reference_id")
     )
     @Builder.Default
-    private List<Reference> references = new ArrayList<>();
+    private Set<Reference> references = new LinkedHashSet<>();
 }

@@ -42,11 +42,11 @@ public class Algorithm extends BaseEntity {
     
     @ManyToMany(mappedBy = "algorithms")
     @Builder.Default
-    private List<Problem> problems = new ArrayList<>();
+    private Set<Problem> problems = new LinkedHashSet<>();
     
     @ManyToMany(mappedBy = "algorithms")
     @Builder.Default
-    private List<Pattern> patterns = new ArrayList<>();
+    private Set<Pattern> patterns = new LinkedHashSet<>();
     
     @ManyToMany
     @JoinTable(
@@ -55,7 +55,7 @@ public class Algorithm extends BaseEntity {
         inverseJoinColumns = @JoinColumn(name = "data_structure_id")
     )
     @Builder.Default
-    private List<DataStructure> dataStructures = new ArrayList<>();
+    private Set<DataStructure> dataStructures = new LinkedHashSet<>();
     
     @ManyToMany
     @JoinTable(
@@ -64,7 +64,7 @@ public class Algorithm extends BaseEntity {
         inverseJoinColumns = @JoinColumn(name = "template_id")
     )
     @Builder.Default
-    private List<Template> templates = new ArrayList<>();
+    private Set<Template> templates = new LinkedHashSet<>();
     
     @ManyToMany
     @JoinTable(
@@ -73,5 +73,5 @@ public class Algorithm extends BaseEntity {
         inverseJoinColumns = @JoinColumn(name = "reference_id")
     )
     @Builder.Default
-    private List<Reference> references = new ArrayList<>();
+    private Set<Reference> references = new LinkedHashSet<>();
 }

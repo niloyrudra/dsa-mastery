@@ -1,0 +1,11 @@
+- title: "Edit Distance - LeetCode"
+  url: "https://leetcode.com/problems/edit-distance/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Edit Distance Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Edit Distance - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

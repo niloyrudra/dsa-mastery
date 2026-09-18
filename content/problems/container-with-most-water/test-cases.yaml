@@ -1,47 +1,26 @@
 - name: "Basic Example 1"
-  description: "Standard case from problem"
+  description: "Standard test case"
   input:
-    height: [1,8,6,2,5,4,8,3,7]
-  expected: 49
+    nums: [1, 2, 3]
+    target: 6
+  expected: [0, 2]
   type: "BASIC"
   hidden: false
 
-- name: "Basic Example 2"
-  description: "Two equal heights"
+- name: "Edge: Empty/Single"
+  description: "Edge case with minimal input"
   input:
-    height: [1,1]
-  expected: 1
-  type: "BASIC"
-  hidden: false
-
-- name: "Edge: Increasing Heights"
-  description: "Strictly increasing"
-  input:
-    height: [1,2,3,4,5]
-  expected: 6
+    nums: [1]
+    target: 1
+  expected: [0, 0]
   type: "EDGE_CASE"
   hidden: false
 
-- name: "Edge: Decreasing Heights"
-  description: "Strictly decreasing"
+- name: "Performance: Large Input"
+  description: "Large input for performance testing"
   input:
-    height: [5,4,3,2,1]
-  expected: 6
-  type: "EDGE_CASE"
-  hidden: false
-
-- name: "Edge: All Same Height"
-  description: "All heights equal"
-  input:
-    height: [5,5,5,5,5]
-  expected: 20
-  type: "EDGE_CASE"
-  hidden: false
-
-- name: "Performance: Large Array"
-  description: "100,000 elements"
-  input:
-    height: "GENERATE: range(100000)"
-  expected: 2500000000
+    nums: "GENERATE: range(10000)"
+    target: 19999
+  expected: [9999, 10000]
   type: "PERFORMANCE"
   hidden: true

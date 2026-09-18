@@ -11,4 +11,4 @@ USER runner
 
 WORKDIR /workspace
 
-ENTRYPOINT ["sh", "-c"]
+ENTRYPOINT ["sh"]

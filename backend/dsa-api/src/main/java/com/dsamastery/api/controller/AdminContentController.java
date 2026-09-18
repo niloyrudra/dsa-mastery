@@ -12,10 +12,6 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Admin endpoint to run the content import pipeline (validate & import).
- * POST /api/v1/admin/content/import  {"contentRoot": "path/to/content"}
- */
 @RestController
 @RequestMapping("/api/v1/admin/content")
 @RequiredArgsConstructor
@@ -25,11 +21,15 @@ public class AdminContentController {
 
     @PostMapping("/import")
     public ResponseEntity<ContentImportResponse> importContent(
-            @RequestBody(required = false) ContentImportRequest request) {
+            @RequestBody(required = false) Map<String, Object> request) {
 
-        String root = (request != null && request.contentRoot() != null && !request.contentRoot().isBlank())
-            ? request.contentRoot()
-            : "./content";
+        String root = "./content";
+        if (request != null && request.containsKey("contentRoot")) {
+            Object contentRoot = request.get("contentRoot");
+            if (contentRoot != null && !contentRoot.toString().isBlank()) {
+                root = contentRoot.toString();
+            }
+        }
 
         try {
             ContentImportService.ImportResult result = contentImportService.importContent(Path.of(root));
@@ -46,8 +46,6 @@ public class AdminContentController {
                 true));
         }
     }
-
-    public record ContentImportRequest(String contentRoot) {}
 
     public record ContentImportResponse(
         int imported,

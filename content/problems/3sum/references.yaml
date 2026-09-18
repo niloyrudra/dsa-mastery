@@ -1,0 +1,11 @@
+- title: "3Sum - LeetCode"
+  url: "https://leetcode.com/problems/3sum/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "3Sum Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "3Sum - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

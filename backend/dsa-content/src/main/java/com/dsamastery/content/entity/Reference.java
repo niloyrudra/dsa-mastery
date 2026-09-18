@@ -34,13 +34,13 @@ public class Reference extends BaseEntity {
     
     @ManyToMany(mappedBy = "references")
     @Builder.Default
-    private List<Problem> problems = new ArrayList<>();
+    private Set<Problem> problems = new LinkedHashSet<>();
     
     @ManyToMany(mappedBy = "references")
     @Builder.Default
-    private List<Pattern> patterns = new ArrayList<>();
+    private Set<Pattern> patterns = new LinkedHashSet<>();
     
     @ManyToMany(mappedBy = "references")
     @Builder.Default
-    private List<Algorithm> algorithms = new ArrayList<>();
+    private Set<Algorithm> algorithms = new LinkedHashSet<>();
 }

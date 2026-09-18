@@ -1,0 +1,11 @@
+- title: "Rotate Image - LeetCode"
+  url: "https://leetcode.com/problems/rotate-image/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Rotate Image Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Rotate Image - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

@@ -1,55 +1,26 @@
 - name: "Basic Example 1"
-  description: "Standard case with repeating pattern"
+  description: "Standard test case"
   input:
-    s: "abcabcbb"
-  expected: 3
+    nums: [1, 2, 3]
+    target: 6
+  expected: [0, 2]
   type: "BASIC"
   hidden: false
 
-- name: "Basic Example 2"
-  description: "All same character"
+- name: "Edge: Empty/Single"
+  description: "Edge case with minimal input"
   input:
-    s: "bbbbb"
-  expected: 1
-  type: "BASIC"
-  hidden: false
-
-- name: "Basic Example 3"
-  description: "Multiple candidates, first not longest"
-  input:
-    s: "pwwkew"
-  expected: 3
-  type: "BASIC"
-  hidden: false
-
-- name: "Edge: Empty String"
-  description: "Zero length string"
-  input:
-    s: ""
-  expected: 0
+    nums: [1]
+    target: 1
+  expected: [0, 0]
   type: "EDGE_CASE"
   hidden: false
 
-- name: "Edge: All Unique"
-  description: "No repeating characters"
+- name: "Performance: Large Input"
+  description: "Large input for performance testing"
   input:
-    s: "abcdef"
-  expected: 6
-  type: "EDGE_CASE"
-  hidden: false
-
-- name: "Edge: Single Character"
-  description: "Length 1 string"
-  input:
-    s: "a"
-  expected: 1
-  type: "EDGE_CASE"
-  hidden: false
-
-- name: "Performance: Long String"
-  description: "50,000 character string"
-  input:
-    s: "GENERATE: repeat('abcdefghijklmnopqrstuvwxyz', 2000)"
-  expected: 26
+    nums: "GENERATE: range(10000)"
+    target: 19999
+  expected: [9999, 10000]
   type: "PERFORMANCE"
   hidden: true

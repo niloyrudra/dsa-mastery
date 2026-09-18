@@ -5,6 +5,7 @@ import com.dsamastery.content.entity.Pattern;
 import com.dsamastery.content.repository.*;
 import com.dsamastery.common.enums.*;
 import com.dsamastery.common.entity.Complexity;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,9 +33,10 @@ public class ContentImportService {
     private final TestCaseRepository testCaseRepository;
     private final ReferenceRepository referenceRepository;
     private final LearningObjectiveRepository learningObjectiveRepository;
+    private final ProblemVariationRepository variationRepository;
     private final TemplateMappingRepository templateMappingRepository;
-
     private final Yaml yaml = new Yaml();
+    private final ObjectMapper objectMapper = new ObjectMapper();
     private final java.util.regex.Pattern frontmatterPattern = java.util.regex.Pattern.compile("^---\\n(.*?)\\n---", java.util.regex.Pattern.DOTALL);
 
     @Transactional
@@ -270,7 +272,15 @@ public class ContentImportService {
             .build();
         
         if (frontmatter.containsKey("operations")) {
-            Map<String, String> ops = (Map<String, String>) frontmatter.get("operations");
+            Object opsObj = frontmatter.get("operations");
+            Map<String, String> ops;
+            if (opsObj instanceof String) {
+                ops = yaml.load((String) opsObj);
+            } else if (opsObj instanceof Map) {
+                ops = (Map<String, String>) opsObj;
+            } else {
+                ops = new LinkedHashMap<>();
+            }
             ds.setOperations(ops);
         }
         
@@ -613,19 +623,43 @@ public class ContentImportService {
                 // Determine approach from filename or use order
                 Approach approach = detectApproach(fileName, approachOrder);
                 
+                // Check if solution already exists for this problem and approach
+                if (solutionRepository.existsByProblemIdAndApproach(problem.getId(), approach)) {
+                    log.info("Solution already exists for problem {} with approach {}, skipping", problem.getSlug(), approach);
+                    result.addImported("solution", problem.getSlug() + "-" + approach);
+                    continue;
+                }
+                
                 Solution solution = Solution.builder()
                     .problem(problem)
                     .name(approachName)
                     .approach(approach)
-                    .explanation("")
+                    .explanation("") // Would need separate markdown files for detailed explanations
                     .whyItWorks("")
                     .language(detectLanguage(solutionFile))
                     .code(code)
+                    .complexity(new Complexity(
+                        "O(n)",     // time_complexity - default
+                        "O(1)",     // space_complexity - default
+                        "",         // time_reasoning
+                        "",         // space_reasoning
+                        "",         // best_case_time
+                        "",         // worst_case_time
+                        ""          // average_case_time
+                    ))
                     .build();
                 
-                solutionRepository.save(solution);
-                createTemplateMappings(problem, solution);
-                approachOrder++;
+                // Explicitly set UUID before save to avoid DB generator conflicts
+                solution.setId(UUID.randomUUID());
+                
+                try {
+                    solutionRepository.saveAndFlush(solution);
+                    createTemplateMappings(problem, solution);
+                    approachOrder++;
+                } catch (Exception e) {
+                    log.warn("Failed to save solution for {} ({}): {}", problem.getSlug(), approach, e.getMessage());
+                    result.addError("solution", approachName, e.getMessage());
+                }
             }
         }
     }
@@ -654,18 +688,33 @@ public class ContentImportService {
         if (testCases == null) return;
         
         for (Map<String, Object> tc : testCases) {
+            Object inputObj = tc.get("input");
+            Object expectedObj = tc.get("expected");
+            
+            String inputJson = inputObj != null ? toJson(inputObj) : "{}";
+            String expectedJson = expectedObj != null ? toJson(expectedObj) : "{}";
+            
             TestCase testCase = TestCase.builder()
                 .problem(problem)
                 .variation(variation)
                 .name((String) tc.get("name"))
-                .input(tc.get("input"))
-                .expectedOutput(tc.get("expected"))
+                .input(inputJson)
+                .expectedOutput(expectedJson)
                 .description((String) tc.getOrDefault("description", ""))
                 .type(TestCaseType.valueOf((String) tc.getOrDefault("type", "BASIC")))
                 .isHidden(getBoolean(tc, "hidden", false))
                 .build();
             
             testCaseRepository.save(testCase);
+        }
+    }
+    
+    private String toJson(Object obj) {
+        try {
+            return objectMapper.writeValueAsString(obj);
+        } catch (Exception e) {
+            log.warn("Failed to serialize to JSON: {}", e.getMessage());
+            return "{}";
         }
     }
 

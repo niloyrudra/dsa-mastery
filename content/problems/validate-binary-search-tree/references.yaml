@@ -1,0 +1,11 @@
+- title: "Validate Binary Search Tree - LeetCode"
+  url: "https://leetcode.com/problems/validate-binary-search-tree/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Validate Binary Search Tree Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Validate Binary Search Tree - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

@@ -6,6 +6,8 @@ import com.dsamastery.common.enums.ContentStatus;
 import com.dsamastery.common.enums.Difficulty;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
@@ -48,84 +50,95 @@ public class Problem extends BaseEntity {
     @Column(name = "reason_for_selection", columnDefinition = "TEXT")
     private String reasonForSelection;
     
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "problem_patterns",
         joinColumns = @JoinColumn(name = "problem_id"),
         inverseJoinColumns = @JoinColumn(name = "pattern_id")
     )
+    @Fetch(FetchMode.SELECT)
     @Builder.Default
-    private List<Pattern> patterns = new ArrayList<>();
+    private Set<Pattern> patterns = new LinkedHashSet<>();
     
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "problem_algorithms",
         joinColumns = @JoinColumn(name = "problem_id"),
         inverseJoinColumns = @JoinColumn(name = "algorithm_id")
     )
+    @Fetch(FetchMode.SELECT)
     @Builder.Default
-    private List<Algorithm> algorithms = new ArrayList<>();
+    private Set<Algorithm> algorithms = new LinkedHashSet<>();
     
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "problem_data_structures",
         joinColumns = @JoinColumn(name = "problem_id"),
         inverseJoinColumns = @JoinColumn(name = "data_structure_id")
     )
+    @Fetch(FetchMode.SELECT)
     @Builder.Default
-    private List<DataStructure> dataStructures = new ArrayList<>();
+    private Set<DataStructure> dataStructures = new LinkedHashSet<>();
     
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "problem_templates",
         joinColumns = @JoinColumn(name = "problem_id"),
         inverseJoinColumns = @JoinColumn(name = "template_id")
     )
+    @Fetch(FetchMode.SELECT)
     @Builder.Default
-    private List<Template> templates = new ArrayList<>();
+    private Set<Template> templates = new LinkedHashSet<>();
     
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "problem_related",
         joinColumns = @JoinColumn(name = "problem_id"),
         inverseJoinColumns = @JoinColumn(name = "related_problem_id")
     )
+    @Fetch(FetchMode.SELECT)
     @Builder.Default
-    private List<Problem> relatedProblems = new ArrayList<>();
+    private Set<Problem> relatedProblems = new LinkedHashSet<>();
     
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "problem_prerequisites",
         joinColumns = @JoinColumn(name = "problem_id"),
         inverseJoinColumns = @JoinColumn(name = "concept_id")
     )
+    @Fetch(FetchMode.SELECT)
     @Builder.Default
-    private List<Concept> prerequisites = new ArrayList<>();
+    private Set<Concept> prerequisites = new LinkedHashSet<>();
     
-    @OneToMany(mappedBy = "baseProblem", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "baseProblem", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @Fetch(FetchMode.SELECT)
     @Builder.Default
-    private List<ProblemVariation> variations = new ArrayList<>();
+    private Set<ProblemVariation> variations = new LinkedHashSet<>();
     
-    @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @Fetch(FetchMode.SELECT)
     @Builder.Default
-    private List<Solution> solutions = new ArrayList<>();
+    private Set<Solution> solutions = new LinkedHashSet<>();
     
-    @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @Fetch(FetchMode.SELECT)
     @Builder.Default
-    private List<TestCase> testCases = new ArrayList<>();
+    private Set<TestCase> testCases = new LinkedHashSet<>();
     
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "problem_references",
         joinColumns = @JoinColumn(name = "problem_id"),
         inverseJoinColumns = @JoinColumn(name = "reference_id")
     )
+    @Fetch(FetchMode.SELECT)
     @Builder.Default
-    private List<Reference> references = new ArrayList<>();
+    private Set<Reference> references = new LinkedHashSet<>();
     
-    @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @Fetch(FetchMode.SELECT)
     @Builder.Default
-    private List<LearningObjective> learningObjectives = new ArrayList<>();
+    private Set<LearningObjective> learningObjectives = new LinkedHashSet<>();
     
     // Helper methods
     public void addPattern(Pattern pattern) {

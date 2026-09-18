@@ -1,0 +1,11 @@
+- title: "Kth Largest Element in a Stream - LeetCode"
+  url: "https://leetcode.com/problems/kth-largest-element-in-a-stream/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Kth Largest Element in a Stream Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Kth Largest Element in a Stream - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

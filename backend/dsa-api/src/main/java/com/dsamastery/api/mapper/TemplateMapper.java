@@ -15,6 +15,7 @@ import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
@@ -39,7 +40,8 @@ public interface TemplateMapper {
     }
     
     @Named("toProblemSummary")
-    default List<ProblemReferenceDto> toProblemSummary(List<Problem> problems) {
+    default List<ProblemReferenceDto> toProblemSummary(Set<Problem> problems) {
+        if (problems == null) return List.of();
         return problems.stream()
             .map(p -> ProblemReferenceDto.builder()
                 .id(p.getId())
@@ -52,6 +54,7 @@ public interface TemplateMapper {
     
     @Named("toMappingDto")
     default List<TemplateMappingDto> toMappingDto(List<TemplateMapping> mappings) {
+        if (mappings == null) return List.of();
         return mappings.stream()
             .map(m -> TemplateMappingDto.builder()
                 .templateMarker(m.getTemplateMarker())

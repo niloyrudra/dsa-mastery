@@ -51,9 +51,9 @@ public class ProblemVariation extends BaseEntity {
     
     @OneToMany(mappedBy = "variation", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
-    private List<Solution> solutions = new ArrayList<>();
+    private Set<Solution> solutions = new LinkedHashSet<>();
     
     @OneToMany(mappedBy = "variation", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
-    private List<TestCase> testCases = new ArrayList<>();
+    private Set<TestCase> testCases = new LinkedHashSet<>();
 }

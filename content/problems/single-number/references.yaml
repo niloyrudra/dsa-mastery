@@ -1,0 +1,11 @@
+- title: "Single Number - LeetCode"
+  url: "https://leetcode.com/problems/single-number/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Single Number Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Single Number - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

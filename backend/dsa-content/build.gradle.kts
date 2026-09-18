@@ -14,6 +14,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.yaml:snakeyaml:2.3")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.17.2")
 }
 
 repositories {

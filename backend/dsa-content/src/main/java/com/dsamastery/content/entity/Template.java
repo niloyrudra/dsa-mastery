@@ -69,7 +69,7 @@ public class Template extends BaseEntity {
     
     @ManyToMany(mappedBy = "templates")
     @Builder.Default
-    private List<Problem> problems = new ArrayList<>();
+    private Set<Problem> problems = new LinkedHashSet<>();
     
     @OneToMany(mappedBy = "template", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default

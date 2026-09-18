@@ -1,0 +1,17 @@
+- title: "Hash Table - Wikipedia"
+  url: "https://en.wikipedia.org/wiki/Hash_table"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Hash Set/Map"
+  verifies: "Average O(1) operations"
+
+- title: "Contains Duplicate - LeetCode"
+  url: "https://leetcode.com/problems/contains-duplicate/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Contains Duplicate Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Set Data Structure - CP Algorithms"
+  url: "https://cp-algorithms.com/data_structures/unordered_set.html"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Hash Set Implementation"
+  verifies: "Set operations and complexity"

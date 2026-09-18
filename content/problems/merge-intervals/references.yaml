@@ -1,0 +1,11 @@
+- title: "Merge Intervals - LeetCode"
+  url: "https://leetcode.com/problems/merge-intervals/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Merge Intervals Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Merge Intervals - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

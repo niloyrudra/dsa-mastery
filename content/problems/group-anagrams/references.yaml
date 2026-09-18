@@ -1,0 +1,11 @@
+- title: "Group Anagrams - LeetCode"
+  url: "https://leetcode.com/problems/group-anagrams/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Group Anagrams Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Group Anagrams - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

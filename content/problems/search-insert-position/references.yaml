@@ -1,11 +1,11 @@
-- title: "Binary Search - Wikipedia"
-  url: "https://en.wikipedia.org/wiki/Binary_search_algorithm"
-  type: "TECH_RESOURCE"
-  relevantConcept: "Binary Search Lower Bound"
-  verifies: "Correctness of lower_bound/upper_bound variants"
-
 - title: "Search Insert Position - LeetCode"
   url: "https://leetcode.com/problems/search-insert-position/"
   type: "PROBLEM_SOURCE"
-  relevantConcept: "Binary Search Boundary"
+  relevantConcept: "Search Insert Position Problem"
   verifies: "Problem constraints and examples"
+
+- title: "Search Insert Position - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"
