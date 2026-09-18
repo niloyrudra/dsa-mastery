@@ -1,0 +1,11 @@
+- title: "Copy List with Random Pointer - LeetCode"
+  url: "https://leetcode.com/problems/copy-list-with-random-pointer/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Copy List with Random Pointer Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Copy List with Random Pointer - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

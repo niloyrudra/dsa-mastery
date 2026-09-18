@@ -1,0 +1,11 @@
+- title: "Design Add and Search Words Data Structure - LeetCode"
+  url: "https://leetcode.com/problems/design-add-and-search-words-data-structure/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Design Add and Search Words Data Structure Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Design Add and Search Words Data Structure - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

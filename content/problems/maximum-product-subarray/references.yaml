@@ -1,0 +1,11 @@
+- title: "Maximum Product Subarray - LeetCode"
+  url: "https://leetcode.com/problems/maximum-product-subarray/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Maximum Product Subarray Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Maximum Product Subarray - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

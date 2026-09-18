@@ -1,0 +1,11 @@
+- title: "First Bad Version - LeetCode"
+  url: "https://leetcode.com/problems/first-bad-version/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "First Bad Version Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "First Bad Version - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

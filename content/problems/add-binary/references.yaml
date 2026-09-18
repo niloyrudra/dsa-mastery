@@ -1,0 +1,11 @@
+- title: "Add Binary - LeetCode"
+  url: "https://leetcode.com/problems/add-binary/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Add Binary Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Add Binary - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

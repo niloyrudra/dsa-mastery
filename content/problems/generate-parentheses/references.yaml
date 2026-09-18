@@ -1,0 +1,11 @@
+- title: "Generate Parentheses - LeetCode"
+  url: "https://leetcode.com/problems/generate-parentheses/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Generate Parentheses Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Generate Parentheses - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

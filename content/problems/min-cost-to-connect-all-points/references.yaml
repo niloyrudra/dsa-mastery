@@ -1,0 +1,11 @@
+- title: "Min Cost to Connect All Points - LeetCode"
+  url: "https://leetcode.com/problems/min-cost-to-connect-all-points/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Min Cost to Connect All Points Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Min Cost to Connect All Points - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

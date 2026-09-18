@@ -1,0 +1,11 @@
+- title: "Partition Equal Subset Sum - LeetCode"
+  url: "https://leetcode.com/problems/partition-equal-subset-sum/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Partition Equal Subset Sum Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Partition Equal Subset Sum - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

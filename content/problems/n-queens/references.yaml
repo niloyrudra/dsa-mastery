@@ -1,0 +1,11 @@
+- title: "N-Queens - LeetCode"
+  url: "https://leetcode.com/problems/n-queens/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "N-Queens Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "N-Queens - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

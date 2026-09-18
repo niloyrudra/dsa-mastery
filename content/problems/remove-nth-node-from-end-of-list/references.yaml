@@ -1,0 +1,11 @@
+- title: "Remove Nth Node From End of List - LeetCode"
+  url: "https://leetcode.com/problems/remove-nth-node-from-end-of-list/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Remove Nth Node From End of List Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Remove Nth Node From End of List - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

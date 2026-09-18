@@ -1,0 +1,11 @@
+- title: "Merge Two Sorted Lists - LeetCode"
+  url: "https://leetcode.com/problems/merge-two-sorted-lists/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Merge Two Sorted Lists Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Merge Two Sorted Lists - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

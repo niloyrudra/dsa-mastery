@@ -1,0 +1,11 @@
+- title: "Find Median from Data Stream - LeetCode"
+  url: "https://leetcode.com/problems/median-finder/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Find Median from Data Stream Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Find Median from Data Stream - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

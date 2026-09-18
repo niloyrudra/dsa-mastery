@@ -1,0 +1,11 @@
+- title: "Design Twitter - LeetCode"
+  url: "https://leetcode.com/problems/design-twitter/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Design Twitter Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Design Twitter - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

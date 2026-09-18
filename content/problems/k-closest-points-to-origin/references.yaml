@@ -1,0 +1,11 @@
+- title: "K Closest Points to Origin - LeetCode"
+  url: "https://leetcode.com/problems/k-closest-points-to-origin/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "K Closest Points to Origin Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "K Closest Points to Origin - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

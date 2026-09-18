@@ -1,0 +1,11 @@
+- title: "Factorial Trailing Zeroes - LeetCode"
+  url: "https://leetcode.com/problems/factorial-trailing-zeroes/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Factorial Trailing Zeroes Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Factorial Trailing Zeroes - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

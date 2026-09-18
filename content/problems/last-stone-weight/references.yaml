@@ -1,0 +1,11 @@
+- title: "Last Stone Weight - LeetCode"
+  url: "https://leetcode.com/problems/last-stone-weight/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Last Stone Weight Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Last Stone Weight - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

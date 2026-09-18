@@ -1,0 +1,11 @@
+- title: "Encode and Decode Strings - LeetCode"
+  url: "https://leetcode.com/problems/encode-and-decode-strings/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Encode and Decode Strings Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Encode and Decode Strings - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

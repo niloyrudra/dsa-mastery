@@ -1,0 +1,11 @@
+- title: "Regular Expression Matching - LeetCode"
+  url: "https://leetcode.com/problems/regular-expression-matching/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Regular Expression Matching Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Regular Expression Matching - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

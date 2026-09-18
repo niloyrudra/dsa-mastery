@@ -1,0 +1,11 @@
+- title: "Reconstruct Itinerary - LeetCode"
+  url: "https://leetcode.com/problems/reconstruct-itinerary/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Reconstruct Itinerary Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Reconstruct Itinerary - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

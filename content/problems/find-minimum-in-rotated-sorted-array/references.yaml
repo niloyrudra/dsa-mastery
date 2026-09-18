@@ -1,0 +1,11 @@
+- title: "Find Minimum in Rotated Sorted Array - LeetCode"
+  url: "https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Find Minimum in Rotated Sorted Array Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Find Minimum in Rotated Sorted Array - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

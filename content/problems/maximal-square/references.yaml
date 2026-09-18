@@ -1,0 +1,11 @@
+- title: "Maximal Square - LeetCode"
+  url: "https://leetcode.com/problems/maximal-square/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Maximal Square Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Maximal Square - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

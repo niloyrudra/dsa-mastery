@@ -1,0 +1,11 @@
+- title: "Find First and Last Position of Element in Sorted Array - LeetCode"
+  url: "https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Find First and Last Position of Element in Sorted Array Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Find First and Last Position of Element in Sorted Array - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

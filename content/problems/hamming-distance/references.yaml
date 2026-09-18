@@ -1,0 +1,11 @@
+- title: "Hamming Distance - LeetCode"
+  url: "https://leetcode.com/problems/hamming-distance/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Hamming Distance Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Hamming Distance - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

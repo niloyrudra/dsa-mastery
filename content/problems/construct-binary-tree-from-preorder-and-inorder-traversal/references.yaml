@@ -1,0 +1,11 @@
+- title: "Construct Binary Tree from Preorder and Inorder Traversal - LeetCode"
+  url: "https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Construct Binary Tree from Preorder and Inorder Traversal Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Construct Binary Tree from Preorder and Inorder Traversal - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

@@ -1,0 +1,11 @@
+- title: "Median of Two Sorted Arrays - LeetCode"
+  url: "https://leetcode.com/problems/median-of-two-sorted-arrays/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Median of Two Sorted Arrays Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Median of Two Sorted Arrays - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

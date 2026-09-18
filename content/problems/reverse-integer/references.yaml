@@ -1,0 +1,11 @@
+- title: "Reverse Integer - LeetCode"
+  url: "https://leetcode.com/problems/reverse-integer/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Reverse Integer Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Reverse Integer - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

@@ -1,0 +1,11 @@
+- title: "Search in Rotated Sorted Array - LeetCode"
+  url: "https://leetcode.com/problems/search-in-rotated-sorted-array/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Search in Rotated Sorted Array Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Search in Rotated Sorted Array - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

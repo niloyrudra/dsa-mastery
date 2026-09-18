@@ -1,0 +1,11 @@
+- title: "Lowest Common Ancestor of a Binary Search Tree - LeetCode"
+  url: "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Lowest Common Ancestor of a Binary Search Tree Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Lowest Common Ancestor of a Binary Search Tree - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

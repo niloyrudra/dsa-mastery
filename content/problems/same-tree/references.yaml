@@ -1,0 +1,11 @@
+- title: "Same Tree - LeetCode"
+  url: "https://leetcode.com/problems/same-tree/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Same Tree Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Same Tree - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

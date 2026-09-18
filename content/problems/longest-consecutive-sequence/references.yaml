@@ -1,0 +1,11 @@
+- title: "Longest Consecutive Sequence - LeetCode"
+  url: "https://leetcode.com/problems/longest-consecutive-sequence/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Longest Consecutive Sequence Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Longest Consecutive Sequence - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

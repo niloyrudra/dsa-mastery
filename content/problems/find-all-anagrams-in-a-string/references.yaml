@@ -1,0 +1,11 @@
+- title: "Find All Anagrams in a String - LeetCode"
+  url: "https://leetcode.com/problems/find-all-anagrams-in-a-string/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Find All Anagrams in a String Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Find All Anagrams in a String - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

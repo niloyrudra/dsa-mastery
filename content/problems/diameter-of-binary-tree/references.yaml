@@ -1,0 +1,11 @@
+- title: "Diameter of Binary Tree - LeetCode"
+  url: "https://leetcode.com/problems/diameter-of-binary-tree/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Diameter of Binary Tree Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Diameter of Binary Tree - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

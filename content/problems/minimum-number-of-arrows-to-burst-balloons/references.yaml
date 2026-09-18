@@ -1,0 +1,11 @@
+- title: "Minimum Number of Arrows to Burst Balloons - LeetCode"
+  url: "https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Minimum Number of Arrows to Burst Balloons Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Minimum Number of Arrows to Burst Balloons - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

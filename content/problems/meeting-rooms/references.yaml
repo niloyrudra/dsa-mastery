@@ -1,0 +1,11 @@
+- title: "Meeting Rooms - LeetCode"
+  url: "https://leetcode.com/problems/meeting-rooms/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Meeting Rooms Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Meeting Rooms - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

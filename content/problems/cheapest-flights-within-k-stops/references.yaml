@@ -1,0 +1,11 @@
+- title: "Cheapest Flights Within K Stops - LeetCode"
+  url: "https://leetcode.com/problems/cheapest-flights-within-k-stops/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Cheapest Flights Within K Stops Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Cheapest Flights Within K Stops - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

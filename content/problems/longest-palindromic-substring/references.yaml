@@ -1,0 +1,11 @@
+- title: "Longest Palindromic Substring - LeetCode"
+  url: "https://leetcode.com/problems/longest-palindromic-substring/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Longest Palindromic Substring Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Longest Palindromic Substring - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

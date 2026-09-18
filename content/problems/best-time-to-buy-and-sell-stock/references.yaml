@@ -1,0 +1,11 @@
+- title: "Best Time to Buy and Sell Stock - LeetCode"
+  url: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Best Time to Buy and Sell Stock Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Best Time to Buy and Sell Stock - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

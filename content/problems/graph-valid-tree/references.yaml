@@ -1,0 +1,11 @@
+- title: "Graph Valid Tree - LeetCode"
+  url: "https://leetcode.com/problems/graph-valid-tree/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Graph Valid Tree Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Graph Valid Tree - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

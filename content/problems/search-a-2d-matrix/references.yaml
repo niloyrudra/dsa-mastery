@@ -1,0 +1,11 @@
+- title: "Search a 2D Matrix - LeetCode"
+  url: "https://leetcode.com/problems/search-a-2d-matrix/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Search a 2D Matrix Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Search a 2D Matrix - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

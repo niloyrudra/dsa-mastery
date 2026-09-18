@@ -1,0 +1,11 @@
+- title: "Jump Game II - LeetCode"
+  url: "https://leetcode.com/problems/jump-game-ii/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Jump Game II Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Jump Game II - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

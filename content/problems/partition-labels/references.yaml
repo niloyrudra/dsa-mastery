@@ -1,0 +1,11 @@
+- title: "Partition Labels - LeetCode"
+  url: "https://leetcode.com/problems/partition-labels/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Partition Labels Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Partition Labels - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

@@ -1,0 +1,11 @@
+- title: "Reorder List - LeetCode"
+  url: "https://leetcode.com/problems/reorder-list/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Reorder List Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Reorder List - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

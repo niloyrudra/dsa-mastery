@@ -1,0 +1,11 @@
+- title: "Min Stack - LeetCode"
+  url: "https://leetcode.com/problems/min-stack/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Min Stack Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Min Stack - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

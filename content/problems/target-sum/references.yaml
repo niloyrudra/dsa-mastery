@@ -1,0 +1,11 @@
+- title: "Target Sum - LeetCode"
+  url: "https://leetcode.com/problems/target-sum/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Target Sum Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Target Sum - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

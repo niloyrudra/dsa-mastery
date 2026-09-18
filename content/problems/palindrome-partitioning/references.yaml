@@ -1,0 +1,11 @@
+- title: "Palindrome Partitioning - LeetCode"
+  url: "https://leetcode.com/problems/palindrome-partitioning/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Palindrome Partitioning Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Palindrome Partitioning - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

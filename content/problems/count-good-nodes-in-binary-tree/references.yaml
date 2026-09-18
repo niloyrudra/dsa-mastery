@@ -1,0 +1,11 @@
+- title: "Count Good Nodes in Binary Tree - LeetCode"
+  url: "https://leetcode.com/problems/count-good-nodes-in-binary-tree/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Count Good Nodes in Binary Tree Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Count Good Nodes in Binary Tree - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

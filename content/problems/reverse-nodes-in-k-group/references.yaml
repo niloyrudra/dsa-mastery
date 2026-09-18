@@ -1,0 +1,11 @@
+- title: "Reverse Nodes in k-Group - LeetCode"
+  url: "https://leetcode.com/problems/reverse-nodes-in-k-group/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Reverse Nodes in k-Group Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Reverse Nodes in k-Group - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

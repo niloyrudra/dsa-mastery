@@ -1,0 +1,11 @@
+- title: "Implement Trie (Prefix Tree) - LeetCode"
+  url: "https://leetcode.com/problems/implement-trie-prefix-tree/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Implement Trie (Prefix Tree) Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Implement Trie (Prefix Tree) - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

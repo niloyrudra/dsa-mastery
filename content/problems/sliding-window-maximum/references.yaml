@@ -1,0 +1,11 @@
+- title: "Sliding Window Maximum - LeetCode"
+  url: "https://leetcode.com/problems/sliding-window-maximum/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Sliding Window Maximum Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Sliding Window Maximum - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

@@ -1,0 +1,11 @@
+- title: "Largest Rectangle in Histogram - LeetCode"
+  url: "https://leetcode.com/problems/largest-rectangle-in-histogram/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Largest Rectangle in Histogram Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Largest Rectangle in Histogram - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

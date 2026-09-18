@@ -1,0 +1,11 @@
+- title: "Interleaving String - LeetCode"
+  url: "https://leetcode.com/problems/interleaving-string/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Interleaving String Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Interleaving String - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

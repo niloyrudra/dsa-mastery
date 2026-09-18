@@ -1,0 +1,11 @@
+- title: "Surrounded Regions - LeetCode"
+  url: "https://leetcode.com/problems/surrounded-regions/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Surrounded Regions Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Surrounded Regions - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

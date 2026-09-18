@@ -1,0 +1,11 @@
+- title: "Decode Ways - LeetCode"
+  url: "https://leetcode.com/problems/decode-ways/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Decode Ways Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Decode Ways - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

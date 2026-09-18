@@ -1,0 +1,11 @@
+- title: "Word Break - LeetCode"
+  url: "https://leetcode.com/problems/word-break/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Word Break Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Word Break - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

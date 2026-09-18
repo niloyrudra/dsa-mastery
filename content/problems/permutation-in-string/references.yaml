@@ -1,0 +1,11 @@
+- title: "Permutation in String - LeetCode"
+  url: "https://leetcode.com/problems/permutation-in-string/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Permutation in String Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Permutation in String - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

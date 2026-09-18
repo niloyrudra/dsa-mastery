@@ -1,0 +1,11 @@
+- title: "Valid Sudoku - LeetCode"
+  url: "https://leetcode.com/problems/valid-sudoku/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Valid Sudoku Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Valid Sudoku - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

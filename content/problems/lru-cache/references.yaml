@@ -1,0 +1,11 @@
+- title: "LRU Cache - LeetCode"
+  url: "https://leetcode.com/problems/lru-cache/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "LRU Cache Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "LRU Cache - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

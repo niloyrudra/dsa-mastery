@@ -1,0 +1,11 @@
+- title: "Daily Temperatures - LeetCode"
+  url: "https://leetcode.com/problems/daily-temperatures/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Daily Temperatures Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Daily Temperatures - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

@@ -1,0 +1,11 @@
+- title: "Find the Duplicate Number - LeetCode"
+  url: "https://leetcode.com/problems/find-the-duplicate-number/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Find the Duplicate Number Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Find the Duplicate Number - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

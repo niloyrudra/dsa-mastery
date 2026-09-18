@@ -1,0 +1,11 @@
+- title: "Unique Paths - LeetCode"
+  url: "https://leetcode.com/problems/unique-paths/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Unique Paths Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Unique Paths - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

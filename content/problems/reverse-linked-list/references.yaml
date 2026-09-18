@@ -1,0 +1,11 @@
+- title: "Reverse Linked List - LeetCode"
+  url: "https://leetcode.com/problems/reverse-linked-list/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Reverse Linked List Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Reverse Linked List - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

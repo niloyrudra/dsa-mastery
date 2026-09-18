@@ -1,0 +1,11 @@
+- title: "Subtree of Another Tree - LeetCode"
+  url: "https://leetcode.com/problems/subtree-of-another-tree/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Subtree of Another Tree Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Subtree of Another Tree - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

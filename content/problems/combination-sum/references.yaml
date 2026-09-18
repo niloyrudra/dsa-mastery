@@ -1,0 +1,11 @@
+- title: "Combination Sum - LeetCode"
+  url: "https://leetcode.com/problems/combination-sum/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Combination Sum Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Combination Sum - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

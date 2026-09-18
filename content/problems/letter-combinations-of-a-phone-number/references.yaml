@@ -1,0 +1,11 @@
+- title: "Letter Combinations of a Phone Number - LeetCode"
+  url: "https://leetcode.com/problems/letter-combinations-of-a-phone-number/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Letter Combinations of a Phone Number Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Letter Combinations of a Phone Number - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

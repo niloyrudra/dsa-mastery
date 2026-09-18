@@ -1,0 +1,11 @@
+- title: "Task Scheduler - LeetCode"
+  url: "https://leetcode.com/problems/task-scheduler/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Task Scheduler Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Task Scheduler - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

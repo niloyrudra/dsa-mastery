@@ -1,0 +1,11 @@
+- title: "Linked List Cycle - LeetCode"
+  url: "https://leetcode.com/problems/linked-list-cycle/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Linked List Cycle Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Linked List Cycle - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

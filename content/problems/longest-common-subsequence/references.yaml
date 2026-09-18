@@ -1,0 +1,11 @@
+- title: "Longest Common Subsequence - LeetCode"
+  url: "https://leetcode.com/problems/longest-common-subsequence/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Longest Common Subsequence Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Longest Common Subsequence - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

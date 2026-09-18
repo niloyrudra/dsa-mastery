@@ -1,0 +1,11 @@
+- title: "Product of Array Except Self - LeetCode"
+  url: "https://leetcode.com/problems/product-of-array-except-self/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Product of Array Except Self Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Product of Array Except Self - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

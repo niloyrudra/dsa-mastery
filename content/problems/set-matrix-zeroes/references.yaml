@@ -1,0 +1,11 @@
+- title: "Set Matrix Zeroes - LeetCode"
+  url: "https://leetcode.com/problems/set-matrix-zeroes/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Set Matrix Zeroes Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Set Matrix Zeroes - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

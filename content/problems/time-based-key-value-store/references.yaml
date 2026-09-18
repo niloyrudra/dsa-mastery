@@ -1,0 +1,11 @@
+- title: "Time Based Key-Value Store - LeetCode"
+  url: "https://leetcode.com/problems/time-based-key-value-store/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Time Based Key-Value Store Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Time Based Key-Value Store - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

@@ -1,0 +1,11 @@
+- title: "Happy Number - LeetCode"
+  url: "https://leetcode.com/problems/happy-number/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Happy Number Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Happy Number - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

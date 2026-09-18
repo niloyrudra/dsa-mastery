@@ -1,0 +1,11 @@
+- title: "Insert Interval - LeetCode"
+  url: "https://leetcode.com/problems/insert-interval/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Insert Interval Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Insert Interval - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

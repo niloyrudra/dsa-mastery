@@ -1,0 +1,11 @@
+- title: "Alien Dictionary - LeetCode"
+  url: "https://leetcode.com/problems/alien-dictionary/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Alien Dictionary Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Alien Dictionary - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

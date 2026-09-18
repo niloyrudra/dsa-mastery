@@ -1,0 +1,11 @@
+- title: "Permutations - LeetCode"
+  url: "https://leetcode.com/problems/permutations/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Permutations Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Permutations - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

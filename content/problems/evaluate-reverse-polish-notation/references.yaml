@@ -1,0 +1,11 @@
+- title: "Evaluate Reverse Polish Notation - LeetCode"
+  url: "https://leetcode.com/problems/evaluate-reverse-polish-notation/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Evaluate Reverse Polish Notation Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Evaluate Reverse Polish Notation - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

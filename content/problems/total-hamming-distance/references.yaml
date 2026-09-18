@@ -1,0 +1,11 @@
+- title: "Total Hamming Distance - LeetCode"
+  url: "https://leetcode.com/problems/total-hamming-distance/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Total Hamming Distance Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Total Hamming Distance - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

@@ -1,0 +1,11 @@
+- title: "Rotting Oranges - LeetCode"
+  url: "https://leetcode.com/problems/rotting-oranges/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Rotting Oranges Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Rotting Oranges - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

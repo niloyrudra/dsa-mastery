@@ -1,0 +1,11 @@
+- title: "Trapping Rain Water - LeetCode"
+  url: "https://leetcode.com/problems/trapping-rain-water/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Trapping Rain Water Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Trapping Rain Water - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

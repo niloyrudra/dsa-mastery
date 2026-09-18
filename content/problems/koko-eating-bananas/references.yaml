@@ -1,0 +1,11 @@
+- title: "Koko Eating Bananas - LeetCode"
+  url: "https://leetcode.com/problems/koko-eating-bananas/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Koko Eating Bananas Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Koko Eating Bananas - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

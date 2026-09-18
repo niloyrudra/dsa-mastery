@@ -1,0 +1,11 @@
+- title: "Spiral Matrix - LeetCode"
+  url: "https://leetcode.com/problems/spiral-matrix/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Spiral Matrix Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Spiral Matrix - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

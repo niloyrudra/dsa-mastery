@@ -1,0 +1,11 @@
+- title: "Swim in Rising Water - LeetCode"
+  url: "https://leetcode.com/problems/swim-in-rising-water/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Swim in Rising Water Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Swim in Rising Water - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

@@ -1,0 +1,11 @@
+- title: "Kth Smallest Element in a BST - LeetCode"
+  url: "https://leetcode.com/problems/kth-smallest-element-in-a-bst/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Kth Smallest Element in a BST Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Kth Smallest Element in a BST - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

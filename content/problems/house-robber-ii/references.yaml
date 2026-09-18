@@ -1,0 +1,11 @@
+- title: "House Robber II - LeetCode"
+  url: "https://leetcode.com/problems/house-robber-ii/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "House Robber II Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "House Robber II - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

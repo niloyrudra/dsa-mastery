@@ -1,0 +1,11 @@
+- title: "Word Search - LeetCode"
+  url: "https://leetcode.com/problems/word-search/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Word Search Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Word Search - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

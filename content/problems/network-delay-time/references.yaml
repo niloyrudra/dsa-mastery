@@ -1,0 +1,11 @@
+- title: "Network Delay Time - LeetCode"
+  url: "https://leetcode.com/problems/network-delay-time/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Network Delay Time Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Network Delay Time - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

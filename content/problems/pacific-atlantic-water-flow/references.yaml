@@ -1,0 +1,11 @@
+- title: "Pacific Atlantic Water Flow - LeetCode"
+  url: "https://leetcode.com/problems/pacific-atlantic-water-flow/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Pacific Atlantic Water Flow Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Pacific Atlantic Water Flow - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

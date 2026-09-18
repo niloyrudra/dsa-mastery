@@ -1,0 +1,11 @@
+- title: "Longest Repeating Character Replacement - LeetCode"
+  url: "https://leetcode.com/problems/longest-repeating-character-replacement/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Longest Repeating Character Replacement Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Longest Repeating Character Replacement - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

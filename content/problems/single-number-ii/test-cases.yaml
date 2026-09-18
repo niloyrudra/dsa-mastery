@@ -1,0 +1,26 @@
+- name: "Basic Example 1"
+  description: "Standard test case"
+  input:
+    nums: [1, 2, 3]
+    target: 6
+  expected: [0, 2]
+  type: "BASIC"
+  hidden: false
+
+- name: "Edge: Empty/Single"
+  description: "Edge case with minimal input"
+  input:
+    nums: [1]
+    target: 1
+  expected: [0, 0]
+  type: "EDGE_CASE"
+  hidden: false
+
+- name: "Performance: Large Input"
+  description: "Large input for performance testing"
+  input:
+    nums: "GENERATE: range(10000)"
+    target: 19999
+  expected: [9999, 10000]
+  type: "PERFORMANCE"
+  hidden: true

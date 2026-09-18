@@ -1,0 +1,11 @@
+- title: "Car Fleet - LeetCode"
+  url: "https://leetcode.com/problems/car-fleet/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Car Fleet Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Car Fleet - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

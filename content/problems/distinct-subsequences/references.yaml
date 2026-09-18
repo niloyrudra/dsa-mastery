@@ -1,0 +1,11 @@
+- title: "Distinct Subsequences - LeetCode"
+  url: "https://leetcode.com/problems/distinct-subsequences/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Distinct Subsequences Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Distinct Subsequences - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

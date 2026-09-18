@@ -1,0 +1,11 @@
+- title: "Balanced Binary Tree - LeetCode"
+  url: "https://leetcode.com/problems/balanced-binary-tree/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Balanced Binary Tree Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Balanced Binary Tree - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

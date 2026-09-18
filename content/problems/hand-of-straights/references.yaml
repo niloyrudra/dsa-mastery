@@ -1,0 +1,11 @@
+- title: "Hand of Straights - LeetCode"
+  url: "https://leetcode.com/problems/hand-of-straights/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Hand of Straights Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Hand of Straights - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

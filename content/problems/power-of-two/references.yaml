@@ -1,0 +1,11 @@
+- title: "Power of Two - LeetCode"
+  url: "https://leetcode.com/problems/power-of-two/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Power of Two Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Power of Two - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

@@ -1,0 +1,11 @@
+- title: "Valid Parentheses - LeetCode"
+  url: "https://leetcode.com/problems/valid-parentheses/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Valid Parentheses Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Valid Parentheses - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

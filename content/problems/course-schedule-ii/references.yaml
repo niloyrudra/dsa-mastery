@@ -1,0 +1,11 @@
+- title: "Course Schedule II - LeetCode"
+  url: "https://leetcode.com/problems/course-schedule-ii/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Course Schedule II Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Course Schedule II - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

@@ -1,0 +1,11 @@
+- title: "Subsets - LeetCode"
+  url: "https://leetcode.com/problems/subsets/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Subsets Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Subsets - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

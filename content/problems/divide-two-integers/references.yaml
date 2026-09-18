@@ -1,0 +1,11 @@
+- title: "Divide Two Integers - LeetCode"
+  url: "https://leetcode.com/problems/divide-two-integers/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Divide Two Integers Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Divide Two Integers - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"

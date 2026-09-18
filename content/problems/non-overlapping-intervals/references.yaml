@@ -1,0 +1,11 @@
+- title: "Non-overlapping Intervals - LeetCode"
+  url: "https://leetcode.com/problems/non-overlapping-intervals/"
+  type: "PROBLEM_SOURCE"
+  relevantConcept: "Non-overlapping Intervals Problem"
+  verifies: "Problem constraints and examples"
+
+- title: "Non-overlapping Intervals - CP Algorithms"
+  url: "https://cp-algorithms.com/"
+  type: "TECH_RESOURCE"
+  relevantConcept: "Algorithm explanation"
+  verifies: "Algorithm reference"
