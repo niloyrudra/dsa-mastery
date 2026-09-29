@@ -1,34 +1,14 @@
 ---
 id: "heap-fundamentals"
 name: "Heap Fundamentals"
-category: "Heap"
-definition: "Priority queue operations: insert, extract min/max, peek, heapify; maintaining heap property for efficient priority-based access."
-when_to_use: "Finding kth largest/smallest; top k elements; streaming data; merge k sorted lists; scheduling; Dijkstra's algorithm."
-why_it_works: "Heap maintains partial order - parent is always >= (max-heap) or <= (min-heap) children. Root is always extremum. Operations are O(log n)."
-intuition: "Complete binary tree stored in array. Parent at i, children at 2i+1, 2i+2. Bubble up on insert, bubble down on extract."
-invariant: "For max-heap: parent >= children. For min-heap: parent <= children. Tree is complete (all levels filled except last, left-aligned)."
-strengths: "O(1) peek, O(log n) insert/extract; no need for full sorting; efficient for streaming/top-k; array-based = cache friendly."
-weaknesses: "No efficient search (O(n)); not stable; can't update arbitrary element efficiently without index map; no range queries."
-recognition_signals:
-  - "kth largest element"
-  - "kth smallest element"
-  - "top k frequent"
-  - "merge k sorted lists"
-  - "last stone weight"
-  - "median finder"
-  - "task scheduler"
-  - "design twitter"
-common_failure_modes:
-  - "Using wrong heap type (min vs max)"
-  - "Not handling empty heap"
-  - "Incorrect heapify implementation"
-  - "Forgetting to negate values for max-heap in min-heap languages"
-  - "Not using custom comparator for objects"
-generalizations: "Can use with custom comparators; indexed heap for update/delete; pairing heap for decrease-key; binomial/fibonacci heap for advanced operations."
-time_complexity: "O(log n) insert/extract, O(1) peek, O(n) heapify"
-space_complexity: "O(n)"
-time_reasoning: "Tree height is log n; bubble up/down traverses height."
-space_reasoning: "Array stores n elements."
+category: "HEAP"
+patterns: []
+algorithms: ["dijkstra", "kruskal", "prim"]
+dataStructures: ["heap", "array"]
+templates: ["heap-template-ts"]
+problems: ["kth-largest-element-in-an-array", "kth-largest-element-in-a-stream", "top-k-frequent-elements", "last-stone-weight", "median-finder", "merge-k-sorted-lists", "task-scheduler", "design-twitter", "minimum-cost-to-connect-all-points", "network-delay-time"]
+prerequisites: ["heap", "array"]
+relatedPatterns: ["greedy-fundamentals", "graph-bfs", "graph-union-find"]
 status: "PUBLISHED"
 ---
 # Heap Fundamentals Pattern

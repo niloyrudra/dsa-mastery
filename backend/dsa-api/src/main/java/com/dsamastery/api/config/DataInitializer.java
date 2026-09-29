@@ -1,7 +1,10 @@
 package com.dsamastery.api.config;
 
+import com.dsamastery.content.repository.PatternRepository;
 import com.dsamastery.content.service.ContentImportService;
 import com.dsamastery.curriculum.service.CurriculumImportService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
@@ -9,6 +12,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,8 +27,12 @@ public class DataInitializer implements ApplicationRunner {
 
     private final ContentImportService contentImportService;
     private final CurriculumImportService curriculumImportService;
+    
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
+    @Transactional
     public void run(ApplicationArguments args) {
         String contentRoot = "./Content";
         
@@ -54,6 +62,25 @@ public class DataInitializer implements ApplicationRunner {
         if (!contentPath.toFile().exists()) {
             log.warn("Content directory not found at: {}. Skipping content import.", contentPath);
             return;
+        }
+
+        // Fix existing patterns' recognition_signals column (stored as String from buggy import)
+        // Convert String to proper JSON array format
+        log.info("Fixing existing patterns' recognition_signals data...");
+        try {
+            entityManager.createNativeQuery("""
+                UPDATE patterns 
+                SET recognition_signals = CASE 
+                    WHEN recognition_signals IS NULL THEN '[]'::jsonb
+                    WHEN recognition_signals::text LIKE '[%' THEN recognition_signals
+                    ELSE jsonb_build_array(regexp_split_to_array(regexp_replace(recognition_signals::text, '[\\[\\]" ]', '', 'g'), ','))
+                END
+                WHERE recognition_signals IS NOT NULL
+            """).executeUpdate();
+            entityManager.flush();
+            log.info("Fixed existing patterns' recognition_signals data");
+        } catch (Exception e) {
+            log.warn("Could not fix patterns data (table may be empty): {}", e.getMessage());
         }
 
         log.info("Starting content import from: {}", contentPath);

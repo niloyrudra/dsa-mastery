@@ -3,12 +3,12 @@ id: "graph-union-find"
 name: "Union-Find (Disjoint Set Union)"
 category: "GRAPHS"
 patterns: []
-algorithms: ["union-find", "union-find-path-compression", "union-find-union-by-rank"]
-dataStructures: ["array", "union-find"]
+algorithms: ["union-find"]
+dataStructures: ["array"]
 templates: ["union-find"]
-problems: ["number-of-islands", "number-of-connected-components", "graph-valid-tree", "redundant-connection", "accounts-merge"]
-prerequisites: ["arrays", "graphs"]
-relatedPatterns: ["graph-dfs", "graph-bfs", "graph-kruskal"]
+problems: ["number-of-islands", "graph-valid-tree", "swim-in-rising-water", "min-cost-to-connect-all-points"]
+prerequisites: ["array", "graph"]
+relatedPatterns: ["graph-dfs", "graph-bfs"]
 status: "PUBLISHED"
 ---
 

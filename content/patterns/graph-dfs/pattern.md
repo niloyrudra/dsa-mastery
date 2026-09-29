@@ -3,12 +3,12 @@ id: "graph-dfs"
 name: "Graph Depth-First Search"
 category: "GRAPHS"
 patterns: []
-algorithms: ["graph-dfs-recursive", "graph-dfs-iterative", "graph-dfs-cycle-detection", "graph-dfs-topological"]
-dataStructures: ["graph", "hash-map", "array"]
-templates: ["graph-dfs", "graph-dfs-cycle-detection", "graph-dfs-topological"]
-problems: ["number-of-islands", "clone-graph", "course-schedule", "pacific-atlantic", "surrounded-regions"]
-prerequisites: ["graph", "dfs"]
-relatedPatterns: ["graph-bfs", "graph-union-find", "graph-topological-sort"]
+algorithms: ["dfs"]
+dataStructures: ["graph", "hash-table"]
+templates: ["graph-template-ts"]
+problems: ["number-of-islands", "clone-graph", "course-schedule", "pacific-atlantic-water-flow", "surrounded-regions"]
+prerequisites: ["graph", "recursion"]
+relatedPatterns: ["graph-bfs", "graph-union-find"]
 status: "PUBLISHED"
 ---
 

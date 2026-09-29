@@ -3,12 +3,12 @@ id: "binary-search-boundary"
 name: "Binary Search - Boundary / Lower Bound"
 category: "SEARCH"
 patterns: []
-algorithms: ["binary-search-lower-bound", "binary-search-upper-bound", "binary-search-first-true"]
+algorithms: ["binary-search"]
 dataStructures: ["array"]
-templates: ["binary-search-lower-bound", "binary-search-upper-bound", "binary-search-first-true"]
-problems: ["search-insert-position", "first-bad-version", "find-first-last-position", "koko-eating-bananas", "capacity-to-ship-packages"]
-prerequisites: ["arrays", "binary-search"]
-relatedPatterns: ["binary-search-classic", "binary-search-on-answer", "binary-search-rotated"]
+templates: ["binary-search-template-ts"]
+problems: ["search-insert-position", "first-bad-version", "find-first-and-last-position-of-element-in-sorted-array", "koko-eating-bananas", "capacity-to-ship-packages"]
+prerequisites: ["array"]
+relatedPatterns: []
 status: "PUBLISHED"
 ---
 

@@ -2,7 +2,6 @@ package com.dsamastery.content.repository;
 
 import com.dsamastery.content.entity.Problem;
 import com.dsamastery.common.enums.ContentStatus;
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -27,21 +26,28 @@ public interface ProblemRepository extends JpaRepository<Problem, UUID> {
     
     List<Problem> findByDataStructuresSlug(String dataStructureSlug);
     
-    @EntityGraph(attributePaths = {
-        "patterns",
-        "algorithms", 
-        "dataStructures",
-        "templates",
-        "variations",
-        "solutions",
-        "testCases",
-        "learningObjectives",
-        "references",
-        "relatedProblems",
-        "prerequisites"
-    })
-    @Query("SELECT DISTINCT p FROM Problem p WHERE p.slug = :slug")
-    Optional<Problem> findBySlugWithAllRelations(@Param("slug") String slug);
+    @Query("""
+        SELECT DISTINCT p FROM Problem p
+        LEFT JOIN FETCH p.patterns
+        LEFT JOIN FETCH p.algorithms
+        LEFT JOIN FETCH p.dataStructures
+        LEFT JOIN FETCH p.templates
+        WHERE p.slug = :slug
+        """)
+    Optional<Problem> findBySlugWithRelations(@Param("slug") String slug);
+    
+    @Query("""
+        SELECT DISTINCT p FROM Problem p
+        LEFT JOIN FETCH p.variations
+        LEFT JOIN FETCH p.solutions
+        LEFT JOIN FETCH p.testCases
+        LEFT JOIN FETCH p.learningObjectives
+        LEFT JOIN FETCH p.references
+        LEFT JOIN FETCH p.relatedProblems
+        LEFT JOIN FETCH p.prerequisites
+        WHERE p.slug = :slug
+        """)
+    Optional<Problem> findBySlugWithDetails(@Param("slug") String slug);
     
     @Query("""
         SELECT p FROM Problem p

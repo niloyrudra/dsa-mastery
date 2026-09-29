@@ -2,12 +2,12 @@
 id: "two-pointer"
 name: "Two Pointer"
 category: "ARRAYS_STRINGS"
-patterns: ["two-pointer-opposite", "two-pointer-same", "fast-slow"]
-algorithms: ["two-pointer-opposite", "two-pointer-same", "fast-slow"]
+patterns: []
+algorithms: ["two-pointer"]
 dataStructures: ["array"]
-templates: ["two-pointer-opposite", "two-pointer-same", "fast-slow"]
-problems: ["valid-palindrome", "two-sum-ii", "container-with-most-water", "trapping-rain-water", "3sum", "4sum"]
-prerequisites: ["arrays"]
+templates: ["two-pointers-template-ts"]
+problems: ["valid-palindrome", "two-sum-ii", "container-with-most-water", "trapping-rain-water", "3sum"]
+prerequisites: ["two-pointers", "array"]
 relatedPatterns: ["sliding-window", "binary-search"]
 status: "PUBLISHED"
 ---

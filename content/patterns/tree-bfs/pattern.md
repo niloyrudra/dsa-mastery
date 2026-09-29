@@ -3,10 +3,10 @@ id: "tree-bfs"
 name: "Tree Breadth-First Search"
 category: "TREES"
 patterns: []
-algorithms: ["tree-bfs-iterative", "tree-bfs-level-order", "tree-bfs-zigzag"]
+algorithms: ["bfs"]
 dataStructures: ["binary-tree", "queue"]
-templates: ["tree-bfs-iterative", "tree-bfs-level-order", "tree-bfs-zigzag"]
-problems: ["level-order", "zigzag", "right-side-view", "max-depth", "min-depth", "cousins"]
+templates: ["graph-template-ts"]
+problems: ["binary-tree-level-order-traversal", "binary-tree-right-side-view"]
 prerequisites: ["binary-tree", "queue"]
 relatedPatterns: ["tree-dfs", "graph-bfs"]
 status: "PUBLISHED"

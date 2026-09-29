@@ -3,12 +3,12 @@ id: "sliding-window-variable"
 name: "Sliding Window - Variable Size"
 category: "ARRAYS_STRINGS"
 patterns: []
-algorithms: ["sliding-window-variable"]
-dataStructures: ["array", "hash-map", "string"]
-templates: ["sliding-window-variable", "sliding-window-char-set"]
-problems: ["longest-substring-without-repeating", "minimum-window-substring", "longest-substring-k-distinct", "fruit-into-baskets"]
-prerequisites: ["arrays", "hash-map"]
-relatedPatterns: ["two-pointer", "sliding-window-fixed"]
+algorithms: []
+dataStructures: ["array", "hash-table"]
+templates: ["sliding-window-template-ts"]
+problems: ["longest-substring-without-repeating-characters", "minimum-window-substring", "permutation-in-string"]
+prerequisites: ["array", "hash-table", "sliding-window"]
+relatedPatterns: ["two-pointer"]
 status: "PUBLISHED"
 ---
 

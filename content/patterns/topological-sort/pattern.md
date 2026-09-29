@@ -1,34 +1,14 @@
 ---
 id: "topological-sort"
 name: "Topological Sort"
-category: "Graph"
-definition: "Linear ordering of vertices in a DAG such that for every directed edge u->v, u comes before v. Kahn's algorithm (BFS with indegree) or DFS with post-order."
-when_to_use: "Course scheduling; task ordering with dependencies; build systems; detecting cycles in directed graphs; alien dictionary; reconstructing sequences."
-why_it_works: "DAG has at least one vertex with indegree 0. Kahn's: repeatedly remove indegree-0 vertices. DFS: post-order of DFS gives reverse topological order."
-intuition: "Vertices with no prerequisites go first. Process them, remove their outgoing edges, new vertices may become available. If cycle exists, no valid ordering."
-invariant: "Kahn's: processed vertices form valid prefix of topological order; remaining graph maintains DAG property. DFS: post-order visit ensures dependencies come before dependents."
-strengths: "O(V+E) linear time; detects cycles naturally; multiple valid orderings possible; simple implementation."
-weaknesses: "Only works on DAGs (no cycles); ordering not unique; can't handle undirected graphs; need all vertices reachable from sources."
-recognition_signals:
-  - "topological sort"
-  - "course schedule"
-  - "course schedule ii"
-  - "alien dictionary"
-  - "reconstruct itinerary"
-  - "task ordering"
-  - "build order"
-  - "sequence reconstruction"
-common_failure_modes:
-  - "Not detecting cycles (Kahn's: processed count < V)"
-  - "DFS: not handling multiple connected components"
-  - "Incorrect indegree calculation"
-  - "Using on graph with cycles without detection"
-  - "Not handling isolated vertices"
-generalizations: "Can find all topological orderings; can find lexicographically smallest (priority queue); parallel topological sort; dynamic topological sort."
-time_complexity: "O(V + E)"
-space_complexity: "O(V) for indegree/visited/order, O(V) for queue/stack"
-time_reasoning: "Each vertex and edge processed exactly once."
-space_reasoning: "Indegree array, visited array, result array, queue/stack for processing."
+category: "GRAPHS"
+patterns: []
+algorithms: ["topological-sort", "dfs", "bfs"]
+dataStructures: ["graph", "queue"]
+templates: ["graph-template-ts"]
+problems: ["course-schedule", "course-schedule-ii", "alien-dictionary", "reconstruct-itinerary", "sequence-reconstruction", "parallel-courses"]
+prerequisites: ["graph", "queue", "dfs"]
+relatedPatterns: ["graph-dfs", "graph-bfs", "graph-union-find"]
 status: "PUBLISHED"
 ---
 # Topological Sort Pattern

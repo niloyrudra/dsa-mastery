@@ -4,12 +4,12 @@ title: "Two Sum"
 difficulty: "EASY"
 source: "LeetCode"
 sourceUrl: "https://leetcode.com/problems/two-sum/"
-patterns: ["hash-map-lookup", "two-pointer-opposite"]
-algorithms: ["hash-map-lookup", "two-pointer-opposite"]
-dataStructures: ["hash-map", "array"]
-templates: ["hash-map-lookup", "two-pointer-opposite"]
-prerequisites: ["arrays", "hash-map"]
-relatedProblems: ["three-sum", "two-sum-ii", "4sum", "two-sum-iv"]
+patterns: ["hash-map-lookup", "two-pointer"]
+algorithms: ["hash-map-lookup", "two-pointer"]
+dataStructures: ["hash-table", "array"]
+templates: ["hash-map-template-ts", "two-pointers-template-ts"]
+prerequisites: ["array", "hash-table"]
+relatedProblems: ["3sum", "two-sum-ii"]
 status: "PUBLISHED"
 orderIndex: 1
 reasonForSelection: "Foundational complement-finding pattern; introduces hash map trade-off; appears in 3Sum, 4Sum, subarray sum problems"

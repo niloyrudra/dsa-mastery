@@ -1,32 +1,14 @@
 ---
 id: "stack-fundamentals"
 name: "Stack Fundamentals"
-category: "Stack"
-definition: "Using stack (LIFO) for problems involving matching, nesting, or reversing order - parentheses matching, expression evaluation, backtracking simulation."
-when_to_use: "Valid parentheses, expression evaluation (RPN), nested structures, undo operations, DFS simulation, matching pairs."
-why_it_works: "Stack naturally models LIFO behavior - last opened must be first closed. Perfect for matching nested structures."
-intuition: "Push opening symbols, pop and match with closing symbols. Stack state represents current nesting level."
-invariant: "Stack contains unmatched opening symbols in order of appearance."
-strengths: "O(n) time, O(n) space; natural fit for nesting/matching; simple and intuitive."
-weaknesses: "Only works for LIFO matching; not suitable for queue-like (FIFO) matching; space can be O(n) in worst case."
-recognition_signals:
-  - "valid parentheses"
-  - "matching brackets"
-  - "reverse polish notation"
-  - "evaluate expression"
-  - "nested structure"
-  - "generate parentheses"
-  - "min stack"
-common_failure_modes:
-  - "Not checking if stack is empty before popping"
-  - "Wrong matching logic for different bracket types"
-  - "Forgetting to check if stack is empty at end"
-  - "Incorrect handling of operator precedence in RPN"
-generalizations: "Can be extended to Min/Max stack with auxiliary stacks; can simulate recursion; useful for tree traversal without recursion."
-time_complexity: "O(n)"
-space_complexity: "O(n)"
-time_reasoning: "Each element pushed and popped at most once."
-space_reasoning: "Stack stores at most n elements in worst case (all opening brackets)."
+category: "STACK"
+patterns: []
+algorithms: []
+dataStructures: ["stack"]
+templates: []
+problems: ["valid-parentheses", "generate-parentheses", "evaluate-reverse-polish-notation", "min-stack", "daily-temperatures", "largest-rectangle-in-histogram", "trapping-rain-water", "asteroid-collision"]
+prerequisites: ["stack"]
+relatedPatterns: ["monotonic-stack", "tree-dfs"]
 status: "PUBLISHED"
 ---
 # Stack Fundamentals Pattern

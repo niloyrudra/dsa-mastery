@@ -6,6 +6,8 @@ import com.dsamastery.content.repository.*;
 import com.dsamastery.common.enums.*;
 import com.dsamastery.common.entity.Complexity;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -38,6 +40,9 @@ public class ContentImportService {
     private final Yaml yaml = new Yaml();
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final java.util.regex.Pattern frontmatterPattern = java.util.regex.Pattern.compile("^---\\n(.*?)\\n---", java.util.regex.Pattern.DOTALL);
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Transactional
     public ImportResult importContent(Path contentRoot) throws IOException {
@@ -93,28 +98,30 @@ public class ContentImportService {
         Map<String, Object> frontmatter = parseFrontmatter(content);
         String markdownContent = extractMarkdownContent(content);
         
-        String slug = (String) frontmatter.get("id");
-        if (patternRepository.existsBySlug(slug)) {
-            log.info("Pattern already exists: {}", slug);
-            return;
-        }
+        // Parse markdown sections from the body
+        Map<String, String> sections = parseMarkdownSections(markdownContent);
         
-        Pattern pattern = Pattern.builder()
-            .slug(slug)
-            .name((String) frontmatter.get("name"))
-            .category((String) frontmatter.get("category"))
-            .definition(markdownContent)
-            .whenToUse(getStringOrEmpty(frontmatter, "when_to_use"))
-            .whyItWorks(getStringOrEmpty(frontmatter, "why_it_works"))
-            .intuition(getStringOrEmpty(frontmatter, "intuition"))
-            .invariant(getStringOrEmpty(frontmatter, "invariant"))
-            .strengths(getStringOrEmpty(frontmatter, "strengths"))
-            .weaknesses(getStringOrEmpty(frontmatter, "weaknesses"))
-            .recognitionSignals(getStringList(frontmatter, "recognition_signals"))
-            .commonFailureModes(getStringOrEmpty(frontmatter, "common_failure_modes"))
-            .generalizations(getStringOrEmpty(frontmatter, "generalizations"))
-            .status(ContentStatus.valueOf((String) frontmatter.getOrDefault("status", "DRAFT")))
-            .build();
+        String slug = (String) frontmatter.get("id");
+        
+        // Find existing pattern or create new one
+        Pattern pattern = patternRepository.findBySlug(slug).orElse(new Pattern());
+        boolean isNew = pattern.getId() == null;
+        
+        // Update pattern fields
+        pattern.setSlug(slug);
+        pattern.setName((String) frontmatter.get("name"));
+        pattern.setCategory((String) frontmatter.get("category"));
+        pattern.setDefinition(sections.getOrDefault("definition", markdownContent));
+        pattern.setWhenToUse(sections.getOrDefault("when_to_use", ""));
+        pattern.setWhyItWorks(sections.getOrDefault("why_it_works", ""));
+        pattern.setIntuition(sections.getOrDefault("intuition", ""));
+        pattern.setInvariant(sections.getOrDefault("invariant", ""));
+        pattern.setStrengths(sections.getOrDefault("strengths", ""));
+        pattern.setWeaknesses(sections.getOrDefault("weaknesses", ""));
+        pattern.setRecognitionSignals(getStringList(frontmatter, "recognition_signals"));
+        pattern.setCommonFailureModes(sections.getOrDefault("common_failure_modes", ""));
+        pattern.setGeneralizations(sections.getOrDefault("generalizations", ""));
+        pattern.setStatus(ContentStatus.valueOf((String) frontmatter.getOrDefault("status", "DRAFT")));
         
         // Set complexity if present
         if (frontmatter.containsKey("time_complexity")) {
@@ -134,8 +141,109 @@ public class ContentImportService {
         
         // Import pattern templates
         importPatternTemplates(patternDir.resolve("templates"), pattern, result);
+        
+        // Link relationships from frontmatter
+        linkPatternRelationships(pattern, frontmatter, result);
     }
-
+    
+    private Map<String, String> parseMarkdownSections(String markdownContent) {
+        Map<String, String> sections = new LinkedHashMap<>();
+        if (markdownContent == null || markdownContent.isBlank()) {
+            sections.put("definition", "");
+            return sections;
+        }
+        
+        // Split by ## headings
+        String[] parts = markdownContent.split("(?m)^##\\s+");
+        
+        String definition = parts[0].trim();
+        sections.put("definition", definition);
+        
+        // Section name mapping from markdown heading to field name
+        Map<String, String> headingToField = Map.ofEntries(
+            Map.entry("When to Use", "when_to_use"),
+            Map.entry("Why It Works", "why_it_works"),
+            Map.entry("Intuition", "intuition"),
+            Map.entry("Invariant", "invariant"),
+            Map.entry("Strengths", "strengths"),
+            Map.entry("Weaknesses", "weaknesses"),
+            Map.entry("Common Failure Modes", "common_failure_modes"),
+            Map.entry("Generalizations", "generalizations"),
+            Map.entry("Complexity", "complexity")
+        );
+        
+        for (int i = 1; i < parts.length; i++) {
+            String part = parts[i];
+            int newlineIndex = part.indexOf('\n');
+            if (newlineIndex > 0) {
+                String heading = part.substring(0, newlineIndex).trim();
+                String body = part.substring(newlineIndex + 1).trim();
+                
+                String fieldName = headingToField.get(heading);
+                if (fieldName != null) {
+                    sections.put(fieldName, body);
+                }
+            }
+        }
+        
+        return sections;
+    }
+    
+    private void linkPatternRelationships(Pattern pattern, Map<String, Object> frontmatter, ImportResult result) {
+        // Link templates
+        List<String> templateSlugs = getStringList(frontmatter, "templates");
+        for (String templateSlug : templateSlugs) {
+            templateRepository.findBySlug(templateSlug).ifPresent(template -> {
+                pattern.getTemplates().add(template);
+            });
+        }
+        
+        // Link algorithms
+        List<String> algoSlugs = getStringList(frontmatter, "algorithms");
+        for (String algoSlug : algoSlugs) {
+            algorithmRepository.findBySlug(algoSlug).ifPresent(algo -> {
+                pattern.getAlgorithms().add(algo);
+            });
+        }
+        
+        // Link data structures
+        List<String> dsSlugs = getStringList(frontmatter, "dataStructures");
+        for (String dsSlug : dsSlugs) {
+            dataStructureRepository.findBySlug(dsSlug).ifPresent(ds -> {
+                pattern.getDataStructures().add(ds);
+            });
+        }
+        
+        // Link problems (these are problem slugs from frontmatter)
+        List<String> problemSlugs = getStringList(frontmatter, "problems");
+        for (String problemSlug : problemSlugs) {
+            problemRepository.findBySlug(problemSlug).ifPresent(problem -> {
+                pattern.getProblems().add(problem);
+            });
+        }
+        
+        // Link sub-patterns - using native query to set required 'type' column
+        List<String> subPatternSlugs = getStringList(frontmatter, "relatedPatterns");
+        for (String subPatternSlug : subPatternSlugs) {
+            patternRepository.findBySlug(subPatternSlug).ifPresent(subPattern -> {
+                try {
+                    entityManager.createNativeQuery("""
+                        INSERT INTO pattern_relationships (pattern_id, related_pattern_id, type)
+                        VALUES (:patternId, :relatedPatternId, 'SUB_PATTERN')
+                        ON CONFLICT DO NOTHING
+                        """)
+                        .setParameter("patternId", pattern.getId())
+                        .setParameter("relatedPatternId", subPattern.getId())
+                        .executeUpdate();
+                } catch (Exception e) {
+                    log.warn("Failed to link sub-pattern {} -> {}: {}", pattern.getSlug(), subPatternSlug, e.getMessage());
+                }
+            });
+        }
+        
+patternRepository.save(pattern);
+    }
+    
     private void importPatternTemplates(Path templatesDir, Pattern pattern, ImportResult result) throws IOException {
         if (!Files.exists(templatesDir)) return;
         
@@ -475,24 +583,35 @@ public class ContentImportService {
         String markdownContent = extractMarkdownContent(content);
         
         String slug = (String) frontmatter.get("id");
-        if (problemRepository.existsBySlug(slug)) {
-            log.info("Problem already exists: {}", slug);
-            return;
+        Problem problem = problemRepository.findBySlug(slug).orElse(null);
+        boolean isNew = problem == null;
+        
+        if (isNew) {
+            problem = Problem.builder()
+                .slug(slug)
+                .title((String) frontmatter.get("title"))
+                .description(markdownContent)
+                .externalUrl((String) frontmatter.get("sourceUrl"))
+                .difficulty(Difficulty.valueOf(getStringOrDefault(frontmatter, "difficulty", "EASY")))
+                .status(ContentStatus.valueOf(getStringOrDefault(frontmatter, "status", "DRAFT")))
+                .orderIndex(getInteger(frontmatter, "order_index", 0))
+                .reasonForSelection((String) frontmatter.get("reason_for_selection"))
+                .build();
+            
+            problemRepository.save(problem);
+            result.addImported("problem", slug);
+        } else {
+            // Update existing problem fields
+            problem.setTitle((String) frontmatter.get("title"));
+            problem.setDescription(markdownContent);
+            problem.setExternalUrl((String) frontmatter.get("sourceUrl"));
+            problem.setDifficulty(Difficulty.valueOf(getStringOrDefault(frontmatter, "difficulty", "EASY")));
+            problem.setStatus(ContentStatus.valueOf(getStringOrDefault(frontmatter, "status", "DRAFT")));
+            problem.setOrderIndex(getInteger(frontmatter, "order_index", 0));
+            problem.setReasonForSelection((String) frontmatter.get("reason_for_selection"));
+            problemRepository.save(problem);
+            log.info("Updated existing problem: {}", slug);
         }
-        
-        Problem problem = Problem.builder()
-            .slug(slug)
-            .title((String) frontmatter.get("title"))
-            .description(markdownContent)
-            .externalUrl((String) frontmatter.get("sourceUrl"))
-            .difficulty(Difficulty.valueOf(getStringOrDefault(frontmatter, "difficulty", "EASY")))
-            .status(ContentStatus.valueOf(getStringOrDefault(frontmatter, "status", "DRAFT")))
-            .orderIndex(getInteger(frontmatter, "order_index", 0))
-            .reasonForSelection((String) frontmatter.get("reason_for_selection"))
-            .build();
-        
-        problemRepository.save(problem);
-        result.addImported("problem", slug);
         
         // Import problem-local templates and link them to the problem
         importProblemTemplates(problemDir.resolve("templates"), problem, result);
@@ -500,7 +619,7 @@ public class ContentImportService {
         // Import learning objectives declared in frontmatter
         importLearningObjectives(frontmatter, problem);
         
-        // Link relationships
+        // Link relationships (for both new and existing problems)
         linkProblemRelationships(problem, frontmatter, result);
         
         // Import solutions
@@ -838,10 +957,25 @@ public class ContentImportService {
 
     private List<String> getStringList(Map<String, Object> map, String key) {
         Object value = map.get(key);
+        if (value == null) {
+            return new ArrayList<>();
+        }
         if (value instanceof List) {
             return ((List<?>) value).stream()
                 .map(Object::toString)
                 .collect(Collectors.toList());
+        }
+        if (value instanceof String) {
+            // Handle single string value (YAML might parse single-item list as string)
+            String str = (String) value;
+            // Try to parse as comma-separated or newline-separated
+            if (str.contains(",") || str.contains("\n")) {
+                return Arrays.stream(str.split("[,\n]"))
+                    .map(String::trim)
+                    .filter(s -> !s.isEmpty())
+                    .collect(Collectors.toList());
+            }
+            return List.of(str);
         }
         return new ArrayList<>();
     }

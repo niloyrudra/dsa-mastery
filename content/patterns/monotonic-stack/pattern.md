@@ -1,33 +1,14 @@
 ---
 id: "monotonic-stack"
 name: "Monotonic Stack"
-category: "Stack"
-definition: "A stack that maintains elements in monotonic order (increasing or decreasing) to efficiently find next greater/smaller elements."
-when_to_use: "Finding next greater element, next smaller element, previous greater/smaller; largest rectangle in histogram; trapping rain water; daily temperatures."
-why_it_works: "By maintaining monotonic order, we can determine the next greater/smaller element for each position in O(n) total time - each element is pushed and popped at most once."
-intuition: "When a new element arrives, it resolves the 'waiting' elements that are smaller/larger than it. Elements in the stack are waiting for their next greater/smaller element."
-invariant: "Stack elements are in strictly increasing (or decreasing) order from bottom to top."
-strengths: "O(n) time for next greater/smaller problems; single pass; elegant solution for histogram problems."
-weaknesses: "Only works for next/previous greater/smaller type problems; requires understanding of monotonic property; can be tricky to get direction right."
-recognition_signals:
-  - "next greater element"
-  - "next smaller element"
-  - "previous greater element"
-  - "previous smaller element"
-  - "largest rectangle in histogram"
-  - "trapping rain water"
-  - "daily temperatures"
-  - "number of visible people"
-common_failure_modes:
-  - "Wrong monotonic direction (increasing vs decreasing)"
-  - "Not handling equal elements correctly"
-  - "Forgetting to process remaining elements in stack at the end"
-  - "Incorrect index calculations for width in histogram"
-generalizations: "Can be used with pairs (value, index); can maintain multiple monotonic stacks; extends to 2D for matrix histogram problems."
-time_complexity: "O(n)"
-space_complexity: "O(n)"
-time_reasoning: "Each element is pushed and popped at most once."
-space_reasoning: "Stack stores at most n elements."
+category: "STACK"
+patterns: []
+algorithms: []
+dataStructures: ["stack", "array"]
+templates: []
+problems: ["daily-temperatures", "largest-rectangle-in-histogram", "trapping-rain-water", "next-greater-element"]
+prerequisites: ["stack", "array"]
+relatedPatterns: ["sliding-window-fixed", "sliding-window-variable"]
 status: "PUBLISHED"
 ---
 # Monotonic Stack Pattern

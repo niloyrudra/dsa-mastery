@@ -1,36 +1,14 @@
 ---
 id: "greedy-fundamentals"
 name: "Greedy Fundamentals"
-category: "Greedy"
-definition: "Making locally optimal choice at each step with the hope of finding global optimum. Works when problem has greedy choice property and optimal substructure."
-when_to_use: "Interval scheduling; maximizing/minimizing with constraints; gas station; jump game; task scheduling; Huffman coding; minimum spanning tree (Kruskal/Prim); assigning cookies; boat rescue."
-why_it_works: "Greedy choice property: locally optimal choice leads to globally optimal solution. Optimal substructure: optimal solution contains optimal solutions to subproblems. Exchange argument proves correctness."
-intuition: "Sort by some criterion (end time, ratio, value). Make choice that seems best now. Prove no future choice can improve it."
-invariant: "After each greedy choice, remaining problem is same type with smaller input; partial solution can be extended to optimal."
-strengths: "O(n log n) typically (due to sorting); simple and intuitive; no DP table needed; often optimal for specific problem classes."
-weaknesses: "Not always optimal (requires proof); counterexamples easy to find; hard to verify correctness; only works for specific problem structures."
-recognition_signals:
-  - "maximum/minimum number of"
-  - "interval scheduling"
-  - "greedy"
-  - "jump game"
-  - "gas station"
-  - "partition labels"
-  - "task scheduler"
-  - "assign cookies"
-  - "boat rescue"
-  - "non-overlapping intervals"
-common_failure_modes:
-  - "Assuming greedy works without proof"
-  - "Wrong sorting criterion"
-  - "Not handling edge cases"
-  - "Greedy choice not globally optimal"
-  - "Confusing with DP (when greedy fails)"
-generalizations: "Matroid theory characterizes greedy-solvable problems; can combine with binary search (greedy check); fractional vs 0/1 knapsack distinction."
-time_complexity: "O(n log n) typically (sorting), sometimes O(n)"
-space_complexity: "O(1) or O(n) for sorting"
-time_reasoning: "Sorting dominates; single pass after sorting."
-space_reasoning: "Sorting space; constant extra for greedy pass."
+category: "GREEDY"
+patterns: []
+algorithms: ["kruskal", "prim"]
+dataStructures: ["array", "heap", "queue"]
+templates: ["heap-template-ts"]
+problems: ["jump-game", "jump-game-ii", "gas-station", "task-scheduler", "non-overlapping-intervals", "merge-intervals", "insert-interval", "minimum-number-of-arrows-to-burst-balloons", "partition-labels", "hand-of-straights", "best-time-to-buy-and-sell-stock"]
+prerequisites: ["array", "heap", "queue"]
+relatedPatterns: ["dp-1d-fundamentals", "dp-2d-fundamentals", "binary-search-on-answer", "graph-union-find"]
 status: "PUBLISHED"
 ---
 # Greedy Fundamentals Pattern

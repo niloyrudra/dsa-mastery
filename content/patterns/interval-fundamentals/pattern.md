@@ -1,35 +1,14 @@
 ---
 id: "interval-fundamentals"
 name: "Interval Fundamentals"
-category: "Intervals"
-definition: "Operations on intervals: merging overlapping, finding intersections, inserting new intervals, checking overlaps, meeting rooms scheduling."
-when_to_use: "Merging intervals; inserting intervals; meeting rooms; finding free time; interval intersection; removing covered intervals; partitioning labels; non-overlapping intervals."
-why_it_works: "Sort intervals by start time. Process sequentially: if current overlaps with previous, merge; otherwise add to result. Overlap condition: current.start <= previous.end."
-intuition: "After sorting, overlapping intervals are adjacent. Single pass merges all overlaps. For meeting rooms: track active meetings with min-heap of end times."
-invariant: "Result intervals are non-overlapping and sorted; all input intervals represented in result (possibly merged)."
-strengths: "O(n log n) from sorting; O(n) single pass after sort; intuitive; handles all interval operations."
-weaknesses: "Requires sorting (can't do better than O(n log n) comparison-based); merging loses individual interval identity; not suitable for dynamic interval sets."
-recognition_signals:
-  - "merge intervals"
-  - "insert interval"
-  - "meeting rooms"
-  - "meeting rooms ii"
-  - "non-overlapping intervals"
-  - "interval intersection"
-  - "partition labels"
-  - "minimum arrows to burst balloons"
-  - "employee free time"
-common_failure_modes:
-  - "Not sorting by start time"
-  - "Incorrect overlap condition (strict vs non-strict)"
-  - "Not handling contained intervals"
-  - "Forgetting to update end time when merging"
-  - "Meeting rooms: not using min-heap correctly"
-generalizations: "Can use segment tree for dynamic intervals; sweep line for complex interval problems; interval tree for stabbing queries."
-time_complexity: "O(n log n) for sorting + O(n) for processing"
-space_complexity: "O(n) for result, O(n) for heap in meeting rooms"
-time_reasoning: "Sorting dominates; single linear pass after."
-space_reasoning: "Result array stores merged intervals; heap stores active meetings."
+category: "ARRAYS_STRINGS"
+patterns: []
+algorithms: []
+dataStructures: ["array", "heap"]
+templates: ["heap-template-ts"]
+problems: ["merge-intervals", "insert-interval", "meeting-rooms", "meeting-rooms-ii", "non-overlapping-intervals", "minimum-number-of-arrows-to-burst-balloons", "partition-labels", "interval-intersection"]
+prerequisites: ["array", "heap"]
+relatedPatterns: ["greedy-fundamentals", "heap-fundamentals"]
 status: "PUBLISHED"
 ---
 # Interval Fundamentals Pattern

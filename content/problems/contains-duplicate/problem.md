@@ -6,10 +6,10 @@ source: "LeetCode"
 sourceUrl: "https://leetcode.com/problems/contains-duplicate/"
 patterns: ["hash-map-lookup"]
 algorithms: ["hash-map-lookup"]
-dataStructures: ["hash-set", "array"]
-templates: ["hash-map-lookup"]
-prerequisites: ["arrays", "hash-set"]
-relatedProblems: ["contains-duplicate-ii", "contains-duplicate-iii", "find-the-duplicate-number"]
+dataStructures: ["hash-table", "array"]
+templates: ["hash-map-template-ts"]
+prerequisites: ["array", "hash-table"]
+relatedProblems: ["find-the-duplicate-number"]
 status: "PUBLISHED"
 orderIndex: 2
 reasonForSelection: "Fundamental hash set usage; introduces frequency counting pattern; basis for many duplicate detection problems"

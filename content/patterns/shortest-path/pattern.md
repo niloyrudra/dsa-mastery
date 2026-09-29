@@ -1,34 +1,14 @@
 ---
 id: "shortest-path"
 name: "Shortest Path"
-category: "Graph"
-definition: "Finding shortest path in weighted graphs: Dijkstra's algorithm for non-negative weights, Bellman-Ford for negative weights, SPFA optimization."
-when_to_use: "Single-source shortest path; network routing; minimum cost; finding shortest path with constraints; weighted graph traversal."
-why_it_works: "Dijkstra: greedily expands closest unvisited vertex; once settled, distance is optimal. Bellman-Ford: relaxes all edges V-1 times to handle negative weights."
-intuition: "Maintain distance estimates. Repeatedly pick closest unprocessed vertex, relax its edges. Priority queue gives O((V+E)log V) for Dijkstra."
-invariant: "Dijkstra: settled vertices have final shortest distances. Bellman-Ford: after k iterations, distances are optimal for paths with <= k edges."
-strengths: "Dijkstra: O((V+E)log V) with heap; optimal for non-negative weights. Bellman-Ford: detects negative cycles; works with negative weights."
-weaknesses: "Dijkstra: fails with negative weights. Bellman-Ford: O(VE) slower. Both: no path reconstruction without parent tracking."
-recognition_signals:
-  - "shortest path"
-  - "dijkstra"
-  - "network delay time"
-  - "cheapest flights within k stops"
-  - "minimum cost"
-  - "path with minimum effort"
-  - "bellman-ford"
-  - "negative weights"
-common_failure_modes:
-  - "Using Dijkstra with negative weights"
-  - "Not handling unreachable nodes"
-  - "Incorrect priority queue ordering"
-  - "Forgetting to check if distance is already optimal before processing"
-  - "Not tracking path for reconstruction"
-generalizations: "A* for heuristic-guided search; bidirectional Dijkstra; Johnson's algorithm for all-pairs; multi-source multi-target."
-time_complexity: "Dijkstra: O((V+E)log V); Bellman-Ford: O(VE); SPFA: O(kE) average"
-space_complexity: "O(V) for distances, O(V) for heap/queue"
-time_reasoning: "Dijkstra: each vertex extracted once, each edge relaxed once. Bellman-Ford: V-1 passes over all edges."
-space_reasoning: "Distance array, priority queue, adjacency list."
+category: "GRAPHS"
+patterns: []
+algorithms: ["dijkstra", "kruskal", "prim"]
+dataStructures: ["graph", "heap"]
+templates: ["graph-template-ts", "heap-template-ts"]
+problems: ["network-delay-time", "cheapest-flights-within-k-stops", "min-cost-to-connect-all-points", "swim-in-rising-water"]
+prerequisites: ["graph", "heap"]
+relatedPatterns: ["graph-bfs", "graph-union-find", "minimum-spanning-tree", "heap-fundamentals"]
 status: "PUBLISHED"
 ---
 # Shortest Path Pattern

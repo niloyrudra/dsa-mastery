@@ -4,11 +4,11 @@ name: "Hash Map Lookup"
 category: "HASHING"
 patterns: []
 algorithms: ["hash-map-lookup"]
-dataStructures: ["hash-map"]
-templates: ["hash-map-lookup"]
+dataStructures: ["hash-table"]
+templates: ["hash-map-template-ts"]
 problems: ["two-sum", "contains-duplicate", "valid-anagram", "group-anagrams", "top-k-frequent-elements"]
-prerequisites: ["arrays", "hash-map"]
-relatedPatterns: ["frequency-count", "prefix-sum"]
+prerequisites: ["array", "hash-table"]
+relatedPatterns: []
 status: "PUBLISHED"
 ---
 

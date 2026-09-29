@@ -3,12 +3,12 @@ id: "tree-dfs"
 name: "Tree Depth-First Search"
 category: "TREES"
 patterns: []
-algorithms: ["tree-dfs-recursive", "tree-dfs-iterative", "tree-dfs-postorder", "tree-dfs-bounds"]
+algorithms: ["dfs"]
 dataStructures: ["binary-tree"]
-templates: ["tree-dfs-recursive", "tree-dfs-iterative", "tree-dfs-postorder", "tree-dfs-bounds"]
-problems: ["maximum-depth", "validate-bst", "diameter", "symmetric-tree", "invert-tree", "lca", "path-sum"]
+templates: ["tree-dfs-template-ts"]
+problems: ["maximum-depth-of-binary-tree", "validate-binary-search-tree", "diameter-of-binary-tree", "invert-binary-tree", "lowest-common-ancestor-of-a-binary-search-tree", "minimum-path-sum"]
 prerequisites: ["binary-tree", "recursion"]
-relatedPatterns: ["tree-bfs", "tree-recursion", "dp-on-trees"]
+relatedPatterns: ["tree-bfs"]
 status: "PUBLISHED"
 ---
 

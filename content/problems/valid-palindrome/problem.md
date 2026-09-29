@@ -4,12 +4,12 @@ title: "Valid Palindrome"
 difficulty: "EASY"
 source: "LeetCode"
 sourceUrl: "https://leetcode.com/problems/valid-palindrome/"
-patterns: ["two-pointer-opposite"]
-algorithms: ["two-pointer-opposite"]
-dataStructures: ["array", "string"]
-templates: ["two-pointer-opposite"]
-prerequisites: ["arrays", "string", "two-pointer-opposite"]
-relatedProblems: ["valid-palindrome-ii", "longest-palindromic-substring"]
+patterns: ["two-pointer"]
+algorithms: ["two-pointer"]
+dataStructures: ["array"]
+templates: ["two-pointers-template-ts"]
+prerequisites: ["array", "two-pointers"]
+relatedProblems: ["longest-palindromic-substring"]
 status: "PUBLISHED"
 orderIndex: 11
 reasonForSelection: "Classic two-pointer string problem; teaches filtering + two pointers"

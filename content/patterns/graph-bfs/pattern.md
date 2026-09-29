@@ -2,13 +2,13 @@
 id: "graph-bfs"
 name: "Graph Breadth-First Search"
 category: "GRAPHS"
-patterns: ["multi-source-bfs"]
-algorithms: ["graph-bfs", "graph-bfs-multi-source", "graph-bfs-shortest-path"]
-dataStructures: ["graph", "queue", "array"]
-templates: ["graph-bfs", "graph-bfs-multi-source", "grid-bfs"]
+patterns: []
+algorithms: ["bfs"]
+dataStructures: ["graph", "queue"]
+templates: ["graph-template-ts"]
 problems: ["number-of-islands", "rotting-oranges", "walls-and-gates", "shortest-path", "minimum-height-trees"]
 prerequisites: ["graph", "queue"]
-relatedPatterns: ["graph-dfs", "graph-union-find", "graph-dijkstra"]
+relatedPatterns: ["graph-dfs", "graph-union-find"]
 status: "PUBLISHED"
 ---
 
