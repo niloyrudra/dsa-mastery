@@ -4,12 +4,12 @@ title: "LRU Cache"
 difficulty: "MEDIUM"
 source: "LeetCode"
 sourceUrl: "https://leetcode.com/problems/lru-cache/"
-patterns: ["linked-list-fundamentals"]
-algorithms: ["linked-list-fundamentals"]
-dataStructures: ["linked-list"]
-templates: ["dp-template"]
-prerequisites: ["linked-list"]
-relatedProblems: ["copy-list-with-random-pointer"]
+patterns: ["linked-list-fundamentals", "hash-map-lookup"]
+algorithms: []
+dataStructures: ["linked-list", "hash-table"]
+templates: ["two-pointers-template-ts", "hash-map-template-ts"]
+prerequisites: ["linked-list", "hash-table"]
+relatedProblems: ["copy-list-with-random-pointer", "design-hashmap", "lfu-cache", "design-cache"]
 status: "PUBLISHED"
 orderIndex: 10
 reasonForSelection: "Doubly linked list + hash map; O(1) get/put with LRU eviction"
@@ -17,20 +17,73 @@ reasonForSelection: "Doubly linked list + hash map; O(1) get/put with LRU evicti
 
 # Problem Statement
 
-TODO: Add problem statement for LRU Cache
+Design a data structure that follows the constraints of a **Least Recently Used (LRU) cache**.
+
+Implement the `LRUCache` class:
+
+- `LRUCache(int capacity)` Initialize the LRU cache with positive size `capacity`.
+- `int get(int key)` Return the value of the `key` if the key exists, otherwise return `-1`.
+- `void put(int key, int value)` Update the value of the `key` if the `key` exists. Otherwise, add the `key-value` pair to the cache. If the number of keys exceeds the `capacity` from this operation, **evict** the least recently used key.
+
+The functions `get` and `put` must each run in `O(1)` average time complexity.
 
 ## Constraints
 
-- TODO: Add constraints
+- 1 ≤ capacity ≤ 3000
+- 0 ≤ key ≤ 10⁴
+- 0 ≤ value ≤ 10⁵
+- At most 2 × 10⁵ calls will be made to `get` and `put`.
 
 ## Examples
 
 **Example 1:**
-`
-Input: TODO
-Output: TODO
-`
+```
+Input:
+["LRUCache","put","put","get","put","get","put","get","get","get"]
+[[2],[1,1],[2,2],[1],[3,3],[2],[4,4],[1],[3],[4]]
+Output:
+[null,null,null,1,null,-1,null,-1,3,4]
+Explanation:
+LRUCache lRUCache = new LRUCache(2);
+lRUCache.put(1, 1); // cache is {1=1}
+lRUCache.put(2, 2); // cache is {1=1, 2=2}
+lRUCache.get(1);    // return 1
+lRUCache.put(3, 3); // LRU key was 2, evicts key 2, cache is {1=1, 3=3}
+lRUCache.get(2);    // returns -1 (not found)
+lRUCache.put(4, 4); // LRU key was 1, evicts key 1, cache is {3=3, 4=4}
+lRUCache.get(1);    // returns -1 (not found)
+lRUCache.get(3);    // return 3
+lRUCache.get(4);    // return 4
+```
 
 ## Variations
 
-TODO: Add variations
+### Variation 1: LFU Cache
+**Name**: LFU Cache
+
+**What Changed**: Least Frequently Used eviction instead of LRU.
+
+**Original Approach Works**: Hash map + doubly linked list for each frequency.
+
+**What Breaks**: Need frequency tracking and min frequency.
+
+**New Constraint**: Evict least frequently used (tie-break by LRU).
+
+**Algorithm Changes**: Hash map key->node, freq->doubly linked list, track minFreq.
+
+**Complexity Changes**: Time O(1), Space O(capacity).
+
+### Variation 2: Copy List with Random Pointer
+**Name**: Copy List with Random Pointer
+
+**What Changed**: Deep copy linked list with random pointers.
+
+**Original Approach Works**: Hash map original->copy, two passes.
+
+**What Breaks**: Random pointer handling.
+
+**New Constraint**: Return deep copy head.
+
+**Algorithm Changes**: Hash map, set next and random in second pass.
+
+**Complexity Changes**: Time O(n), Space O(n).
