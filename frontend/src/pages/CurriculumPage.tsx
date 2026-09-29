@@ -79,23 +79,23 @@ function CurriculumTree({ node, depth = 0, expandedPaths, onToggle }: Curriculum
         
         {getIcon()}
         
-        {node.type === 'PROBLEM' && node.problemId ? (
+        {node.type === 'PROBLEM' && node.problemSlug ? (
           <Link
-            to={`/problem/${node.problemId}`}
+            to={`/problem/${node.problemSlug}`}
             className="flex-1 text-left text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 truncate"
           >
             {node.name}
           </Link>
-        ) : node.type === 'PATTERN' && node.patternId ? (
+        ) : node.type === 'PATTERN' && node.patternSlug ? (
           <Link
-            to={`/pattern/${node.patternId}`}
+            to={`/pattern/${node.patternSlug}`}
             className="flex-1 text-left text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 truncate"
           >
             {node.name}
           </Link>
-        ) : node.type === 'ALGORITHM' && node.algorithmId ? (
+        ) : node.type === 'ALGORITHM' && node.algorithmSlug ? (
           <Link
-            to={`/algorithm/${node.algorithmId}`}
+            to={`/algorithm/${node.algorithmSlug}`}
             className="flex-1 text-left text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 truncate"
           >
             {node.name}

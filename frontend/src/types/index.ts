@@ -242,8 +242,11 @@ export interface CurriculumNodeDto {
   orderIndex: number;
   depth: number;
   problemId?: string;
+  problemSlug?: string;
   patternId?: string;
+  patternSlug?: string;
   algorithmId?: string;
+  algorithmSlug?: string;
   children: CurriculumNodeDto[];
 }
 

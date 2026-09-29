@@ -89,9 +89,12 @@ public class CurriculumImportService {
         UUID problemId = null;
         UUID patternId = null;
         UUID algorithmId = null;
+        String problemSlug = null;
+        String patternSlug = null;
+        String algorithmSlug = null;
 
         if (type == NodeType.PROBLEM) {
-            String problemSlug = (String) nodeData.get("problemId");
+            problemSlug = (String) nodeData.get("problemId");
             if (problemSlug != null) {
                 Optional<Problem> problem = problemRepository.findBySlug(problemSlug);
                 if (problem.isPresent()) {
@@ -101,7 +104,7 @@ public class CurriculumImportService {
                 }
             }
         } else if (type == NodeType.PATTERN) {
-            String patternSlug = (String) nodeData.get("patternId");
+            patternSlug = (String) nodeData.get("patternId");
             if (patternSlug != null) {
                 Optional<Pattern> pattern = patternRepository.findBySlug(patternSlug);
                 if (pattern.isPresent()) {
@@ -111,7 +114,7 @@ public class CurriculumImportService {
                 }
             }
         } else if (type == NodeType.ALGORITHM) {
-            String algorithmSlug = (String) nodeData.get("algorithmId");
+            algorithmSlug = (String) nodeData.get("algorithmId");
             if (algorithmSlug != null) {
                 Optional<Algorithm> algorithm = algorithmRepository.findBySlug(algorithmSlug);
                 if (algorithm.isPresent()) {
@@ -131,8 +134,11 @@ public class CurriculumImportService {
             node.setDepth(depth);
             node.setDescription(description);
             node.setProblemId(problemId);
+            node.setProblemSlug(problemSlug);
             node.setPatternId(patternId);
+            node.setPatternSlug(patternSlug);
             node.setAlgorithmId(algorithmId);
+            node.setAlgorithmSlug(algorithmSlug);
             curriculumNodeRepository.save(node);
         } else {
             node = CurriculumNode.builder()
@@ -143,8 +149,11 @@ public class CurriculumImportService {
                 .depth(depth)
                 .parent(parent)
                 .problemId(problemId)
+                .problemSlug(problemSlug)
                 .patternId(patternId)
+                .patternSlug(patternSlug)
                 .algorithmId(algorithmId)
+                .algorithmSlug(algorithmSlug)
                 .build();
             curriculumNodeRepository.save(node);
         }

@@ -17,7 +17,10 @@ public class CurriculumNodeDto {
     private Integer orderIndex;
     private Integer depth;
     private UUID problemId;
+    private String problemSlug;
     private UUID patternId;
+    private String patternSlug;
     private UUID algorithmId;
+    private String algorithmSlug;
     private List<CurriculumNodeDto> children;
 }

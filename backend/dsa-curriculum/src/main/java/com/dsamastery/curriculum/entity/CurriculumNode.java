@@ -45,9 +45,18 @@ public class CurriculumNode extends BaseEntity {
     @Column(name = "problem_id")
     private UUID problemId;
     
+    @Column(name = "problem_slug", length = 200)
+    private String problemSlug;
+    
     @Column(name = "pattern_id")
     private UUID patternId;
     
+    @Column(name = "pattern_slug", length = 200)
+    private String patternSlug;
+    
     @Column(name = "algorithm_id")
     private UUID algorithmId;
+    
+    @Column(name = "algorithm_slug", length = 200)
+    private String algorithmSlug;
 }
