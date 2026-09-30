@@ -87,6 +87,54 @@ public class ContentImportService {
         }
     }
 
+    /**
+     * Parse complexity fields from markdown section like:
+     * - Time: O(n)
+     * - Space: O(1)
+     * - Time reasoning: explanation
+     * - Space reasoning: explanation
+     */
+    private Complexity parseComplexityFromMarkdown(String complexitySection) {
+        if (complexitySection == null || complexitySection.isBlank()) {
+            return null;
+        }
+        
+        Complexity complexity = new Complexity();
+        boolean hasData = false;
+        
+        String[] lines = complexitySection.split("\n");
+        for (String line : lines) {
+            line = line.trim();
+            if (line.isEmpty()) continue;
+            
+            // Match patterns like "Time: O(n)" or "- Time: O(n)"
+            if (line.matches("(?i)(-?\\s*)?time\\s*:\\s*(.+)")) {
+                complexity.setTimeComplexity(line.replaceFirst("(?i)(-?\\s*)?time\\s*:\\s*", "").trim());
+                hasData = true;
+            } else if (line.matches("(?i)(-?\\s*)?space\\s*:\\s*(.+)")) {
+                complexity.setSpaceComplexity(line.replaceFirst("(?i)(-?\\s*)?space\\s*:\\s*", "").trim());
+                hasData = true;
+            } else if (line.matches("(?i)(-?\\s*)?time\\s+reasoning\\s*:\\s*(.+)")) {
+                complexity.setTimeReasoning(line.replaceFirst("(?i)(-?\\s*)?time\\s+reasoning\\s*:\\s*", "").trim());
+                hasData = true;
+            } else if (line.matches("(?i)(-?\\s*)?space\\s+reasoning\\s*:\\s*(.+)")) {
+                complexity.setSpaceReasoning(line.replaceFirst("(?i)(-?\\s*)?space\\s+reasoning\\s*:\\s*", "").trim());
+                hasData = true;
+            } else if (line.matches("(?i)(-?\\s*)?best\\s+case\\s*:\\s*(.+)")) {
+                complexity.setBestCaseTime(line.replaceFirst("(?i)(-?\\s*)?best\\s+case\\s*:\\s*", "").trim());
+                hasData = true;
+            } else if (line.matches("(?i)(-?\\s*)?worst\\s+case\\s*:\\s*(.+)")) {
+                complexity.setWorstCaseTime(line.replaceFirst("(?i)(-?\\s*)?worst\\s+case\\s*:\\s*", "").trim());
+                hasData = true;
+            } else if (line.matches("(?i)(-?\\s*)?average\\s+case\\s*:\\s*(.+)")) {
+                complexity.setAverageCaseTime(line.replaceFirst("(?i)(-?\\s*)?average\\s+case\\s*:\\s*", "").trim());
+                hasData = true;
+            }
+        }
+        
+        return hasData ? complexity : null;
+    }
+    
     private void importPattern(Path patternDir, ImportResult result) throws IOException {
         Path patternFile = patternDir.resolve("pattern.md");
         if (!Files.exists(patternFile)) {
@@ -123,7 +171,7 @@ public class ContentImportService {
         pattern.setGeneralizations(sections.getOrDefault("generalizations", ""));
         pattern.setStatus(ContentStatus.valueOf((String) frontmatter.getOrDefault("status", "DRAFT")));
         
-        // Set complexity if present
+        // Set complexity from frontmatter if present, otherwise parse from markdown
         if (frontmatter.containsKey("time_complexity")) {
             Complexity complexity = new Complexity();
             complexity.setTimeComplexity((String) frontmatter.get("time_complexity"));
@@ -131,6 +179,15 @@ public class ContentImportService {
             complexity.setTimeReasoning((String) frontmatter.get("time_reasoning"));
             complexity.setSpaceReasoning((String) frontmatter.get("space_reasoning"));
             pattern.setComplexity(complexity);
+        } else {
+            // Parse complexity from markdown sections
+            String complexitySection = sections.get("complexity");
+            if (complexitySection != null && !complexitySection.isBlank()) {
+                Complexity complexity = parseComplexityFromMarkdown(complexitySection);
+                if (complexity != null) {
+                    pattern.setComplexity(complexity);
+                }
+            }
         }
         
         patternRepository.save(pattern);
