@@ -43,8 +43,10 @@ export function Layout({ children }: { children?: ReactNode }) {
 {/* Sidebar */}
        <aside
          className={clsx(
-           'fixed lg:sticky top-0 inset-y-0 left-0 z-50 w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-700 transform transition-transform duration-200 flex flex-col',
-           sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+           'fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-700 flex flex-col',
+           'transform transition-transform duration-200',
+           sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0',
+           'lg:sticky lg:top-0 lg:inset-y-0 lg:left-0'
          )}
          aria-label="Main navigation"
        >
