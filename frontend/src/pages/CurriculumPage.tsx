@@ -126,7 +126,7 @@ function CurriculumTree({ node, depth = 0, expandedPaths, onToggle }: Curriculum
   );
 }
 
-export function CurriculumPage() {
+export const CurriculumPage = () => {
   const { data: curriculum, isLoading, error } = useCurriculum();
   const { data: masteryRecords } = useMasteryRecords();
   const { data: masteryStats } = useMasteryStats();
