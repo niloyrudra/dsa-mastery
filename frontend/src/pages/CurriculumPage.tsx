@@ -36,7 +36,7 @@ function CurriculumTree({ node, depth = 0, expandedPaths, onToggle }: Curriculum
   };
   
   const getBadge = () => {
-    if (node.type === 'PROBLEM' && node.problemId) {
+    if (node.type === 'PROBLEM' && node.problemSlug) {
       return (
         <span className="ml-auto text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
           Problem
@@ -301,10 +301,12 @@ export function CurriculumPage() {
               curriculum={curriculum!} 
               masteryMap={masteryMap}
               onNodeClick={(node) => {
-                if (node.type === 'PROBLEM' && node.problemId) {
-                  window.location.href = `/problem/${node.problemId}`;
-                } else if (node.type === 'PATTERN' && node.patternId) {
-                  window.location.href = `/pattern/${node.patternId}`;
+                if (node.type === 'PROBLEM' && node.problemSlug) {
+                  window.location.href = `/problem/${node.problemSlug}`;
+                } else if (node.type === 'PATTERN' && node.patternSlug) {
+                  window.location.href = `/pattern/${node.patternSlug}`;
+                } else if (node.type === 'ALGORITHM' && node.algorithmSlug) {
+                  window.location.href = `/algorithm/${node.algorithmSlug}`;
                 }
               }}
             />
