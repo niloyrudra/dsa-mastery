@@ -40,14 +40,14 @@ export function Layout({ children }: { children?: ReactNode }) {
         aria-hidden="true"
       />
       
-      {/* Sidebar */}
-      <aside
-        className={clsx(
-          'fixed lg:static inset-y-0 left-0 z-50 w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-700 transform transition-transform duration-200 flex flex-col',
-          sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
-        )}
-        aria-label="Main navigation"
-      >
+{/* Sidebar */}
+       <aside
+         className={clsx(
+           'fixed lg:sticky top-0 inset-y-0 left-0 z-50 w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-700 transform transition-transform duration-200 flex flex-col',
+           sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+         )}
+         aria-label="Main navigation"
+       >
         <div className="flex h-16 items-center justify-between px-4 border-b border-slate-200 dark:border-slate-700">
           <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100">
             DSA Mastery
@@ -103,13 +103,12 @@ export function Layout({ children }: { children?: ReactNode }) {
         </div>
       </aside>
       
-      {/* Main content */}
-      <main
-        className={clsx(
-          'lg:pl-64 min-h-screen transition-all duration-200',
-          sidebarOpen ? 'lg:pl-64' : 'lg:pl-64'
-        )}
-      >
+{/* Main content */}
+       <main
+         className={clsx(
+           'lg:pl-64 min-h-screen transition-all duration-200',
+         )}
+       >
         <header className="sticky top-0 z-30 h-16 bg-white/80 dark:bg-slate-950/80 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700">
           <div className="flex h-full items-center justify-between px-4 lg:px-6">
             <button
