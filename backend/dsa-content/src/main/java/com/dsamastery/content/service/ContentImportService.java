@@ -246,12 +246,23 @@ public class ContentImportService {
         return sections;
     }
     
-    private void linkPatternRelationships(Pattern pattern, Map<String, Object> frontmatter, ImportResult result) {
-        // Link templates
+private void linkPatternRelationships(Pattern pattern, Map<String, Object> frontmatter, ImportResult result) {
+        // Link templates - using native query for join table
         List<String> templateSlugs = getStringList(frontmatter, "templates");
         for (String templateSlug : templateSlugs) {
             templateRepository.findBySlug(templateSlug).ifPresent(template -> {
-                pattern.getTemplates().add(template);
+                try {
+                    entityManager.createNativeQuery("""
+                        INSERT INTO pattern_templates (pattern_id, template_id)
+                        VALUES (:patternId, :templateId)
+                        ON CONFLICT DO NOTHING
+                        """)
+                        .setParameter("patternId", pattern.getId())
+                        .setParameter("templateId", template.getId())
+                        .executeUpdate();
+                } catch (Exception e) {
+                    log.warn("Failed to link template {} -> {}: {}", pattern.getSlug(), templateSlug, e.getMessage());
+                }
             });
         }
         
@@ -298,13 +309,13 @@ public class ContentImportService {
             });
         }
         
-patternRepository.save(pattern);
+        patternRepository.save(pattern);
     }
     
     private void importPatternTemplates(Path templatesDir, Pattern pattern, ImportResult result) throws IOException {
         if (!Files.exists(templatesDir)) return;
         
-        try (var stream = Files.list(templatesDir)) {
+        try (var stream = Files.walk(templatesDir)) {
             stream.filter(path -> path.toString().endsWith(".md"))
                 .forEach(templateFile -> {
                     try {
@@ -379,7 +390,7 @@ patternRepository.save(pattern);
     private void importAlgorithmTemplates(Path templatesDir, Algorithm algorithm, ImportResult result) throws IOException {
         if (!Files.exists(templatesDir)) return;
         
-        try (var stream = Files.list(templatesDir)) {
+        try (var stream = Files.walk(templatesDir)) {
             stream.filter(path -> path.toString().endsWith(".md"))
                 .forEach(templateFile -> {
                     try {
@@ -509,7 +520,7 @@ patternRepository.save(pattern);
             return;
         }
         
-        try (var stream = Files.list(templatesDir)) {
+        try (var stream = Files.walk(templatesDir)) {
             stream.filter(path -> path.toString().endsWith(".md"))
                 .forEach(templateFile -> {
                     try {
@@ -695,7 +706,7 @@ patternRepository.save(pattern);
     private void importProblemTemplates(Path templatesDir, Problem problem, ImportResult result) throws IOException {
         if (!Files.exists(templatesDir)) return;
         
-        try (var stream = Files.list(templatesDir)) {
+        try (var stream = Files.walk(templatesDir)) {
             stream.filter(path -> path.toString().endsWith(".md"))
                 .forEach(templateFile -> {
                     try {
