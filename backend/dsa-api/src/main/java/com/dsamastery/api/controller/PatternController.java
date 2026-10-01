@@ -2,11 +2,13 @@ package com.dsamastery.api.controller;
 
 import com.dsamastery.api.dto.ComplexityDto;
 import com.dsamastery.api.dto.PatternDetailDto;
+import com.dsamastery.api.dto.PatternSummaryDto;
 import com.dsamastery.api.mapper.PatternMapper;
 import com.dsamastery.content.entity.Pattern;
 import com.dsamastery.content.service.PatternService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +24,7 @@ public class PatternController {
     private final PatternMapper patternMapper;
     
     @GetMapping
+    @Transactional(readOnly = true)
     public ResponseEntity<List<PatternSummaryDto>> getPatterns() {
         List<Pattern> patterns = patternService.getPublishedPatterns();
         return ResponseEntity.ok(patterns.stream()
@@ -30,6 +33,7 @@ public class PatternController {
     }
     
     @GetMapping("/{slug}")
+    @Transactional(readOnly = true)
     public ResponseEntity<PatternDetailDto> getPattern(@PathVariable String slug) {
         Optional<Pattern> patternOpt = patternService.getPatternBySlug(slug);
         if (patternOpt.isEmpty()) {

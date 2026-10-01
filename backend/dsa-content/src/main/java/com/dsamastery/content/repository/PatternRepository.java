@@ -28,6 +28,13 @@ public interface PatternRepository extends JpaRepository<Pattern, UUID> {
     
     @Query("""
         SELECT DISTINCT p FROM Pattern p
+        LEFT JOIN FETCH p.templates
+        LEFT JOIN FETCH p.algorithms
+        LEFT JOIN FETCH p.dataStructures
+        LEFT JOIN FETCH p.problems
+        LEFT JOIN FETCH p.references
+        LEFT JOIN FETCH p.subPatterns
+        LEFT JOIN FETCH p.parentPatterns
         WHERE p.slug = :slug
         """)
     Optional<Pattern> findBySlugWithRelations(@Param("slug") String slug);

@@ -48,8 +48,8 @@ public class ContentImportService {
     public ImportResult importContent(Path contentRoot) throws IOException {
         ImportResult result = new ImportResult();
         
-        // 1. Import patterns
-        importPatterns(contentRoot.resolve("patterns"), result);
+        // 1. Import templates (must be first so patterns can link to them)
+        importTemplates(contentRoot.resolve("templates"), result);
         
         // 2. Import algorithms
         importAlgorithms(contentRoot.resolve("algorithms"), result);
@@ -60,8 +60,8 @@ public class ContentImportService {
         // 4. Import concepts
         importConcepts(contentRoot.resolve("concepts"), result);
         
-        // 5. Import templates
-        importTemplates(contentRoot.resolve("templates"), result);
+        // 5. Import patterns (can now link to templates)
+        importPatterns(contentRoot.resolve("patterns"), result);
         
         // 6. Import problems
         importProblems(contentRoot.resolve("problems"), result);

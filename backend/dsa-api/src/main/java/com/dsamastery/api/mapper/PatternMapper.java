@@ -6,11 +6,13 @@ import com.dsamastery.api.dto.DataStructureSummaryDto;
 import com.dsamastery.api.dto.PatternDetailDto;
 import com.dsamastery.api.dto.PatternSummaryDto;
 import com.dsamastery.api.dto.ProblemReferenceDto;
+import com.dsamastery.api.dto.ReferenceDto;
 import com.dsamastery.api.dto.TemplateSummaryDto;
 import com.dsamastery.content.entity.Algorithm;
 import com.dsamastery.content.entity.DataStructure;
 import com.dsamastery.content.entity.Pattern;
 import com.dsamastery.content.entity.Problem;
+import com.dsamastery.content.entity.Reference;
 import com.dsamastery.content.entity.Template;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -33,7 +35,23 @@ public interface PatternMapper {
     @Mapping(target = "subPatterns", source = "subPatterns", qualifiedByName = "toPatternSummary")
     @Mapping(target = "relatedPatterns", source = "parentPatterns", qualifiedByName = "toPatternSummary")
     @Mapping(target = "complexity", source = "complexity", qualifiedByName = "toComplexityDto")
+    @Mapping(target = "references", source = "references", qualifiedByName = "toReferenceSummary")
     PatternDetailDto toDetailDto(Pattern pattern);
+    
+    @Named("toReferenceSummary")
+    default List<ReferenceDto> toReferenceSummary(Set<Reference> references) {
+        if (references == null) return List.of();
+        return references.stream()
+            .map(r -> ReferenceDto.builder()
+                .id(r.getId())
+                .title(r.getTitle())
+                .url(r.getUrl())
+                .type(r.getType().name())
+                .relevantConcept(r.getRelevantConcept())
+                .verifies(r.getVerifies())
+                .build())
+            .collect(Collectors.toList());
+    }
     
     @Named("toTemplateSummary")
     default List<TemplateSummaryDto> toTemplateSummary(Set<Template> templates) {

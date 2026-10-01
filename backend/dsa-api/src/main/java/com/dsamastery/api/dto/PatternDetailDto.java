@@ -33,4 +33,5 @@ public class PatternDetailDto {
     private List<ProblemReferenceDto> problems;
     private List<PatternSummaryDto> subPatterns;
     private List<PatternSummaryDto> relatedPatterns;
+    private List<ReferenceDto> references;
 }
